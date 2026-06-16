@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteSkill } from "@/app/actions/skills";
+import { ViewToggle } from "@/components/admin/view-toggle";
 
 const FALLBACK_SKILLS = [
   { id: "1", name: "React", category: "FRONTEND" },
@@ -26,7 +27,9 @@ const FALLBACK_SKILLS = [
   { id: "18", name: "AWS EC2", category: "CLOUD & DEVOPS" },
 ];
 
-export default async function AdminSkillsPage() {
+export default async function AdminSkillsPage(props: { searchParams: Promise<{ view?: string }> }) {
+  const { view = "list" } = await props.searchParams;
+  const isGrid = view === "grid";
   let skills = FALLBACK_SKILLS;
   
   try {
@@ -41,9 +44,12 @@ export default async function AdminSkillsPage() {
     <div>
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter">SKILLS</h1>
-        <Button variant="primary" asChild>
-          <Link href="/admin/skills/new"><Plus className="mr-2 w-4 h-4" /> NEW SKILL</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <ViewToggle />
+          <Button variant="primary" asChild>
+            <Link href="/admin/skills/new"><Plus className="mr-2 w-4 h-4" /> NEW SKILL</Link>
+          </Button>
+        </div>
       </div>
       {!skills || skills.length === 0 ? (
         <div className="border-2 border-border p-12 text-center">
@@ -51,14 +57,14 @@ export default async function AdminSkillsPage() {
           <Button variant="primary" asChild><Link href="/admin/skills/new">ADD YOUR FIRST SKILL</Link></Button>
         </div>
       ) : (
-        <div className="space-y-0">
+        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
           {skills.map((s) => (
-            <div key={s.id} className="border-2 border-border border-t-0 first:border-t-2 p-4 md:p-6 flex items-center justify-between hover:border-accent transition-colors duration-300">
-              <div className="flex items-center gap-4">
+            <div key={s.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
+              <div className={`flex gap-4 ${isGrid ? "flex-col items-start" : "items-center"}`}>
                 <Badge variant="accent">{s.category}</Badge>
                 <span className="text-lg font-bold uppercase tracking-tighter">{s.name}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
                 <Button variant="ghost" size="icon" asChild>
                   <Link href={`/admin/skills/${s.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
                 </Button>

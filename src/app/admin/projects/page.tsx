@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteProject } from "@/app/actions/projects";
+import { ViewToggle } from "@/components/admin/view-toggle";
 
 const FALLBACK_PROJECTS = [
   { id: "1", title: "LawLens AI", slug: "lawlens-ai", featured: true },
@@ -14,7 +15,9 @@ const FALLBACK_PROJECTS = [
   { id: "6", title: "FitTrack Mobile", slug: "fittrack-mobile", featured: false },
 ];
 
-export default async function AdminProjectsPage() {
+export default async function AdminProjectsPage(props: { searchParams: Promise<{ view?: string }> }) {
+  const { view = "list" } = await props.searchParams;
+  const isGrid = view === "grid";
   let projects = FALLBACK_PROJECTS;
   
   try {
@@ -29,9 +32,12 @@ export default async function AdminProjectsPage() {
     <div>
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter">PROJECTS</h1>
-        <Button variant="primary" asChild>
-          <Link href="/admin/projects/new"><Plus className="mr-2 w-4 h-4" /> NEW PROJECT</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <ViewToggle />
+          <Button variant="primary" asChild>
+            <Link href="/admin/projects/new"><Plus className="mr-2 w-4 h-4" /> NEW PROJECT</Link>
+          </Button>
+        </div>
       </div>
 
       {!projects || projects.length === 0 ? (
@@ -42,14 +48,14 @@ export default async function AdminProjectsPage() {
           </Button>
         </div>
       ) : (
-        <div className="space-y-0">
+        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
           {projects.map((p) => (
-            <div key={p.id} className="border-2 border-border border-t-0 first:border-t-2 p-4 md:p-6 flex items-center justify-between hover:border-accent transition-colors duration-300">
+            <div key={p.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
               <div>
                 <h3 className="text-lg font-bold uppercase tracking-tighter">{p.title}</h3>
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{p.slug}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
                 {p.featured && <Badge variant="accent">FEATURED</Badge>}
                 <Button variant="ghost" size="icon" asChild>
                   <Link href={`/admin/projects/${p.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>

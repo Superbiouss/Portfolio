@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteExperience } from "@/app/actions/experiences";
+import { ViewToggle } from "@/components/admin/view-toggle";
 
 const FALLBACK_EXPERIENCES = [
   { id: "1", title: "Student Coordinator", organization: "NSS (National Service Scheme)", type: "leadership" },
@@ -12,7 +13,9 @@ const FALLBACK_EXPERIENCES = [
   { id: "4", title: "Junior High/Intermediate/Middle School Education and Teaching", organization: "Oxford English High School", type: "education" },
 ];
 
-export default async function AdminExperiencesPage() {
+export default async function AdminExperiencesPage(props: { searchParams: Promise<{ view?: string }> }) {
+  const { view = "list" } = await props.searchParams;
+  const isGrid = view === "grid";
   let experiences = FALLBACK_EXPERIENCES;
   
   try {
@@ -27,9 +30,12 @@ export default async function AdminExperiencesPage() {
     <div>
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter">EXPERIENCES</h1>
-        <Button variant="primary" asChild>
-          <Link href="/admin/experiences/new"><Plus className="mr-2 w-4 h-4" /> NEW EXPERIENCE</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <ViewToggle />
+          <Button variant="primary" asChild>
+            <Link href="/admin/experiences/new"><Plus className="mr-2 w-4 h-4" /> NEW EXPERIENCE</Link>
+          </Button>
+        </div>
       </div>
       {!experiences || experiences.length === 0 ? (
         <div className="border-2 border-border p-12 text-center">
@@ -37,14 +43,14 @@ export default async function AdminExperiencesPage() {
           <Button variant="primary" asChild><Link href="/admin/experiences/new">ADD YOUR FIRST EXPERIENCE</Link></Button>
         </div>
       ) : (
-        <div className="space-y-0">
+        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
           {experiences.map((e) => (
-            <div key={e.id} className="border-2 border-border border-t-0 first:border-t-2 p-4 md:p-6 flex items-center justify-between hover:border-accent transition-colors duration-300">
+            <div key={e.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
               <div>
                 <h3 className="text-lg font-bold uppercase tracking-tighter">{e.title}</h3>
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{e.organization} · {e.type}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
                 <Badge variant="accent">{e.type?.toUpperCase()}</Badge>
                 <Button variant="ghost" size="icon" asChild><Link href={`/admin/experiences/${e.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link></Button>
                 <form action={async () => { "use server"; await deleteExperience(e.id); }}>

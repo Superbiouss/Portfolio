@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteBadge } from "@/app/actions/badges";
-
-
+import { ViewToggle } from "@/components/admin/view-toggle";
 const FALLBACK_BADGES = [
   { id: "1", title: "Academician", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/academician.png" },
   { id: "2", title: "Humanoid", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/a6fe6c6e23b919c7a41fa3ec144d3a82/logo.png" },
@@ -12,7 +11,9 @@ const FALLBACK_BADGES = [
   { id: "4", title: "Binary Duo Explorer", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/0d982edba15037e6d52d54eaa7f0209a/logo.png" },
 ];
 
-export default async function AdminBadgesPage() {
+export default async function AdminBadgesPage(props: { searchParams: Promise<{ view?: string }> }) {
+  const { view = "list" } = await props.searchParams;
+  const isGrid = view === "grid";
   let badges = FALLBACK_BADGES;
   
   try {
@@ -26,9 +27,12 @@ export default async function AdminBadgesPage() {
     <div>
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter">BADGES</h1>
-        <Button variant="primary" asChild>
-          <Link href="/admin/badges/new"><Plus className="mr-2 w-4 h-4" /> NEW BADGE</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <ViewToggle />
+          <Button variant="primary" asChild>
+            <Link href="/admin/badges/new"><Plus className="mr-2 w-4 h-4" /> NEW BADGE</Link>
+          </Button>
+        </div>
       </div>
       {!badges || badges.length === 0 ? (
         <div className="border-2 border-border p-12 text-center">
@@ -36,10 +40,10 @@ export default async function AdminBadgesPage() {
           <Button variant="primary" asChild><Link href="/admin/badges/new">ADD YOUR FIRST BADGE</Link></Button>
         </div>
       ) : (
-        <div className="space-y-0">
+        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
           {badges.map((b) => (
-            <div key={b.id} className="border-2 border-border border-t-0 first:border-t-2 p-4 md:p-6 flex items-center justify-between hover:border-accent transition-colors duration-300">
-              <div className="flex items-center gap-4">
+            <div key={b.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
+              <div className={`flex gap-4 ${isGrid ? "flex-col items-start" : "items-center"}`}>
                 {b.image_url && (
                   <div className="w-12 h-12 border-2 border-border overflow-hidden flex-shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -51,7 +55,7 @@ export default async function AdminBadgesPage() {
                   <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{b.issuer}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
                 <Button variant="ghost" size="icon" asChild>
                   <Link href={`/admin/badges/${b.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
                 </Button>
