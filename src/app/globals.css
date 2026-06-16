@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ══════════════════════════════════════════════════
+     KINETIC TYPOGRAPHY — Design Tokens
+     ══════════════════════════════════════════════════ */
+
+  /* ── Foundation Colors ── */
+  --color-background: #09090B;
+  --color-foreground: #FAFAFA;
+  --color-muted: #27272A;
+  --color-muted-foreground: #A1A1AA;
+
+  /* ── Accent — Acid Yellow (only structural accent) ── */
+  --color-accent: #DFE104;
+  --color-accent-foreground: #000000;
+
+  /* ── Borders ── */
+  --color-border: #3F3F46;
+
+  /* ── Typography ── */
+  --font-sans: "Space Grotesk", "Inter", -apple-system, system-ui, sans-serif;
+
+  /* ── Border Radius — Brutalist: 0px everywhere ── */
+  --radius-none: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+
+  /* ── No Shadows — Completely flat ── */
+}
+
+/* ══════════════════════════════════════════════════
+   BASE STYLES
+   ══════════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Selection — Acid yellow highlight ── */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+/* ══════════════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+   ══════════════════════════════════════════════════ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+}
+
+/* ══════════════════════════════════════════════════
+   PROSE — Dark theme Markdown
+   ══════════════════════════════════════════════════ */
+.prose-kinetic h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 24px; color: var(--color-foreground); }
+.prose-kinetic h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; margin-top: 48px; margin-bottom: 16px; color: var(--color-foreground); }
+.prose-kinetic h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 700; line-height: 1; text-transform: uppercase; margin-top: 32px; margin-bottom: 12px; color: var(--color-foreground); }
+.prose-kinetic p { font-size: 18px; line-height: 1.6; margin-bottom: 20px; color: var(--color-muted-foreground); }
+.prose-kinetic ul, .prose-kinetic ol { margin-bottom: 20px; padding-left: 24px; color: var(--color-muted-foreground); }
+.prose-kinetic li { margin-bottom: 8px; font-size: 18px; }
+.prose-kinetic a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 4px; }
+.prose-kinetic a:hover { color: var(--color-foreground); }
+.prose-kinetic code { background: var(--color-muted); color: var(--color-accent); padding: 2px 8px; font-size: 15px; border: 1px solid var(--color-border); }
+.prose-kinetic pre { background: var(--color-muted); color: var(--color-foreground); padding: 24px; border: 2px solid var(--color-border); overflow-x: auto; margin-bottom: 24px; }
+.prose-kinetic pre code { background: transparent; padding: 0; color: inherit; border: none; }
+.prose-kinetic blockquote { border-left: 4px solid var(--color-accent); padding-left: 20px; color: var(--color-muted-foreground); font-style: normal; font-weight: 500; margin-bottom: 24px; }
+.prose-kinetic img { margin-bottom: 24px; border: 2px solid var(--color-border); }
+.prose-kinetic strong { color: var(--color-foreground); }
+
+/* ══════════════════════════════════════════════════
+   REDUCED MOTION — Accessibility
+   ══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-container {
+    animation: none !important;
+  }
+}
