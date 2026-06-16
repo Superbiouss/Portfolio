@@ -15,8 +15,8 @@ const footerLinks = [
     links: [
       { href: "/contact", label: "CONTACT" },
       { href: "/about", label: "ABOUT" },
-      { href: "https://github.com/aakashyadav", label: "GITHUB" },
-      { href: "https://linkedin.com/in/aakashyadav", label: "LINKEDIN" },
+      { href: "https://github.com/Superbiouss", label: "GITHUB" },
+      { href: "https://www.linkedin.com/in/mr-yadav-aakash/", label: "LINKEDIN" },
     ],
   },
 ];
