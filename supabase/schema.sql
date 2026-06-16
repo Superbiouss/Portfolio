@@ -138,6 +138,20 @@ CREATE TABLE public.contact_messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 11. Badges (visual achievement badges from platforms like HackTheBox, Credly, etc.)
+CREATE TABLE public.badges (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  issuer TEXT NOT NULL,
+  description TEXT,
+  image_url TEXT,
+  badge_url TEXT,
+  earned_date DATE,
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- ============================================================
 -- Indexes
 -- ============================================================
@@ -147,6 +161,7 @@ CREATE INDEX idx_projects_featured ON public.projects(featured);
 CREATE INDEX idx_projects_category ON public.projects(category_id);
 CREATE INDEX idx_skills_category ON public.skills(category);
 CREATE INDEX idx_certificates_category ON public.certificates(category);
+CREATE INDEX idx_badges_issuer ON public.badges(issuer);
 CREATE INDEX idx_analytics_page ON public.analytics(page);
 CREATE INDEX idx_analytics_created ON public.analytics(created_at);
 
@@ -164,6 +179,7 @@ ALTER TABLE public.social_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.analytics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.badges ENABLE ROW LEVEL SECURITY;
 
 -- Public read access
 CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles FOR SELECT USING (true);
@@ -174,6 +190,7 @@ CREATE POLICY "Public certificates are viewable by everyone" ON public.certifica
 CREATE POLICY "Public experiences are viewable by everyone" ON public.experiences FOR SELECT USING (true);
 CREATE POLICY "Public social_links are viewable by everyone" ON public.social_links FOR SELECT USING (true);
 CREATE POLICY "Public categories are viewable by everyone" ON public.categories FOR SELECT USING (true);
+CREATE POLICY "Public badges are viewable by everyone" ON public.badges FOR SELECT USING (true);
 
 -- Authenticated write access
 CREATE POLICY "Authenticated users can insert profiles" ON public.profiles FOR INSERT WITH CHECK (auth.role() = 'authenticated');
@@ -185,6 +202,7 @@ CREATE POLICY "Authenticated users can manage certificates" ON public.certificat
 CREATE POLICY "Authenticated users can manage experiences" ON public.experiences FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated users can manage social_links" ON public.social_links FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated users can manage categories" ON public.categories FOR ALL USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated users can manage badges" ON public.badges FOR ALL USING (auth.role() = 'authenticated');
 CREATE POLICY "Anyone can insert analytics" ON public.analytics FOR INSERT WITH CHECK (true);
 CREATE POLICY "Authenticated users can view analytics" ON public.analytics FOR SELECT USING (auth.role() = 'authenticated');
 CREATE POLICY "Anyone can insert contact_messages" ON public.contact_messages FOR INSERT WITH CHECK (true);
@@ -525,4 +543,19 @@ INSERT INTO public.experiences (title, organization, description, start_date, en
   false,
   'leadership',
   4
+);
+
+-- ============================================================
+-- Seed: Badges (visual achievement badges)
+-- ============================================================
+
+INSERT INTO public.badges (title, issuer, description, image_url, badge_url, earned_date, sort_order) VALUES
+(
+  'Academician',
+  'Hack The Box Academy',
+  'Earned for completing the Intro to Academy module — first stop in HTB Academy to become acquainted with the platform and its learning process.',
+  'https://academy.hackthebox.com/storage/badges/academician.png',
+  'https://academy.hackthebox.com/achievement/badge/fc087557-3885-11ee-acfc-bea50ffe6cb4',
+  '2023-08-11',
+  1
 );
