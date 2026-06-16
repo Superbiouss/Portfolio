@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { TagsSelector } from "@/components/admin/tags-selector";
+import { MarkdownEditor } from "@/components/admin/markdown-editor";
 
 export default async function EditProjectPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;
@@ -79,7 +80,7 @@ export default async function EditProjectPage(props: { params: Promise<{ id: str
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">FULL CONTENT (MARKDOWN)</label>
-            <Textarea name="content" defaultValue={project.content || ""} className="min-h-[200px]" />
+            <MarkdownEditor name="content" defaultValue={project.content || ""} />
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" name="featured" id="featured" defaultChecked={project.featured} className="w-5 h-5 accent-[#DFE104]" />

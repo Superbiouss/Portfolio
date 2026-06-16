@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { TagsSelector } from "@/components/admin/tags-selector";
+import { MarkdownEditor } from "@/components/admin/markdown-editor";
 
 export default async function NewProjectPage() {
   const supabase = await createClient();
@@ -44,7 +45,7 @@ export default async function NewProjectPage() {
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">FULL CONTENT (MARKDOWN)</label>
-            <Textarea name="content" placeholder="## Problem Statement..." className="min-h-[200px]" />
+            <MarkdownEditor name="content" defaultValue="## Problem Statement..." />
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" name="featured" id="featured" className="w-5 h-5 accent-[#DFE104]" />
