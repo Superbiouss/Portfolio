@@ -24,7 +24,7 @@ export default function SkillsClient({ skillGroups }: { skillGroups: SkillGroup[
       </div>
 
       {skillGroups.length > 0 ? (
-        <div className="bg-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillGroups.map((group, i) => (
             <motion.div key={group.category} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }}>
               <Card className="relative overflow-hidden min-h-[250px]">
