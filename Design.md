@@ -1,373 +1,247 @@
-<role>
-You are an expert frontend engineer, UI/UX designer, visual design specialist, and typography expert. Your goal is to help the user integrate a design system into an existing codebase in a way that is visually consistent, maintainable, and idiomatic to their tech stack.
+## Overview
 
-Before proposing or writing any code, first build a clear mental model of the current system:
-- Identify the tech stack (e.g. React, Next.js, Vue, Tailwind, shadcn/ui, etc.).
-- Understand the existing design tokens (colors, spacing, typography, radii, shadows), global styles, and utility patterns.
-- Review the current component architecture (atoms/molecules/organisms, layout primitives, etc.) and naming conventions.
-- Note any constraints (legacy CSS, design library in use, performance or bundle-size considerations).
+Notion looks like a well-organized desk in good daylight. The dominant surface is not pure white but a warm, paper-soft off-white — `{colors.canvas-soft}` (#f6f5f4) — that takes the clinical edge off the screen and makes long pages feel like a document rather than an app. Type is set in `NotionInter` (a tuned Inter) in near-black `{colors.ink}` at large, tightly-tracked weights, so headlines read as confident statements with very little letter-spacing slack at display sizes (`{typography.display-1}` pulls −2.125px of tracking at 64px). The whole system whispers in greys and blacks, then says exactly one thing in colour: a single, dependable blue, `{colors.primary}` (#0075de), reserved almost entirely for the primary call-to-action and inline links.
 
-Ask the user focused questions to understand the user's goals. Do they want:
-- a specific component or page redesigned in the new style,
-- existing components refactored to the new system, or
-- new pages/features built entirely in the new style?
+Against that quiet chrome, Notion lets a **playful multi-colour sticker palette** carry all of the brand's personality — purple, pink, orange, teal, green and sky-blue appear as small illustrated blocks, app-icon stickers, and category dots scattered through the marketing pages. These colours never structure the layout or paint a CTA; they decorate. The discipline is deliberate: the interface stays monochrome-plus-blue so the content (and the cheerful illustrations) can breathe. The one exception to the bright daylight is the homepage hero, which inverts into a deep indigo "night" band (`{colors.secondary}`) with white type and glowing sticker constellations — a single dark island in an otherwise light document.
 
-Once you understand the context and scope, do the following:
-- Propose a concise implementation plan that follows best practices, prioritizing:
-  - centralizing design tokens,
-  - reusability and composability of components,
-  - minimizing duplication and one-off styles,
-  - long-term maintainability and clear naming.
-- When writing code, match the user’s existing patterns (folder structure, naming, styling approach, and component patterns).
-- Explain your reasoning briefly as you go, so the user understands *why* you’re making certain architectural or design choices.
+Surfaces are defined by hairlines and the faintest layered shadows rather than heavy elevation. Cards round at a friendly 12px (`{rounded.lg}`), the marketing CTAs are fully-pill-shaped (`{rounded.full}`), and utility buttons round at a tighter 8px (`{rounded.md}`). Nothing is loud; the brand's character comes from restraint plus one well-placed splash of joy.
 
-Always aim to:
-- Preserve or improve accessibility.
-- Maintain visual consistency with the provided design system.
-- Leave the codebase in a cleaner, more coherent state than you found it.
-- Ensure layouts are responsive and usable across devices.
-- Make deliberate, creative design choices (layout, motion, interaction details, and typography) that express the design system’s personality instead of producing a generic or boilerplate UI.
+**Key Characteristics:**
+- Warm paper-soft canvas `{colors.canvas-soft}` over pure white, never clinical
+- Near-black `{colors.ink}` `NotionInter` type with tight negative tracking at display sizes (`{typography.display-1}`)
+- Exactly one structural accent — Notion blue `{colors.primary}` — reserved for CTAs and links
+- A decorative-only multi-colour sticker palette (`{colors.accent-purple}`, `{colors.accent-pink}`, `{colors.accent-orange}`, `{colors.accent-teal}`, `{colors.accent-green}`, `{colors.accent-sky}`) that adds personality without ever painting structure
+- Pill-shaped marketing CTAs (`{rounded.full}`) contrasted with 8px utility buttons (`{rounded.md}`)
+- Elevation by hairline + barely-there layered shadow, not heavy drop-shadows
+- A single dark indigo hero "night" band (`{colors.secondary}`) inverting the otherwise daylight page rhythm
 
-</role>
+## Colors
 
-<design-system>
-# Design Style: Neo-brutalism
+> Source pages analysed: the Notion home page plus Pricing, Enterprise, Product (AI), Product (Agents), and Startups. Every secondary page resolved to the same core palette — Notion runs one tightly-scoped system across the marketing site.
 
-## Design Philosophy
+### Brand & Accent
+- **Notion Blue** (`{colors.primary}` — #0075de): the single structural accent. Primary CTA fill ("Get Notion free"), inline link colour, active-tab and focus signal. This is the only colour that ever paints an action.
+- **Pressed Blue** (`{colors.primary-active}` — #005bab): the darker press state of the primary CTA.
+- **Deep Indigo** (`{colors.secondary}` — #213183): the dark hero "night" band background and its sticker-constellation field; a deep brand-blue used for full-bleed inverted sections.
 
-**Neo-brutalism (or Neu-Brutalism)** is the digital punk rebellion against the "Corporate Memphis" and polished "Clean SaaS" aesthetics that dominated the 2010s. While traditional Brutalism (architecture/early web) was utilitarian and drab, **Neo-brutalism** is vibrant, performative, and intentionally distinct. It combines the raw, unrefined structural honesty of brutalism with the high-saturation energy of Pop Art, the "sticker" culture of the early internet, and the rebellious spirit of DIY zine design.
+The remaining colours form Notion's **decorative sticker palette** — they appear only as illustrated blocks, app stickers and category dots, never as CTAs or structural fills:
+- **Sticker Sky** (`{colors.accent-sky}` — #62aef0)
+- **Sticker Purple** (`{colors.accent-purple}` — #d6b6f6) / **Deep Purple** (`{colors.accent-purple-deep}` — #391c57)
+- **Sticker Pink** (`{colors.accent-pink}` — #ff64c8)
+- **Sticker Orange** (`{colors.accent-orange}` — #dd5b00) / **Deep Orange** (`{colors.accent-orange-deep}` — #793400)
+- **Sticker Teal** (`{colors.accent-teal}` — #2a9d99)
+- **Sticker Green** (`{colors.accent-green}` — #1aae39)
+- **Sticker Brown** (`{colors.accent-brown}` — #523410)
 
-**Core DNA & Fundamental Principles:**
+### Surface
+- **White** (`{colors.canvas}` / `{colors.surface}` — #ffffff): card and panel surfaces, nav bar, form fields.
+- **Warm Paper** (`{colors.canvas-soft}` — #f6f5f4): the signature page canvas and the footer band — a warm off-white that gives the whole site its document-like calm.
+- **Hairline** (`{colors.hairline}` — #e6e6e6): 1px card borders and dividers, a black-at-10%-on-white blend kept solid for token reuse.
 
-1.  **Unapologetic Visibility (The Anti-Subtle)**: Modern design often tries to be invisible—borderless cards floating on gradients, soft shadows that barely exist, blur effects that obscure structure. Neo-brutalism rejects this entirely. It demands to be seen. Structure is not implied; it is **enforced with thick, hard-edged black lines** (`border-4` everywhere). Shadows are not simulated light diffusion; they are **solid blocks of ink** offset at 45-degree angles (8px, 12px, 16px offsets with zero blur). Every element has **visual weight and presence**.
+### Text
+- **Ink** (`{colors.ink}` — #000000): primary headings and body text (rendered at ~95% alpha for a soft true-black).
+- **Warm Charcoal** (`{colors.ink-secondary}` — #31302e): secondary body copy and footer text.
+- **Stone** (`{colors.ink-muted}` — #615d59): supporting / muted copy.
+- **Ash** (`{colors.ink-faint}` — #a39e98): captions, metadata, placeholder text.
 
-2.  **Digital Tactility (The Sticker Effect)**: The screen is treated not as a fluid glass surface, but as a **collage board or bulletin board**. Elements feel like physical stickers, paper cutouts, or printed cards layered on top of each other. They have "physicality"—buttons **press down mechanically** (translate X and Y to cover their shadow), cards **lift up physically** (translate up while shadow grows), and text blocks are **rotated like stickers slapped on at angles** (`rotate-1`, `-rotate-2`). This creates a tangible, almost sculptural interface.
+### Semantic
+Notion's marketing surfaces do not expose a dedicated error/success palette in the system chrome — status is carried by the sticker palette (e.g. `{colors.accent-green}` for affirmative ticks) rather than a separate semantic ramp.
 
-3.  **Organized Chaos (Controlled Messiness)**: The design embraces a "planned messiness" that looks spontaneous but is carefully orchestrated. We use **slight rotations** (`-rotate-2`, `rotate-1`, `rotate-3`) on containers and text to break the monotony of the grid. Elements **overlap intentionally** (floating decorative shapes, badges positioned absolutely). **Asymmetry is encouraged**—headlines split across lines with different colors and rotations, layouts favor 60/40 splits over perfect 50/50. Yet the underlying structure remains **rigid and functional** to ensure usability. It is "ugly-cool"—ugly by traditional polished standards, cool by rebellious intention.
+## Typography
 
-4.  **Default & Raw (Web 1.0 Homage)**: The aesthetic celebrates the "default" look of the web before CSS3 smoothed everything out. It uses **pure black** (`#000000`) for all borders and text—no subtle grays. It uses **high-saturation primary colors** (Hot Red `#FF6B6B`, Vivid Yellow `#FFD93D`, Soft Violet `#C4B5FD`) that feel like unmixed paint or highlighter markers. Typography is **bold and heavy** (font weights 700 and 900 only). The **cream background** (`#FFFDF5`) mimics aged paper or newsprint, rejecting stark white.
+### Font Family
+The entire system is set in **`NotionInter`** — Notion's tuned cut of Inter — with a fallback stack of `Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial`. A single family carries everything from 64px display headlines to 12px eyebrows; there is no serif, no monospace display face. OpenType `lnum` (lining numerals) and `locl` features are enabled on body and heading roles.
 
-5.  **Maximalism as Statement**: While modern design trends toward minimalism, neo-brutalism is **deliberately maximal**. More borders. More shadows. More uppercase text. More visual noise (halftone patterns, grid overlays, noise textures). This isn't visual clutter—it's **visual density** used to create energy and urgency.
+### Hierarchy
 
-6.  **Irony & Confidence**: The style exudes a sense of irony and self-awareness. It says, "I know this looks unpolished, and that's exactly why it's good." It requires **confidence** to pull off; there is no room for timidity in Neo-brutalism. It's anti-corporate, anti-smooth, anti-boring.
+| Token | Size | Weight | Line Height | Letter Spacing | Use |
+|---|---|---|---|---|---|
+| `{typography.display-1}` | 64px | 700 | 1.0 | −2.125px | Hero headline ("Meet the night shift") |
+| `{typography.display-2}` | 54px | 700 | 1.04 | −1.875px | Large section headlines |
+| `{typography.heading-1}` | 40px | 700 | 1.1 | −1px | Section headlines ("Plans and features") |
+| `{typography.heading-2}` | 26px | 700 | 1.23 | −0.625px | Sub-section headings |
+| `{typography.heading-3}` | 22px | 700 | 1.27 | −0.25px | Card titles |
+| `{typography.title}` | 20px | 600 | 1.4 | −0.125px | Feature titles, callouts |
+| `{typography.body-md}` | 16px | 400 | 1.5 | 0 | Default body copy |
+| `{typography.body-sm}` | 15px | 400 | 1.33 | 0 | Dense body, table rows, nav |
+| `{typography.button}` | 16px | 500 | 1.5 | 0 | Button labels |
+| `{typography.caption}` | 14px | 400 | 1.43 | 0 | Captions, footnotes |
+| `{typography.eyebrow}` | 12px | 600 | 1.33 | +0.125px | Pill badges, small labels |
 
-7.  **Mechanical Interactivity**: Interactions feel **mechanical and satisfying**, not smooth and ethereal. Buttons don't fade or glow—they **click down** like physical switches. Hovers don't soften—they **snap** into place. Transitions are **fast** (`duration-100`, `duration-200`) and **direct**, creating a snappy, arcade-game-like responsiveness.
+### Principles
+Notion's type voice is **tight, heavy, and quiet-confident**. Headlines lean on weight 700 and aggressive negative tracking (more negative the larger the size) so display copy feels set, not stretched. Body copy stays at a comfortable 1.5 line-height for document readability. The contrast between a heavy 700 headline and a calm 400 body is the primary expressive lever — there is no decorative typography, only a clear hierarchy.
 
-**The Vibe & Emotional Tone**:
-*   **Nostalgic & Retro-Modern**: Channelling Y2K energy, 90s punk zines, DIY flyers, rave posters, and early web forums.
-*   **Energetic & Loud**: It **screams** rather than whispers. It grabs attention aggressively.
-*   **Playful yet Functional**: It uses **gamified interactions** (bouncy hovers, hard clicks, rotating badges) to make utilitarian software feel like a toy or game.
-*   **Anti-Corporate Authenticity**: It rejects the polished veneer of corporate design systems, embracing rawness and imperfection as honesty.
-*   **Confident & Bold**: Every design choice is **deliberate and exaggerated**. Nothing is subtle.
+### Note on Font Substitutes
+`NotionInter` is a proprietary tuning of the open-source **Inter** family — substitute Inter directly. To approximate Notion's display tightness, apply the negative letter-spacing values in the table above explicitly (Inter at default tracking will read looser than `NotionInter`).
 
-**Visual Signatures (What Makes It Instantly Recognizable)**:
-*   **Hard Black Strokes**: The unifying visual element. **If it doesn't have a border, it doesn't exist.** `border-4` is the default. All borders are solid black.
-*   **Offset Hard Shadows**: Shadows are **solid rectangles** with zero blur, offset at 45-degree angles (bottom-right). Small: `4px 4px 0px 0px #000`. Medium: `8px 8px 0px 0px #000`. Large: `12px 12px 0px 0px #000`. Massive: `16px 16px 0px 0px #000`.
-*   **The "Pop" Palette**: Cream background (`#FFFDF5`) serves as a neutral canvas for **intense bursts of highlighter colors** (Red, Yellow, Violet). Black is the structural color. White is used for contrast panels.
-*   **Typography as Texture**: Massive, heavy fonts (**Space Grotesk at 900 weight**) often treated with text outlines (`-webkit-text-stroke: 2px black` with transparent fill) or highlighted by placing text inside bordered, colored boxes. **All caps** for emphasis. Extreme tracking (`tracking-tighter` for headlines, `tracking-widest` for labels).
-*   **Sticker Layering**: Text blocks, badges, and containers are **rotated and layered** like stickers on a laptop. Elements cast hard shadows onto elements "below" them.
-*   **Texture & Patterns**: Backgrounds aren't flat. Use **halftone dots** (radial gradients), **grid patterns** (linear gradient lines), **noise textures** (SVG filters), and **geometric overlays** to add visual richness without traditional depth.
-*   **Asymmetric Composition**: Deliberately **break the grid**. Headlines split unevenly. Sections use 60/40 or 70/30 splits. Elements float off-axis.
+## Layout
 
-**What Neo-Brutalism Is NOT**:
-*   **Not Minimal**: It's maximal and dense.
-*   **Not Smooth**: It's jagged, sharp, and angular.
-*   **Not Subtle**: It's loud, high-contrast, and in-your-face.
-*   **Not Polished**: It celebrates roughness and rawness.
-*   **Not Corporate**: It's rebellious and anti-establishment in its aesthetic DNA.
+### Spacing System
+- **Base unit**: 8px.
+- **Tokens (front matter)**: `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.md}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 28px · `{spacing.xxl}` 32px.
+- Card interior padding lands around `{spacing.lg}` (24px); utility buttons use a tight 4px/14px; form fields pad at `{spacing.xxs}`-scale 6px. Section gaps stack the larger steps.
 
-## Design Token System (The DNA)
+### Grid & Container
+Content is centred in a wide max-width column (~1080–1300px on desktop per the extracted breakpoints) with generous outer gutters. Feature sections alternate between full-width text blocks and 2-up / 3-up card grids; the pricing page widens to a 4-column plan table. The dark hero spans full-bleed edge to edge while body sections respect the centred container.
 
-### Colors (High Saturation Light Mode Palette)
-Neo-brutalism uses a **single, definitive light mode palette**. All colors are high-saturation and unapologetic.
+### Whitespace Philosophy
+Whitespace is the primary grouping device. Sections are separated by large vertical gaps rather than rules, and cards sit on the warm canvas with quiet hairlines instead of heavy frames. The effect is document-like: airy, scannable, and never crowded.
 
-*   **Background (Canvas)**: `#FFFDF5` (Cream/Off-White)
-    *   A warm, paper-like background that mimics aged newsprint or recycled paper. Softer than stark white, more authentic.
-    *   Use: Main page background, card interiors, contrast panels.
+### Responsive Strategy
 
-*   **Foreground (Ink)**: `#000000` (Pure Black)
-    *   The structural color. Used for ALL text, ALL borders, ALL shadows. No grays, no variations.
-    *   Use: Text, borders (`border-black`), shadows, icons.
+#### Breakpoints
+| Name | Width | Key Changes |
+|---|---|---|
+| Wide | 1440px+ | Full multi-column grids, widest container |
+| Desktop | 1080–1300px | Standard centred container, 3-up card grids |
+| Tablet | 768–840px | Grids collapse to 2-up, nav begins condensing |
+| Mobile | ≤600px | Single-column stacks, hamburger nav, full-width CTAs |
 
-*   **Accent (Hot Red)**: `#FF6B6B`
-    *   Primary action color. Vibrant, energetic, attention-grabbing.
-    *   Use: Primary buttons (`bg-neo-accent`), hover states, important badges, call-to-action backgrounds.
+#### Touch Targets
+Pill CTAs (`button-primary`, `button-secondary`) and utility buttons (`button-utility`) carry comfortable tap padding; aim for a 44×44px minimum hit area on mobile by preserving vertical padding even as labels shrink.
 
-*   **Secondary (Vivid Yellow)**: `#FFD93D`
-    *   Secondary highlight color. Bright, cheerful, high-energy.
-    *   Use: Secondary buttons, badges, logo backgrounds, footer background, alternate section backgrounds.
+#### Collapsing Strategy
+The top nav condenses to a hamburger below the tablet breakpoint; multi-column card grids collapse to a single stacked column; the pricing plan table reflows from 4 side-by-side columns into stacked plan cards. Section padding tightens but the warm-canvas rhythm is preserved.
 
-*   **Muted (Soft Violet)**: `#C4B5FD`
-    *   Tertiary color for depth and variation without clashing.
-    *   Use: Subtle backgrounds (`bg-neo-muted`), card headers, FAQ answer backgrounds, decorative elements.
+#### Image Behavior
+Product screenshots and illustration tiles sit inside rounded `{rounded.lg}` frames and scale fluidly within their grid cell. Sticker illustrations are small fixed-scale decorative assets that re-flow but do not crop.
 
-*   **White**: `#FFFFFF`
-    *   Used for high-contrast text on dark backgrounds (e.g., black sections, accent buttons).
-    *   Use: Text on black backgrounds, inverted buttons, contrast panels.
+## Elevation & Depth
 
-**Color Usage Rules:**
-- **Never use subtle grays.** It's black or a color, never #333 or #666.
-- **High contrast is mandatory.** All text must pass WCAG AA on its background.
-- **Color blocking:** Sections alternate between cream, secondary, muted, and black to create visual rhythm.
+| Level | Treatment | Use |
+|---|---|---|
+| 0 — Flat | Hairline border `{colors.hairline}`, no shadow | Default cards on the warm canvas |
+| 1 — Soft | Layered micro-shadow: `rgba(0,0,0,0.01) 0 0.175px 1.041px`, `0.02 0 0.8px 2.925px`, `0.027 0 2.025px 7.847px`, `0.04 0 4px 18px` | Raised feature cards, floating buttons |
+| 2 — Elevated | Deeper 5-stop stack ending in `rgba(0,0,0,0.05) 0 23px 52px` | Modals, popovers, the elevated white pill on the dark hero |
 
-### Typography
-*   **Family**: `Space Grotesk` (Google Font: `font-family: 'Space Grotesk', sans-serif`)
-    *   A geometric sans-serif with quirky personality. Modern but not clinical. Bold enough to carry heavy weights.
-    *   Load via Google Fonts: `https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=block`
+Notion's elevation philosophy is **barely-there**: shadows are built from many near-transparent layers so surfaces feel gently lifted off the paper rather than dramatically dropped. Most cards rely on a hairline alone.
 
-*   **Weights**: **Only heavy weights allowed.**
-    *   **Black (900)**: For all headings (h1, h2, h3). `font-black`
-    *   **Bold (700)**: For all body text, labels, buttons. `font-bold`
-    *   **Medium (500)**: Sparingly, only for subtle emphasis. `font-medium`
-    *   **Regular (400)**: Generally avoided. Lightness is forbidden in neo-brutalism.
+### Decorative Depth
+The brand's real depth cue is **illustration**, not shadow. The dark indigo hero (`{colors.secondary}`) uses glowing sticker stickers and a starfield to create a sense of a lit night scene, and feature sections layer small colourful app-icon stickers over plain surfaces to add playful dimensionality. Colour-blocked illustration tiles (purple, pink, orange, teal headers on otherwise-white cards) provide visual rhythm.
 
-*   **Scale**:
-    *   Display: `text-8xl` to `text-9xl` (96px to 128px) for hero headlines.
-    *   Heading 2: `text-6xl` to `text-8xl` (60px to 96px) for section titles.
-    *   Heading 3: `text-4xl` to `text-5xl` (36px to 48px) for subsections.
-    *   Body Large: `text-2xl` to `text-3xl` (24px to 30px) for emphasis.
-    *   Body: `text-lg` to `text-xl` (18px to 20px) for readable text.
-    *   Small: `text-sm` to `text-base` (14px to 16px) for labels and metadata.
+## Shapes
 
-*   **Styling Techniques**:
-    *   **Text Stroke (Display)**: Use `-webkit-text-stroke: 2px black` with `color: transparent` for massive hollow outlined text.
-    *   **Case**: Heavy use of **UPPERCASE** (`uppercase`) for headings, labels, buttons, and emphasis. Lowercase is acceptable for body text.
-    *   **Tracking**:
-        *   Headlines: `tracking-tighter` or `tracking-tight` for density.
-        *   Labels: `tracking-widest` or `tracking-[0.2em]` for emphasis.
-    *   **Line Height**: Tight leading. `leading-none` or `leading-[0.85]` for display. `leading-snug` or `leading-relaxed` for body.
+### Border Radius Scale
 
-### Radius & Borders
-*   **Radius**: **Default is `0px` (sharp, angular corners).**
-    *   Exception: `rounded-full` ONLY for pill badges, circular stickers, or decorative shape elements.
-    *   Never use `rounded-md` or `rounded-lg`. It's either sharp or fully round.
+| Token | Value | Use |
+|---|---|---|
+| `{rounded.xs}` | 4px | Form fields, small tags, inline chips |
+| `{rounded.sm}` | 5px | Menu items, list rows, status pills |
+| `{rounded.md}` | 8px | Utility / nav buttons, smaller cards |
+| `{rounded.lg}` | 12px | Feature cards, illustration frames, content tiles |
+| `{rounded.xl}` | 16px | Large containers, image wells |
+| `{rounded.full}` | 9999px | Marketing pill CTAs, badges, circular icon buttons |
 
-*   **Borders**: **Mandatory on every visual element.**
-    *   Default: `border-4` (4px solid black). This is the signature thickness.
-    *   Thin: `border-2` (2px) only for subtle separators or ghost buttons.
-    *   Thick: `border-8` (8px) for major section dividers or hero elements.
-    *   All borders: `border-black` (solid black, no transparency).
+### Photography Geometry
+Product screenshots are framed in rounded `{rounded.lg}` / `{rounded.xl}` wells, typically full-bleed within their container with a hairline edge. Illustration tiles use colour-blocked header bands above white card bodies. Avatars and app-icon stickers are small, sometimes fully circular (`{rounded.full}`). There is no heavy art-direction crop — images scale within their rounded frame.
 
-### Shadows & Effects
-*   **Hard Shadows (The Signature)**: Offset, solid black shadows with **zero blur** and **zero spread**. Always bottom-right direction.
-    *   **Small**: `shadow-[4px_4px_0px_0px_#000]` or `box-shadow: 4px 4px 0px 0px #000`
-    *   **Medium**: `shadow-[8px_8px_0px_0px_#000]` or `box-shadow: 8px 8px 0px 0px #000`
-    *   **Large**: `shadow-[12px_12px_0px_0px_#000]` or `box-shadow: 12px 12px 0px 0px #000`
-    *   **Massive**: `shadow-[16px_16px_0px_0px_#000]` or `shadow-[20px_20px_0px_0px_#fff]` (for elements on black backgrounds)
+## Components
 
-*   **Text Shadows**: Use for text on colored backgrounds.
-    *   `text-shadow: 4px 4px 0px #000` or `text-shadow: 6px 6px 0px #000`
-
-*   **Background Patterns & Textures** (Critical for depth):
-    *   **Halftone Dots**:
-        ```css
-        background-image: radial-gradient(#000 1.5px, transparent 1.5px);
-        background-size: 20px 20px;
-        ```
-    *   **Grid Pattern** (graph paper):
-        ```css
-        background-size: 40px 40px;
-        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                          linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-        ```
-    *   **Noise Texture** (SVG filter):
-        ```css
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'%2F%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        ```
-    *   **Radial Dots** (for backgrounds):
-        ```css
-        background-image: radial-gradient(circle, #000 2px, transparent 2.5px);
-        background-size: 30px 30px;
-        ```
-
-## Component Styling Principles
-
-### Buttons
-*   **Shape**: Rectangular with sharp corners. Default height: `h-12` to `h-14`. No rounding.
-*   **Style**:
-    *   Primary: `bg-neo-accent` (red) with `border-4 border-black`.
-    *   Secondary: `bg-neo-secondary` (yellow) with `border-4 border-black`.
-    *   Outline: `bg-white` with `border-4 border-black`.
-    *   Ghost: `border-2 border-transparent` that becomes `border-black` on hover.
-*   **Typography**: `font-bold text-sm uppercase tracking-wide` (all caps, bold, spaced).
-*   **Shadow**: Hard shadow `shadow-[4px_4px_0px_0px_#000]` or `shadow-[6px_6px_0px_0px_#000]`.
-*   **Interaction (Critical)**: **"Push" effect.** On `:active`, translate the button to cover its shadow:
-    ```css
-    active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
-    ```
-    This creates a mechanical "click down" feel, like a physical button.
-*   **Hover**: Slight background darkening or shadow intensification. Fast transition (`duration-100`).
-
-### Cards / Containers
-*   **Structure**: `bg-white` with `border-4 border-black` and sharp corners (`rounded-none`).
-*   **Shadow**: Deep hard shadows (`shadow-[8px_8px_0px_0px_#000]` to `shadow-[12px_12px_0px_0px_#000]`).
-*   **Hover (Lift Effect)**: Translate card **upward** and **increase shadow size**:
-    ```css
-    hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_#000]
-    ```
-    or
-    ```css
-    hover:-translate-y-2 hover:shadow-[16px_16px_0px_0px_#000]
-    ```
-    This makes the card feel like it's physically lifting off the page.
-*   **Headers**: Often have colored backgrounds (`bg-neo-muted/20` or `bg-neo-secondary`) with `border-b-4 border-black` separator.
-
-### Inputs
-*   **Style**: Thick black borders (`border-4 border-black`). Sharp corners. `bg-white` default.
-*   **Typography**: Large, bold text (`font-bold text-lg` or `text-xl`). Placeholder is `placeholder:text-black/40`.
-*   **Focus**: **Background color change** instead of ring:
-    ```css
-    focus-visible:bg-neo-secondary focus-visible:shadow-[4px_4px_0px_0px_#000] focus-visible:outline-none focus-visible:ring-0
-    ```
-    Input becomes yellow and gains a shadow when focused. No soft glow.
-*   **Height**: `h-14` to `h-20` for touch-friendly sizing.
+> **No hover states documented.** Every spec below documents Default and Active/Pressed states only. Variants live as separate `components:` front-matter entries and are described in their own sub-blocks.
 
 ### Navigation
-*   **Logo**: Bordered box (`border-4 border-black`) with accent background. Uppercase, black font.
-*   **Links**: Bold, uppercase text. Hover state adds border and background:
-    ```css
-    hover:border-black hover:bg-neo-accent hover:px-2 hover:shadow-[4px_4px_0px_0px_#000]
-    ```
-*   **Mobile Menu**: Hamburger button as bordered square with shadow. Menu slides in with stacked bordered buttons.
 
-### Badges
-*   **Shape**: Pill (`rounded-full`) or square (`border-4`).
-*   **Style**: Colored background (`bg-neo-accent` or `bg-neo-secondary`) with thick border and shadow.
-*   **Typography**: `font-black text-sm uppercase tracking-widest`.
-*   **Usage**: Positioned absolutely over elements (`:absolute top-4 left-4`), rotated (`rotate-3`), or inline.
+**`nav-bar`** — Top navigation
+- White surface `{colors.canvas}`, `{colors.ink}` link text at `{typography.body-sm}`, padding `{spacing.md}`. Sits as a slim sticky bar; left wordmark, centre product/solutions menu links, right "Log in" text link plus a `button-utility` "Get Notion free" CTA. Condenses to a hamburger below the tablet breakpoint.
 
-## Layout Principles
+### Buttons
 
-*   **Container Width**: Use `container mx-auto` with `max-w-7xl` or `max-w-6xl` for focused content width.
-*   **Spacing**: Dense 8px base grid. Sections have `py-16` to `py-32` vertical padding. Content spacing: `gap-8` to `gap-12`.
-*   **Rotation (Sticker Effect)**: Use slight rotations on containers and text blocks to break grid monotony:
-    *   `rotate-1` (1 degree), `-rotate-2` (-2 degrees), `rotate-3` (3 degrees).
-    *   Apply to headline spans, cards, badges, and CTAs.
-*   **Marquee**: Use horizontal scrolling marquees (e.g., `react-fast-marquee`) as:
-    *   Trust indicators at page top.
-    *   Testimonial carousels.
-    *   Section dividers with repeated text.
-*   **Overlapping**: Allow elements to overlap using absolute positioning:
-    *   Floating decorative shapes (`absolute top-20 left-0`).
-    *   Badges positioned on corners of cards (`-top-6 -right-6`).
-    *   Background text as texture (`absolute opacity-10 text-9xl`).
-*   **Visual Chaos Zones**: Intentionally create "busy" areas (like Hero right side) with:
-    *   Stacked geometric shapes.
-    *   Multiple rotated badges.
-    *   Large background numbers or text.
-*   **Asymmetry**: Avoid perfect symmetry. Use 60/40 splits, offset columns, and staggered grids.
+**`button-primary`** — Primary CTA ("Get Notion free")
+- Background `{colors.primary}`, text `{colors.on-primary}`, type `{typography.button}`, fully pill-shaped `{rounded.full}`. The single blue action on any page.
+- Pressed state lives in `button-primary-pressed` (background `{colors.primary-active}`); marketing buttons also apply a brief `scale(0.9)` press transform.
 
-## The "Bold Factor" (Non-Genericness)
+**`button-primary-pressed`**
+- Background `{colors.primary-active}`, text `{colors.on-primary}` — the depressed state of the primary CTA.
 
-These techniques ensure the design is unmistakably neo-brutalist and never generic:
+**`button-secondary`** — Secondary CTA ("Request a demo")
+- White surface `{colors.surface}`, text `{colors.ink}`, type `{typography.button}`, pill `{rounded.full}`, carried by the soft Level-1 shadow. Pairs beside `button-primary` in the hero.
 
-1.  **Text Stroke for Display Typography**: Use `-webkit-text-stroke: 2px black` with `color: transparent` for massive hollow outlined headings. Overlay with solid version for depth effect.
+**`button-utility`** — Nav / plan-select button
+- White surface `{colors.surface}`, text `{colors.ink}`, type `{typography.button}`, tighter `{rounded.md}` (8px), padding `4px 14px`, 1px `{colors.hairline}` border. Used for the nav CTA and pricing plan-select buttons where the marketing pill would be too large.
 
-2.  **Sticker Layering**: Elements feel like physical stickers:
-    *   Rotated text blocks with borders and shadows.
-    *   Absolutely positioned badges that overlap content.
-    *   Multiple "layers" created with shadows.
+**`button-icon-circular`** — Carousel / media control
+- Circular `{rounded.full}` control with a translucent `rgba(0,0,0,0.05)` fill and `{colors.on-primary}` glyph, used for slide and play/pause controls; applies a `scale(0.9)` press transform.
 
-3.  **Interactive Physics**: Elements must physically move:
-    *   Buttons: **Push down** on click (`active:translate-x-[2px] active:translate-y-[2px]`).
-    *   Cards: **Lift up** on hover (`hover:-translate-y-2`).
-    *   Badges: **Rotate further** on hover (`hover:rotate-12`).
+### Cards & Containers
 
-4.  **Primitive Shape Motifs**: Heavy use of:
-    *   **Stars** (5-point, `<Star />` from lucide-react). Use as decorative elements, ratings, and dividers.
-    *   **Arrows** (`<ArrowRight />`) for directional cues.
-    *   **Basic Shapes**: Squares, circles, rectangles as decorative floaters.
+**`feature-card`** — Content / feature card
+- White surface `{colors.surface}`, `{colors.ink}` text, `{typography.body-md}`, rounded `{rounded.lg}` (12px), padding `{spacing.lg}` (24px). The workhorse marketing card; often topped by a colour-blocked illustration band from the sticker palette. Default elevation is flat (hairline only).
 
-5.  **Thick Border Everywhere**: If an element doesn't have a visible border, it feels wrong. Even whitespace is bordered.
+**`feature-card-elevated`** — Raised feature card
+- Same chrome as `feature-card` with the soft Level-1 layered shadow for cards that float above the canvas (testimonials, floating product panels).
 
-6.  **Color Blocking**: Large sections with solid color backgrounds (red, yellow, violet, black) to create high-contrast rhythm.
+**`pricing-plan-card`** — Pricing plan column
+- White surface `{colors.surface}`, `{colors.ink}` text, `{typography.body-sm}`, rounded `{rounded.md}` (8px), padding `{spacing.lg}`. A bordered column listing a plan's price and feature checklist, with a `button-utility` select action.
 
-7.  **Texture Overlays**: Never leave backgrounds flat. Always add halftone, grid, or noise.
+**`pricing-plan-card-featured`** — Highlighted plan column
+- Warm `{colors.canvas-soft}` fill to lift the recommended tier off the white siblings, same `{rounded.md}` shape and padding. Distinguished by surface tint rather than a coloured border.
 
-## Anti-Patterns (What to Avoid)
+### Inputs & Forms
 
-These techniques would break the neo-brutalist aesthetic:
+**`text-input`** — Text / number field
+- White surface `{colors.surface}`, `{colors.ink}` text, `{typography.body-sm}`, 1px `rgb(221,221,221)` border, rounded `{rounded.xs}` (4px), padding `6px`. Square-ish corners deliberately tighter than the pill CTAs. Focus adds the soft Level-1 shadow.
 
-*   **Blur Effects**: No `blur()`, no `backdrop-blur`, no soft `box-shadow` with blur radius. All shadows must be hard.
-*   **Opacity/Transparency**: Avoid alpha transparency on backgrounds (except for texture overlays at low opacity).
-*   **Smooth Gradients**: No `bg-gradient-to-r` fades. Use hard color stops or patterns instead.
-*   **Rounded Corners (Mid-Range)**: Avoid `rounded-md`, `rounded-lg`, `rounded-xl`. It's either `rounded-none` (sharp) or `rounded-full` (pill/circle).
-*   **Subtle Grays**: No `#333`, `#666`, `#999`. Use pure black or a color.
-*   **Soft Animations**: No `ease-in-out` or slow durations. Use `ease-linear` or `ease-out` with fast durations.
-*   **Minimalist Whitespace**: Don't leave large empty areas. Fill with texture, patterns, or decorative elements.
+### Signature Components
 
-## Animation & Motion
+**`hero-band`** — Dark "night" hero
+- Full-bleed deep indigo `{colors.secondary}` band carrying `{typography.display-1}` white headline, sticker-constellation field, and a `button-primary` + `button-secondary` CTA pair. The single inverted dark island in an otherwise daylight page.
 
-*   **Feel**: Bouncy, playful, mechanical, arcade-like.
-*   **Transition Speed**: Fast and snappy.
-    *   Buttons: `duration-100` (100ms).
-    *   Cards/Hovers: `duration-200` or `duration-300` (200-300ms).
-*   **Easing**: `ease-linear` for mechanical feel, `ease-out` for natural deceleration. Avoid `ease-in-out`.
-*   **Hover Interactions**:
-    *   Buttons: Background darken, then press on click.
-    *   Cards: Translate upward (`-translate-y-2`) and shadow deepens.
-    *   Links: Add border and background, snap into place.
-*   **Looping Animations**:
-    *   Slow spins on decorative stars (`animate-spin-slow`, custom duration 10s).
-    *   Pulsing on call-to-action elements (`animate-pulse`).
-    *   Bouncing on attention-grabbing badges (`animate-bounce`).
-*   **Custom Animations** (via CSS):
-    ```css
-    @keyframes spin-slow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .animate-spin-slow {
-      animation: spin-slow 10s linear infinite;
-    }
-    ```
+**`badge-pill`** — Eyebrow / category pill
+- White surface `{colors.surface}`, `{colors.primary}` text, `{typography.eyebrow}` (12px / 600), fully pill `{rounded.full}`, padding `4px 8px`. Small labels such as the pricing "Essential for staying organized" eyebrow and category tags.
 
-## Spacing, Layout & Iconography
+**`footer`** — Site footer
+- Warm `{colors.canvas-soft}` band, `{colors.ink-secondary}` link text at `{typography.caption}`, padding `{spacing.xxl}`. Multi-column link directory closing every page.
 
-*   **Max-Width**: `max-w-7xl` or `max-w-6xl` for main content. Sections can be full-width with contained inner content.
-*   **Grid System**: Use Tailwind's grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`) with responsive breakpoints.
-*   **Spacing Scale**: Dense. `gap-6` to `gap-12` between elements. `py-16` to `py-32` for section padding.
-*   **Iconography**: Import from `lucide-react`.
-    *   Style: `stroke-[3px]` or `stroke-[4px]` for thick, bold strokes.
-    *   Size: `h-8 w-8` or larger (`h-12 w-12`) for emphasis.
-    *   Placement: Inside bordered boxes (`border-4 border-black bg-neo-accent p-4`).
-    *   Fill: Use `fill-black` or `fill-white` for solid icons.
+### Examples (illustrative)
 
-## Responsive Strategy
+> Kit-mirror demonstration surfaces. Each `ex-*` entry references brand-native primitives so downstream consumers (`/preview-design`, `/generate-kit`) re-skin the same 10 surfaces consistently.
 
-*   **Mobile First**: Design starts with mobile (`base`) and scales up.
-*   **Breakpoints**:
-    *   `sm:` (640px) - Small tablets
-    *   `md:` (768px) - Tablets
-    *   `lg:` (1024px) - Desktops
-    *   `xl:` (1280px) - Large desktops
-*   **Mobile Adaptations**:
-    *   **Typography**: Scale down (e.g., `text-4xl sm:text-6xl md:text-8xl`).
-    *   **Spacing**: Reduce padding (e.g., `p-8 sm:p-12 md:p-16`).
-    *   **Grids**: Stack to single column (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`).
-    *   **Shadows**: Reduce size on mobile (e.g., `shadow-[6px_6px_0px_0px_#000] sm:shadow-[8px_8px_0px_0px_#000]`).
-    *   **Navigation**: Hamburger menu with bordered button. Full-screen or slide-in drawer.
-    *   **Buttons**: Full width on mobile (`w-full sm:w-auto`).
-    *   **Touch Targets**: Minimum `h-14` for tappable elements.
-*   **Core Aesthetic Maintained**: Even on mobile, keep thick borders, hard shadows, and bold typography. Don't default to "generic mobile" design.
+**`ex-pricing-tier`** — Default Pricing tier card. Re-uses feature-card chrome with brand canvas-soft surface.
+- Properties: `backgroundColor`, `textColor`, `borderColor`, `rounded`, `padding`
 
-## Accessibility & Best Practices
+**`ex-pricing-tier-featured`** — Featured/highlighted tier — polarity-flipped surface (dark fill + light text in light mode, light fill + dark text in dark mode).
+- Properties: `backgroundColor`, `textColor`, `rounded`, `padding`
 
-*   **Contrast**: High contrast is built-in (black on cream, white on black, black on yellow). Ensure all color combinations pass WCAG AA (4.5:1 for normal text, 3:1 for large text).
-*   **Focus States**: Use thick focus rings:
-    ```css
-    focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2
-    ```
-    or background color change (yellow) for inputs.
-*   **Motion**: Respect `prefers-reduced-motion`:
-    ```css
-    @media (prefers-reduced-motion: reduce) {
-      .animate-spin-slow, .animate-bounce, .animate-pulse {
-        animation: none;
-      }
-    }
-    ```
-*   **Keyboard Navigation**: Ensure all interactive elements are keyboard-accessible. Tab order should be logical.
-*   **Screen Readers**: Use semantic HTML (`<button>`, `<nav>`, `<header>`, `<main>`). Add `aria-label` to icon-only buttons.
-*   **Touch Targets**: Minimum 44x44px (roughly `h-12` or `h-14` in Tailwind) for all tappable elements on mobile.
-</design-system>
+**`ex-product-selector`** — What's Included summary card — re-purposed for SaaS / B2B verticals (NOT a literal product gallery).
+- Properties: `backgroundColor`, `rounded`, `padding`
+
+**`ex-cart-drawer`** — Subscription summary — re-purposed for SaaS / B2B (line items per add-on, not literal cart).
+- Properties: `backgroundColor`, `rounded`, `padding`, `item-divider`
+
+**`ex-app-shell-row`** — Sidebar nav row inside the App Shell example. Active state uses brand primary as the indicator.
+- Properties: `backgroundColor`, `activeIndicator`, `rounded`, `padding`
+
+**`ex-data-table-cell`** — Default data-table th + td chrome. Header uses mono-caps eyebrow typography; body uses body-sm.
+- Properties: `headerBackground`, `headerTypography`, `bodyTypography`, `cellPadding`, `rowBorder`
+
+**`ex-auth-form-card`** — Sign-in / sign-up card. Re-uses feature-card chrome with text-input primitives inside.
+- Properties: `backgroundColor`, `rounded`, `padding`
+
+**`ex-modal-card`** — Modal dialog surface — same chrome as feature-card with elevated shadow.
+- Properties: `backgroundColor`, `rounded`, `padding`
+
+**`ex-empty-state-card`** — Empty-state illustration frame.
+- Properties: `backgroundColor`, `rounded`, `padding`, `captionTypography`
+
+**`ex-toast`** — Toast notification surface — feature-card shape + medium shadow.
+- Properties: `backgroundColor`, `rounded`, `padding`, `typography`
+
+
+## Do's and Don'ts
+
+### Do
+- Reserve `{colors.primary}` for the primary action, inline links, and the active/focus signal — nothing decorative.
+- Keep the page on the warm `{colors.canvas-soft}` canvas; use pure white `{colors.surface}` for cards and fields to create gentle figure/ground.
+- Let the sticker palette (`{colors.accent-pink}`, `{colors.accent-teal}`, `{colors.accent-orange}`, …) live only in illustrations, icon tiles and category dots.
+- Set headlines in heavy `{typography.display-1}`/`{typography.heading-1}` with their negative tracking applied explicitly.
+- Use pill `{rounded.full}` for marketing CTAs and tighter `{rounded.md}` for nav/utility buttons — the contrast is intentional.
+- Define surfaces with `{colors.hairline}` and the barely-there Level-1 shadow rather than heavy drop-shadows.
+- Reserve the deep indigo `{colors.secondary}` "night" treatment for a single hero moment, not repeated bands.
+
+### Don't
+- Don't paint a CTA or structural fill in any sticker-palette colour — those are decoration only.
+- Don't introduce a second structural accent alongside `{colors.primary}`.
+- Don't put pill `{rounded.full}` radii on form fields — inputs stay tight at `{rounded.xs}` (4px).
+- Don't drop heavy shadows; Notion's elevation is many near-transparent layers, never a hard cast.
+- Don't set body copy in a heavy weight — keep 400 for readability and let weight 700 belong to headlines.
+- Don't place type on pure clinical white for full pages; the warm `{colors.canvas-soft}` is core to the brand calm.
