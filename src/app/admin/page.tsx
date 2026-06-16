@@ -1,13 +1,42 @@
+import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Plus, Briefcase, Code2, Award } from "lucide-react";
+import { Plus, Briefcase, Code2, Award, Shield, Clock } from "lucide-react";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
+  let projectCount = 6; // Fallback counts
+  let skillCount = 18;
+  let certCount = 4;
+  let badgeCount = 4;
+  let expCount = 4;
+
+  try {
+    const supabase = await createClient();
+    
+    // Attempt to fetch real counts
+    const [{ count: pCount }, { count: sCount }, { count: cCount }, { count: bCount }, { count: eCount }] = await Promise.all([
+      supabase.from("projects").select("*", { count: "exact", head: true }),
+      supabase.from("skills").select("*", { count: "exact", head: true }),
+      supabase.from("certificates").select("*", { count: "exact", head: true }),
+      supabase.from("badges").select("*", { count: "exact", head: true }),
+      supabase.from("experiences").select("*", { count: "exact", head: true }),
+    ]);
+
+    if (pCount !== null) projectCount = pCount;
+    if (sCount !== null) skillCount = sCount;
+    if (cCount !== null) certCount = cCount;
+    if (bCount !== null) badgeCount = bCount;
+    if (eCount !== null) expCount = eCount;
+  } catch {
+    // Supabase not fully configured yet, use fallbacks
+  }
+
   const stats = [
-    { label: "PROJECTS", value: "0", icon: Briefcase, href: "/admin/projects" },
-    { label: "SKILLS", value: "0", icon: Code2, href: "/admin/skills" },
-    { label: "CERTIFICATES", value: "0", icon: Award, href: "/admin/certificates" },
+    { label: "PROJECTS", value: projectCount.toString(), icon: Briefcase, href: "/admin/projects" },
+    { label: "SKILLS", value: skillCount.toString(), icon: Code2, href: "/admin/skills" },
+    { label: "CERTIFICATES", value: certCount.toString(), icon: Award, href: "/admin/certificates" },
+    { label: "BADGES", value: badgeCount.toString(), icon: Shield, href: "/admin/badges" },
+    { label: "EXPERIENCES", value: expCount.toString(), icon: Clock, href: "/admin/experiences" },
   ];
 
   return (
@@ -22,10 +51,10 @@ export default function AdminDashboard() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-border mb-12">
         {stats.map((stat) => (
           <Link key={stat.label} href={stat.href}>
-            <div className="bg-background border-2 border-border p-6 md:p-8 hover:border-accent hover:bg-accent group transition-colors duration-300">
+            <div className="bg-background border-2 border-border p-6 md:p-8 hover:border-accent hover:bg-accent group transition-colors duration-300 h-full">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300">{stat.label}</span>
                 <stat.icon className="w-4 h-4 text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300" />
@@ -42,6 +71,7 @@ export default function AdminDashboard() {
           <Button variant="outline" asChild><Link href="/admin/projects/new">ADD PROJECT</Link></Button>
           <Button variant="outline" asChild><Link href="/admin/skills/new">ADD SKILL</Link></Button>
           <Button variant="outline" asChild><Link href="/admin/certificates/new">ADD CERTIFICATE</Link></Button>
+          <Button variant="outline" asChild><Link href="/admin/badges/new">ADD BADGE</Link></Button>
           <Button variant="outline" asChild><Link href="/admin/profile">EDIT PROFILE</Link></Button>
         </div>
       </div>

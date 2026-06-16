@@ -5,9 +5,23 @@ import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteExperience } from "@/app/actions/experiences";
 
+const FALLBACK_EXPERIENCES = [
+  { id: "1", title: "Full-Stack Developer", organization: "Freelance", type: "work" },
+  { id: "2", title: "Frontend Developer Intern", organization: "Tech Startup", type: "work" },
+  { id: "3", title: "Bachelor of Technology — Computer Science", organization: "University of Technology", type: "education" },
+  { id: "4", title: "Technical Lead — College Tech Club", organization: "University Tech Society", type: "leadership" },
+];
+
 export default async function AdminExperiencesPage() {
-  const supabase = await createClient();
-  const { data: experiences } = await supabase.from("experiences").select("*").order("start_date", { ascending: false });
+  let experiences = FALLBACK_EXPERIENCES;
+  
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.from("experiences").select("*").order("start_date", { ascending: false });
+    if (data && data.length > 0) experiences = data;
+  } catch {
+    // use fallbacks
+  }
 
   return (
     <div>

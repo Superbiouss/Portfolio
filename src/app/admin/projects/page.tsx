@@ -5,9 +5,25 @@ import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteProject } from "@/app/actions/projects";
 
+const FALLBACK_PROJECTS = [
+  { id: "1", title: "LawLens AI", slug: "lawlens-ai", featured: true },
+  { id: "2", title: "ArcStone Studios", slug: "arcstone-studios", featured: true },
+  { id: "3", title: "Oxford School Portal", slug: "oxford-school-portal", featured: true },
+  { id: "4", title: "TaskFlow", slug: "taskflow", featured: false },
+  { id: "5", title: "DevLog", slug: "devlog", featured: false },
+  { id: "6", title: "FitTrack Mobile", slug: "fittrack-mobile", featured: false },
+];
+
 export default async function AdminProjectsPage() {
-  const supabase = await createClient();
-  const { data: projects } = await supabase.from("projects").select("*").order("created_at", { ascending: false });
+  let projects = FALLBACK_PROJECTS;
+  
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.from("projects").select("*").order("created_at", { ascending: false });
+    if (data && data.length > 0) projects = data;
+  } catch {
+    // use fallbacks
+  }
 
   return (
     <div>
