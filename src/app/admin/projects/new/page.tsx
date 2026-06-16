@@ -3,8 +3,13 @@ import { Input, Textarea } from "@/components/ui/input";
 import { createProject } from "@/app/actions/projects";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { TagsSelector } from "@/components/admin/tags-selector";
 
-export default function NewProjectPage() {
+export default async function NewProjectPage() {
+  const supabase = await createClient();
+  const { data: skillsData } = await supabase.from("skills").select("name").order("name");
+  const availableSkills = skillsData?.map((s) => s.name) || [];
   return (
     <div>
       <Button variant="ghost" size="sm" asChild className="mb-8">
@@ -30,8 +35,8 @@ export default function NewProjectPage() {
             <Input name="description" placeholder="BRIEF DESCRIPTION" className="text-lg" />
           </div>
           <div>
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK (COMMA-SEPARATED)</label>
-            <Input name="tech_stack" placeholder="NEXT.JS, SUPABASE, TYPESCRIPT" className="text-lg" />
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK / TAGS</label>
+            <TagsSelector availableSkills={availableSkills} initialSelected={[]} />
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">THUMBNAIL</label>

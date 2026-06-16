@@ -5,11 +5,14 @@ import { updateProject } from "@/app/actions/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { TagsSelector } from "@/components/admin/tags-selector";
 
 export default async function EditProjectPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;
   const supabase = await createClient();
   const { data: project } = await supabase.from("projects").select("*").eq("id", id).single();
+  const { data: skillsData } = await supabase.from("skills").select("name").order("name");
+  const availableSkills = skillsData?.map((s) => s.name) || [];
 
   if (!project) return notFound();
 
@@ -55,8 +58,8 @@ export default async function EditProjectPage(props: { params: Promise<{ id: str
               <Input name="timeline" defaultValue={project.timeline || ""} placeholder="JAN 2024 – MAR 2024" className="text-lg" />
             </div>
             <div>
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK (COMMA-SEPARATED)</label>
-              <Input name="tech_stack" defaultValue={(project.tech_stack || []).join(", ")} className="text-lg" />
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK / TAGS</label>
+              <TagsSelector availableSkills={availableSkills} initialSelected={project.tech_stack || []} />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
