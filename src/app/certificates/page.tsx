@@ -18,6 +18,33 @@ const FALLBACK_BADGES = [
     badgeUrl: "https://academy.hackthebox.com/achievement/badge/fc087557-3885-11ee-acfc-bea50ffe6cb4",
     date: "2023",
   },
+  {
+    id: "2",
+    title: "HUMANOID",
+    issuer: "HACK THE BOX ACADEMY",
+    description: "Completed the Brief Intro to Hardware Attacks module.",
+    imageUrl: "https://academy.hackthebox.com/storage/badges/a6fe6c6e23b919c7a41fa3ec144d3a82/logo.png",
+    badgeUrl: "https://academy.hackthebox.com/achievement/badge/f9883e20-3ad6-11ee-acfc-bea50ffe6cb4",
+    date: "2023",
+  },
+  {
+    id: "3",
+    title: "CYBER ROOKIE 365",
+    issuer: "HACK THE BOX ACADEMY",
+    description: "One year of continuous learning at HTB Academy.",
+    imageUrl: "https://academy.hackthebox.com/storage/badges/60fc416b5eec425a6451aeb1e50d14e4/logo.png",
+    badgeUrl: "https://academy.hackthebox.com/achievement/badge/b8d8bc79-a333-11ef-864f-bea50ffe6cb4",
+    date: "2024",
+  },
+  {
+    id: "4",
+    title: "BINARY DUO EXPLORER",
+    issuer: "HACK THE BOX ACADEMY",
+    description: "Two years of continuous learning at HTB Academy.",
+    imageUrl: "https://academy.hackthebox.com/storage/badges/0d982edba15037e6d52d54eaa7f0209a/logo.png",
+    badgeUrl: "https://academy.hackthebox.com/achievement/badge/c46e5729-775a-11f0-9254-bea50ffe6cb4",
+    date: "2025",
+  },
 ];
 
 export default async function CertificatesPage() {

@@ -558,4 +558,31 @@ INSERT INTO public.badges (title, issuer, description, image_url, badge_url, ear
   'https://academy.hackthebox.com/achievement/badge/fc087557-3885-11ee-acfc-bea50ffe6cb4',
   '2023-08-11',
   1
+),
+(
+  'Humanoid',
+  'Hack The Box Academy',
+  'Earned for completing the Brief Intro to Hardware Attacks module — covering Bluetooth risks, Cryptanalysis Side-Channel Attacks, and vulnerabilities like Spectre and Meltdown.',
+  'https://academy.hackthebox.com/storage/badges/a6fe6c6e23b919c7a41fa3ec144d3a82/logo.png',
+  'https://academy.hackthebox.com/achievement/badge/f9883e20-3ad6-11ee-acfc-bea50ffe6cb4',
+  '2023-08-14',
+  2
+),
+(
+  'Cyber Rookie 365',
+  'Hack The Box Academy',
+  'Milestone badge awarded after one year of continuous learning at HTB Academy.',
+  'https://academy.hackthebox.com/storage/badges/60fc416b5eec425a6451aeb1e50d14e4/logo.png',
+  'https://academy.hackthebox.com/achievement/badge/b8d8bc79-a333-11ef-864f-bea50ffe6cb4',
+  '2024-11-15',
+  3
+),
+(
+  'Binary Duo Explorer',
+  'Hack The Box Academy',
+  'Milestone badge awarded after two years of continuous learning at HTB Academy.',
+  'https://academy.hackthebox.com/storage/badges/0d982edba15037e6d52d54eaa7f0209a/logo.png',
+  'https://academy.hackthebox.com/achievement/badge/c46e5729-775a-11f0-9254-bea50ffe6cb4',
+  '2025-08-12',
+  4
 );
