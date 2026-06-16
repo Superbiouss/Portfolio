@@ -34,7 +34,7 @@ export default async function AdminProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">EMAIL</label>
-              <Input name="email" defaultValue={profile?.email || ""} placeholder="YOU@EXAMPLE.COM" className="text-lg" />
+              <Input name="email" defaultValue={profile?.email || ""} placeholder="HELLO@AAKASHYADAV.COM" className="text-lg" />
             </div>
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">GITHUB URL</label>

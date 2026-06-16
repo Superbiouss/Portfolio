@@ -71,9 +71,9 @@ export default function ContactPage() {
 
         <div className="bg-background p-8 md:p-12 flex flex-col gap-0">
           {[
-            { icon: Mail, label: "EMAIL", value: "hello@example.com", href: "mailto:hello@example.com" },
-            { icon: Code2, label: "GITHUB", value: "github.com", href: "https://github.com" },
-            { icon: Briefcase, label: "LINKEDIN", value: "linkedin.com", href: "https://linkedin.com" },
+            { icon: Mail, label: "EMAIL", value: "hello@aakashyadav.com", href: "mailto:hello@aakashyadav.com" },
+            { icon: Code2, label: "GITHUB", value: "github.com/aakashyadav", href: "https://github.com/aakashyadav" },
+            { icon: Briefcase, label: "LINKEDIN", value: "linkedin.com/in/aakashyadav", href: "https://linkedin.com/in/aakashyadav" },
           ].map((item) => (
             <a key={item.label} href={item.href} target={item.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer" className="border-b-2 border-border py-6 last:border-0 group flex items-center gap-4 hover:border-accent transition-colors duration-300">
               <div className="w-10 h-10 border-2 border-border group-hover:border-accent group-hover:bg-accent flex items-center justify-center transition-all duration-300">

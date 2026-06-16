@@ -41,7 +41,7 @@ export default function LoginPage() {
           <form action={handleSubmit} className="space-y-8">
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">EMAIL</label>
-              <Input name="email" type="email" placeholder="ADMIN@EXAMPLE.COM" required className="text-lg" />
+              <Input name="email" type="email" placeholder="ADMIN@AAKASHYADAV.COM" required className="text-lg" />
             </div>
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">PASSWORD</label>

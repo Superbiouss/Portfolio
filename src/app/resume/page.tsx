@@ -68,7 +68,7 @@ export default async function ResumePage() {
           </Button>
         ) : (
           <Button variant="primary" size="lg" asChild>
-            <a href="#"><Download className="mr-3 w-5 h-5" /> DOWNLOAD PDF</a>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"><Download className="mr-3 w-5 h-5" /> DOWNLOAD PDF</a>
           </Button>
         )}
       </div>

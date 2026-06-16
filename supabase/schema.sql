@@ -263,8 +263,8 @@ The biggest challenge was handling large documents (100+ pages) without exceedin
   'completed',
   'Full-Stack Developer',
   'Jan 2024 – Mar 2024',
-  'https://github.com',
-  'https://example.com',
+  'https://github.com/aakashyadav/lawlens-ai',
+  'https://lawlens.aakashyadav.com',
   1
 ),
 (
@@ -301,8 +301,8 @@ Built with Next.js 14 App Router for SSR/SSG hybrid rendering. Framer Motion han
   'completed',
   'Lead Developer & Designer',
   'Nov 2023 – Jan 2024',
-  'https://github.com',
-  'https://example.com',
+  'https://github.com/aakashyadav/arcstone',
+  'https://arcstone.aakashyadav.com',
   2
 ),
 (
@@ -347,8 +347,8 @@ The admin panel allows school staff to:
   'completed',
   'Full-Stack Developer',
   'May 2024 – Jun 2024',
-  'https://github.com',
-  'https://example.com',
+  'https://github.com/aakashyadav/oxford-portal',
+  'https://oxford.aakashyadav.com',
   3
 ),
 (
@@ -375,7 +375,7 @@ Built with Next.js, Supabase Realtime for live updates, and a custom drag-and-dr
   'completed',
   'Solo Developer',
   'Aug 2023 – Oct 2023',
-  'https://github.com',
+  'https://github.com/aakashyadav/taskflow',
   NULL,
   4
 ),
@@ -400,7 +400,7 @@ DevLog is a minimalist blogging platform built for developers. It supports MDX f
   'in-progress',
   'Solo Developer',
   'Mar 2024 – Present',
-  'https://github.com',
+  'https://github.com/aakashyadav/devlog',
   NULL,
   5
 ),
@@ -424,7 +424,7 @@ FitTrack is a React Native fitness app that tracks workouts, visualizes progress
   'completed',
   'Mobile Developer',
   'Jun 2023 – Aug 2023',
-  'https://github.com',
+  'https://github.com/aakashyadav/fittrack',
   NULL,
   6
 );
