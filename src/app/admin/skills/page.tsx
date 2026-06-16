@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteSkill } from "@/app/actions/skills";
 
 export default async function AdminSkillsPage() {
@@ -30,9 +30,14 @@ export default async function AdminSkillsPage() {
                 <Badge variant="accent">{s.category}</Badge>
                 <span className="text-lg font-bold uppercase tracking-tighter">{s.name}</span>
               </div>
-              <form action={async () => { "use server"; await deleteSkill(s.id); }}>
-                <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
-              </form>
+              <div className="flex items-center gap-3">
+                <Button variant="ghost" size="icon" asChild>
+                  <Link href={`/admin/skills/${s.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
+                </Button>
+                <form action={async () => { "use server"; await deleteSkill(s.id); }}>
+                  <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
+                </form>
+              </div>
             </div>
           ))}
         </div>

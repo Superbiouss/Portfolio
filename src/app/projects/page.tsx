@@ -1,83 +1,22 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import ProjectsClient from "./projects-client";
 
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+export default async function ProjectsPage() {
+  const supabase = await createClient();
+  const { data: projects } = await supabase.from("projects").select("*").order("sort_order");
 
-const categories = ["ALL", "AI", "SAAS", "AUTOMATION", "FULL STACK", "MOBILE", "UI/UX"];
+  const formatted = (projects || []).map((p, i) => ({
+    id: p.id,
+    title: p.title?.toUpperCase() || "UNTITLED",
+    slug: p.slug,
+    description: p.description || "",
+    tech: p.tech_stack || [],
+    category: p.status?.toUpperCase() || "ALL",
+    num: String(i + 1).padStart(2, "0"),
+  }));
 
-const projects = [
-  { title: "LAWLENS AI", slug: "lawlens-ai", description: "AI-powered legal document analysis with RAG chat.", tech: ["Next.js", "Supabase", "OpenAI"], category: "AI", num: "01" },
-  { title: "ARCSTONE STUDIOS", slug: "arcstone-studios", description: "Premium agency site with kinetic typography.", tech: ["Next.js", "Framer Motion"], category: "UI/UX", num: "02" },
-  { title: "OXFORD SCHOOL", slug: "oxford-school", description: "School management platform with admin dashboard.", tech: ["Next.js", "Supabase"], category: "FULL STACK", num: "03" },
-  { title: "PORTFOLIO CMS", slug: "portfolio-cms", description: "This portfolio — CMS-powered with kinetic design.", tech: ["Next.js", "Supabase"], category: "SAAS", num: "04" },
-];
+  // Extract unique categories from the data
+  const categories = ["ALL", ...new Set(formatted.map((p) => p.category))];
 
-export default function ProjectsPage() {
-  const [active, setActive] = useState("ALL");
-  const filtered = active === "ALL" ? projects : projects.filter((p) => p.category === active);
-
-  return (
-    <div className="max-w-[95vw] mx-auto py-16 md:py-32">
-      <Button variant="ghost" size="sm" asChild className="mb-12">
-        <Link href="/"><ArrowLeft className="mr-2 w-4 h-4" /> HOME</Link>
-      </Button>
-
-      <div className="mb-12 md:mb-16">
-        <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-muted-foreground block mb-2">PROJECTS</span>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-none">
-          ENGINEERING<br /><span className="text-accent">CASE STUDIES</span>
-        </h1>
-      </div>
-
-      {/* Filter controls */}
-      <div className="flex flex-wrap gap-2 mb-12">
-        {categories.map((cat) => (
-          <Button
-            key={cat}
-            variant={active === cat ? "primary" : "outline"}
-            size="sm"
-            onClick={() => setActive(cat)}
-          >
-            {cat}
-          </Button>
-        ))}
-      </div>
-
-      {/* Projects grid */}
-      <div className="bg-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px">
-        {filtered.map((project, i) => (
-          <motion.div
-            key={project.slug}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05, duration: 0.3, ease: "easeOut" as const }}
-          >
-            <Card className="h-full flex flex-col relative min-h-[280px]">
-              <span className="absolute top-4 right-4 text-[8rem] font-bold leading-none text-muted/30 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">
-                {project.num}
-              </span>
-              <CardContent className="flex-1 relative z-10">
-                <Badge className="mb-4">{project.category}</Badge>
-                <CardTitle className="mb-3">{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.tech.map((t) => (<Badge key={t} variant="muted">{t}</Badge>))}
-                </div>
-              </CardContent>
-              <CardFooter className="relative z-10">
-                <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">
-                  CASE STUDY <ExternalLink className="w-3.5 h-3.5" />
-                </Link>
-              </CardFooter>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
+  return <ProjectsClient projects={formatted} categories={categories} />;
 }

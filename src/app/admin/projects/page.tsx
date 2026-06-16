@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteProject } from "@/app/actions/projects";
 
 export default async function AdminProjectsPage() {
@@ -35,6 +35,9 @@ export default async function AdminProjectsPage() {
               </div>
               <div className="flex items-center gap-3">
                 {p.featured && <Badge variant="accent">FEATURED</Badge>}
+                <Button variant="ghost" size="icon" asChild>
+                  <Link href={`/admin/projects/${p.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
+                </Button>
                 <form action={async () => { "use server"; await deleteProject(p.id); }}>
                   <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
                 </form>

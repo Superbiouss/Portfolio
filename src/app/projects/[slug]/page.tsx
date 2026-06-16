@@ -1,25 +1,18 @@
+import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Code2, ExternalLink } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-const mockProject = {
-  title: "PROJECT TITLE",
-  tagline: "A brief tagline about this project.",
-  tech: ["Next.js", "Supabase", "TypeScript"],
-  status: "COMPLETED",
-  role: "FULL-STACK DEVELOPER",
-  timeline: "JAN 2024 – MAR 2024",
-  github_url: "https://github.com",
-  live_url: "https://example.com",
-  content: `## Problem Statement\n\nDescribe the core problem this project addresses.\n\n## Architecture\n\nExplain the system design and key architectural decisions.\n\n## Features\n\n- Feature one\n- Feature two\n- Feature three\n\n## Challenges\n\nWhat were the hardest parts?\n\n## Outcomes\n\nWhat was achieved?`,
-};
+import { notFound } from "next/navigation";
 
 export default async function ProjectCaseStudy(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
-  const project = { ...mockProject, title: slug.replace(/-/g, " ").toUpperCase() };
+  const supabase = await createClient();
+  const { data: project } = await supabase.from("projects").select("*").eq("slug", slug).single();
+
+  if (!project) return notFound();
 
   return (
     <div className="max-w-[95vw] mx-auto py-16 md:py-32">
@@ -33,18 +26,20 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
         <h1 className="text-[clamp(2rem,8vw,8rem)] font-bold uppercase tracking-tighter leading-[0.85] mb-6">
           {project.title}
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">{project.tagline}</p>
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">{project.description}</p>
 
-        <div className="flex flex-wrap gap-2 mb-8">
-          {project.tech.map((t) => (<Badge key={t} variant="accent">{t}</Badge>))}
-        </div>
+        {project.tech_stack && project.tech_stack.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.tech_stack.map((t: string) => (<Badge key={t} variant="accent">{t}</Badge>))}
+          </div>
+        )}
 
         {/* Metadata strip */}
         <div className="border-2 border-border grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
           {[
-            { label: "STATUS", value: project.status },
-            { label: "ROLE", value: project.role },
-            { label: "TIMELINE", value: project.timeline },
+            { label: "STATUS", value: project.status?.toUpperCase() || "COMPLETED" },
+            { label: "ROLE", value: project.role?.toUpperCase() || "DEVELOPER" },
+            { label: "TIMELINE", value: project.timeline || "—" },
             { label: "LINKS", value: null },
           ].map((item) => (
             <div key={item.label} className="bg-background p-4 md:p-6">
@@ -63,6 +58,9 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
                       <ExternalLink className="w-3.5 h-3.5" /> LIVE
                     </a>
                   )}
+                  {!project.github_url && !project.live_url && (
+                    <span className="text-sm text-muted-foreground">—</span>
+                  )}
                 </div>
               )}
             </div>
@@ -71,11 +69,13 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
       </div>
 
       {/* Content */}
-      <div className="max-w-3xl">
-        <div className="prose-kinetic">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.content}</ReactMarkdown>
+      {project.content && (
+        <div className="max-w-3xl">
+          <div className="prose-kinetic">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.content}</ReactMarkdown>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

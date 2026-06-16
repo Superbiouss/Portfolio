@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteCertificate } from "@/app/actions/certificates";
 
 export default async function AdminCertificatesPage() {
@@ -29,9 +29,14 @@ export default async function AdminCertificatesPage() {
                 <h3 className="text-lg font-bold uppercase tracking-tighter">{c.title}</h3>
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{c.issuer}</span>
               </div>
-              <form action={async () => { "use server"; await deleteCertificate(c.id); }}>
-                <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
-              </form>
+              <div className="flex items-center gap-3">
+                <Button variant="ghost" size="icon" asChild>
+                  <Link href={`/admin/certificates/${c.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
+                </Button>
+                <form action={async () => { "use server"; await deleteCertificate(c.id); }}>
+                  <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
+                </form>
+              </div>
             </div>
           ))}
         </div>
