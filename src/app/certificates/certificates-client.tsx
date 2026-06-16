@@ -57,11 +57,14 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
                   {/* Badge Image */}
                   <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 flex items-center justify-center">
                     {badge.imageUrl ? (
-                      <img
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                         src={badge.imageUrl}
                         alt={badge.title}
                         className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(223,225,4,0.3)] group-hover:drop-shadow-none transition-all duration-300"
                       />
+                      </>
                     ) : (
                       <div className="w-full h-full border-2 border-border group-hover:border-accent-foreground flex items-center justify-center transition-colors duration-300">
                         <span className="text-2xl font-bold text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300">🏅</span>

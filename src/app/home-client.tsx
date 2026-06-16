@@ -12,11 +12,10 @@ import Link from "next/link";
 interface HomeClientProps {
   stats: { value: string; label: string }[];
   featuredProjects: { title: string; description: string; tech: string[]; slug: string; num: string }[];
-  heroTagline: string;
   bio: string;
 }
 
-export default function HomeClient({ stats, featuredProjects, heroTagline, bio }: HomeClientProps) {
+export default function HomeClient({ stats, featuredProjects, bio }: HomeClientProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);

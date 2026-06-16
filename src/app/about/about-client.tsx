@@ -8,11 +8,10 @@ import { motion } from "framer-motion";
 
 interface AboutClientProps {
   bio: string;
-  heroTagline: string;
   timeline: { year: string; title: string; desc: string }[];
 }
 
-export default function AboutClient({ bio, heroTagline, timeline }: AboutClientProps) {
+export default function AboutClient({ bio, timeline }: AboutClientProps) {
   return (
     <div className="max-w-[95vw] mx-auto py-16 md:py-32">
       <Button variant="ghost" size="sm" asChild className="mb-12">

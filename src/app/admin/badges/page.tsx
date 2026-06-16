@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteBadge } from "@/app/actions/badges";
-import Image from "next/image";
+
 
 const FALLBACK_BADGES = [
   { id: "1", title: "Academician", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/academician.png" },
@@ -42,6 +42,7 @@ export default async function AdminBadgesPage() {
               <div className="flex items-center gap-4">
                 {b.image_url && (
                   <div className="w-12 h-12 border-2 border-border overflow-hidden flex-shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={b.image_url} alt={b.title} className="w-full h-full object-contain" />
                   </div>
                 )}

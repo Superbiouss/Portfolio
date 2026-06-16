@@ -40,6 +40,7 @@ export default async function EditBadgePage(props: { params: Promise<{ id: strin
             <Input name="image_url" defaultValue={badge.image_url || ""} className="text-lg" />
             {badge.image_url && (
               <div className="mt-3 w-20 h-20 border-2 border-border p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={badge.image_url} alt={badge.title} className="w-full h-full object-contain" />
               </div>
             )}

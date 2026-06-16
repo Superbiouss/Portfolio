@@ -63,7 +63,6 @@ export default async function HomePage() {
     <HomeClient
       stats={stats}
       featuredProjects={featuredProjects}
-      heroTagline=""
       bio={bio}
     />
   );

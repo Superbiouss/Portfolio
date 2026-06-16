@@ -30,5 +30,5 @@ export default async function AboutPage() {
     // Supabase not configured — use fallbacks
   }
 
-  return <AboutClient bio={bio} heroTagline="" timeline={timeline} />;
+  return <AboutClient bio={bio} timeline={timeline} />;
 }
