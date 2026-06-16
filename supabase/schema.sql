@@ -246,8 +246,8 @@ The system uses a multi-stage pipeline:
 - Real-time streaming chat responses via Server-Sent Events
 - Document upload with automatic chunking and embedding
 - Multi-document comparison with clause-level highlighting
-- Citation tracking — every AI response links back to source paragraphs
 - Role-based access control for team collaboration
+- **Publication**: Published in IJIRT - [LawLens: AI-Based Legal Research and Case Summarization System for Indian Law](https://ijirt.org/article?manuscript=192121)
 
 ## Technical Challenges
 
@@ -505,43 +505,43 @@ INSERT INTO public.certificates (title, issuer, issue_date, credential_id, verif
 
 INSERT INTO public.experiences (title, organization, description, start_date, end_date, is_current, type, sort_order) VALUES
 (
-  'Full-Stack Developer',
-  'Freelance',
-  'Building production-grade web applications for clients using Next.js, Supabase, and AI integrations. Delivered 10+ projects including school management systems, legal tech platforms, and creative agency websites.',
+  'Student Coordinator',
+  'NSS (National Service Scheme)',
+  'Member of NSS under college unit, involved in various student-led community service and development programs aimed at societal improvement.',
   '2023-06-01',
-  NULL,
-  true,
-  'work',
+  '2025-07-31',
+  false,
+  'leadership',
   1
 ),
 (
-  'Frontend Developer Intern',
-  'Tech Startup',
-  'Implemented responsive UI components and helped establish the company design system. Built reusable React component library used across 3 products. Improved page load times by 40% through code splitting and lazy loading.',
-  '2022-09-01',
-  '2023-05-31',
+  'Bachelor of Engineering - BE, Computer Engineering',
+  'Jagadambha College of Engineering and Technology Yavatmal 445001',
+  'Activities and societies: President, The Coders Club; Magazine Secretary, JCET (2026); Class Representative (4 consecutive years).',
+  '2022-11-01',
+  '2026-05-31',
   false,
-  'work',
+  'education',
   2
 ),
 (
-  'Bachelor of Technology — Computer Science',
-  'University of Technology',
-  'Focused on software engineering, data structures, algorithms, and web technologies. Graduated with distinction. Completed capstone project on AI-powered document analysis.',
-  '2021-08-01',
-  '2025-06-30',
+  'Engineering Science',
+  'Matsyodari Shikshan Sanstha''s Ankushrao Tope College , Jalna 431203',
+  '',
+  '2019-07-01',
+  '2021-09-30',
   false,
   'education',
   3
 ),
 (
-  'Technical Lead — College Tech Club',
-  'University Tech Society',
-  'Led a team of 10 developers building open-source tools for the student community. Organized 5 hackathons with 200+ participants. Mentored junior developers on React and TypeScript best practices.',
-  '2023-01-01',
-  '2024-12-31',
+  'Junior High/Intermediate/Middle School Education and Teaching',
+  'Oxford English High School , Jalna 431203',
+  '',
+  '2014-06-01',
+  '2019-03-31',
   false,
-  'leadership',
+  'education',
   4
 );
 

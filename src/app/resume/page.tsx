@@ -7,16 +7,17 @@ import { ArrowLeft, Download } from "lucide-react";
 interface Experience { id: string; title: string; organization: string; description: string; start_date: string | null; end_date: string | null; is_current: boolean; type: string }
 
 const FALLBACK_WORK: Experience[] = [
-  { id: "1", title: "Full-Stack Developer", organization: "Freelance", description: "Building production-grade web applications for clients using Next.js, Supabase, and AI integrations. Delivered 10+ projects.", start_date: "2023-06-01", end_date: null, is_current: true, type: "work" },
-  { id: "2", title: "Frontend Developer Intern", organization: "Tech Startup", description: "Implemented responsive UI components and helped establish the company design system. Improved page load times by 40%.", start_date: "2022-09-01", end_date: "2023-05-31", is_current: false, type: "work" },
+  { id: "5", title: "Full-Stack Developer", organization: "Freelance", description: "Building production-grade web applications.", start_date: "2023-06-01", end_date: null, is_current: true, type: "work" },
 ];
 
 const FALLBACK_EDU: Experience[] = [
-  { id: "3", title: "Bachelor of Technology — Computer Science", organization: "University of Technology", description: "Focused on software engineering, data structures, algorithms, and web technologies. Graduated with distinction.", start_date: "2021-08-01", end_date: "2025-06-30", is_current: false, type: "education" },
+  { id: "1", title: "Bachelor of Engineering - BE, Computer Engineering", organization: "Jagadambha College of Engineering and Technology", description: "Activities and societies: President, The Coders Club; Magazine Secretary, JCET; Class Representative (4 consecutive years)", start_date: "2022-11-01", end_date: "2026-05-31", is_current: false, type: "education" },
+  { id: "2", title: "Engineering Science", organization: "Matsyodari Shikshan Sanstha's Ankushrao Tope College", description: "", start_date: "2019-07-01", end_date: "2021-09-30", is_current: false, type: "education" },
+  { id: "3", title: "Junior High/Intermediate/Middle School Education", organization: "Oxford English High School", description: "", start_date: "2014-06-01", end_date: "2019-03-31", is_current: false, type: "education" },
 ];
 
 const FALLBACK_LEADERSHIP: Experience[] = [
-  { id: "4", title: "Technical Lead — College Tech Club", organization: "University Tech Society", description: "Led a team of 10 developers building open-source tools. Organized 5 hackathons with 200+ participants.", start_date: "2023-01-01", end_date: "2024-12-31", is_current: false, type: "leadership" },
+  { id: "4", title: "Student Coordinator", organization: "NSS (National Service Scheme)", description: "Member of NSS under college unit, involved in various student-led community service and development programs aimed at societal improvement.", start_date: "2023-06-01", end_date: "2025-07-31", is_current: false, type: "leadership" },
 ];
 
 const FALLBACK_SKILLS = ["React", "Next.js", "TypeScript", "Node.js", "Supabase", "PostgreSQL", "Tailwind CSS", "Framer Motion", "OpenAI API", "Docker", "Vercel", "Figma"];
