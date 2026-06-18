@@ -1,4 +1,5 @@
 "use client";
+// Note: metadata for this page is set in src/app/contact/layout.tsx
 
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";

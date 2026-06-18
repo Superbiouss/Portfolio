@@ -79,7 +79,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="block text-lg font-bold uppercase tracking-tighter text-muted-foreground py-3 border-b border-border hover:text-accent transition-colors"
+              className="block text-lg font-bold uppercase tracking-tighter text-muted-foreground py-3 border-b-2 border-border hover:text-accent transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}

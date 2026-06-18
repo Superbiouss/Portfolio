@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import AboutClient from "./about-client";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Learn about Aakash Yadav — a full-stack developer passionate about clean code, thoughtful design, and engineering excellence.",
+  openGraph: {
+    title: "About Aakash Yadav",
+    description: "Full-stack developer passionate about clean code, thoughtful design, and engineering excellence.",
+  },
+};
 
 const FALLBACK_TIMELINE = [
   { year: "2024", title: "FULL-STACK DEVELOPMENT", desc: "Building production-grade web applications with Next.js, Supabase, and AI integrations." },

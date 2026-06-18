@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import ProjectsClient from "./projects-client";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Engineering case studies by Aakash Yadav — AI platforms, SaaS applications, school portals, and more.",
+  openGraph: {
+    title: "Projects — Aakash Yadav",
+    description: "Engineering case studies — AI platforms, SaaS applications, school portals, and more.",
+  },
+};
 
 const FALLBACK_PROJECTS = [
   { id: "1", title: "LAWLENS AI", slug: "lawlens-ai", description: "AI-powered legal document analysis platform with RAG-based chat and clause comparison.", tech: ["Next.js", "Supabase", "OpenAI"], category: "COMPLETED", num: "01" },

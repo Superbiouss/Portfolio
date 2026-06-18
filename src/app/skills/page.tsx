@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import SkillsClient from "./skills-client";
+
+export const metadata: Metadata = {
+  title: "Skills",
+  description: "Technical skills and technologies used by Aakash Yadav — React, Next.js, TypeScript, Supabase, AI/ML, and more.",
+  openGraph: {
+    title: "Skills & Technologies — Aakash Yadav",
+    description: "React, Next.js, TypeScript, Supabase, AI/ML, and more.",
+  },
+};
 
 const FALLBACK_SKILLS = [
   { category: "FRONTEND", num: "01", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "HTML / CSS"] },

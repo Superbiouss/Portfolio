@@ -40,7 +40,7 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
             <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground">{badges.length} EARNED</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-px bg-border">
             {badges.map((badge, i) => (
               <motion.div
                 key={badge.id}
@@ -99,7 +99,7 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
         </div>
 
         {certs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
             {certs.map((cert, i) => (
               <motion.div key={cert.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }}>
                 <Card className="relative min-h-[200px]">

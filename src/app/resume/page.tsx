@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Resume",
+  description: "Interactive resume of Aakash Yadav — work experience, education, leadership, and technical skills.",
+  openGraph: {
+    title: "Resume — Aakash Yadav",
+    description: "Work experience, education, leadership, and technical skills.",
+  },
+};
 
 interface Experience { id: string; title: string; organization: string; description: string; start_date: string | null; end_date: string | null; is_current: boolean; type: string }
 

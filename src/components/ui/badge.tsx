@@ -13,7 +13,7 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
         variant === "default" && "border-border text-foreground group-hover:border-accent-foreground group-hover:text-accent-foreground",
         variant === "accent" && "border-accent text-accent bg-accent/10",
         variant === "muted" && "border-border text-muted-foreground",
-        variant === "outline" && "border border-border text-foreground bg-transparent",
+        variant === "outline" && "border-2 border-border text-foreground bg-transparent",
         className
       )}
       {...props}

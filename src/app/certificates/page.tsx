@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import CertificatesClient from "./certificates-client";
+
+export const metadata: Metadata = {
+  title: "Certificates & Badges",
+  description: "Professional certifications and digital badges earned by Aakash Yadav — AWS, Meta, Google, IBM, and HackTheBox Academy.",
+  openGraph: {
+    title: "Certificates & Badges — Aakash Yadav",
+    description: "Professional certifications from AWS, Meta, Google, IBM, and more.",
+  },
+};
 
 const FALLBACK_CERTS = [
   { id: "1", title: "AWS CLOUD PRACTITIONER", issuer: "AMAZON WEB SERVICES", date: "2024", category: "CLOUD", credentialId: "AWS-CP-2024-XXXXX", verifyUrl: "#", num: "01" },

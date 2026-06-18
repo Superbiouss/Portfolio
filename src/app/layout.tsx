@@ -14,20 +14,28 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "PORTFOLIO — DEVELOPER & ENGINEER",
+  title: {
+    default: "Aakash Yadav — Full-Stack Developer & Engineer",
+    template: "%s | Aakash Yadav",
+  },
   description:
-    "A production-grade developer portfolio showcasing projects, skills, certifications, and engineering case studies.",
+    "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures. View projects, skills, and engineering case studies.",
+  metadataBase: new URL("https://aakashyadav.com"),
   openGraph: {
-    title: "PORTFOLIO — DEVELOPER & ENGINEER",
+    title: "Aakash Yadav — Full-Stack Developer & Engineer",
     description:
-      "A production-grade developer portfolio showcasing projects, skills, certifications, and engineering case studies.",
+      "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures.",
     type: "website",
+    url: "https://aakashyadav.com",
+    siteName: "Aakash Yadav Portfolio",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Aakash Yadav — Full-Stack Developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PORTFOLIO — DEVELOPER & ENGINEER",
+    title: "Aakash Yadav — Full-Stack Developer & Engineer",
     description:
-      "A production-grade developer portfolio showcasing projects, skills, certifications, and engineering case studies.",
+      "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures.",
+    images: ["/og-image.png"],
   },
 };
 
