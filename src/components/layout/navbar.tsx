@@ -24,7 +24,7 @@ export function Navbar() {
           href="/"
           className="text-base md:text-lg font-bold uppercase tracking-tighter text-foreground hover:text-accent transition-colors relative group"
         >
-          PORTFOLIO
+          AAKASH YADAV
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
         </Link>
 

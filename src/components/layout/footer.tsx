@@ -32,11 +32,10 @@ export function Footer() {
               href="/"
               className="text-[clamp(2rem,6vw,5rem)] font-bold uppercase tracking-tighter leading-none block mb-4"
             >
-              PORTFOLIO
+              AAKASH YADAV
             </Link>
             <p className="text-lg text-accent-foreground/60 max-w-md">
-              A production-grade developer portfolio showcasing projects, skills,
-              and engineering case studies.
+              Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures.
             </p>
           </div>
 
@@ -63,7 +62,7 @@ export function Footer() {
         </div>
 
         <div className="border-t-2 border-accent-foreground/20 mt-12 pt-8 text-sm text-accent-foreground/40 uppercase tracking-widest">
-          © {new Date().getFullYear()} PORTFOLIO. ALL RIGHTS RESERVED.
+          © {new Date().getFullYear()} AAKASH YADAV. ALL RIGHTS RESERVED.
         </div>
       </div>
     </footer>

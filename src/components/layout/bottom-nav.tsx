@@ -30,7 +30,7 @@ export function BottomNav() {
           href="/"
           className="text-sm font-extrabold uppercase tracking-tighter text-foreground hover:text-accent transition-colors duration-200"
         >
-          PORTFOLIO
+          AAKASH YADAV
         </Link>
       </div>
 
