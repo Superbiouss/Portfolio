@@ -7,6 +7,7 @@ import { BottomNav } from "@/components/layout/bottom-nav";
 import { Footer } from "@/components/layout/footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 import { CommandMenu } from "@/components/ui/command-menu";
+import { Analytics } from "@vercel/analytics/react";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <Footer />
         <BottomNav />
         <CommandMenu />
+        <Analytics />
       </body>
     </html>
   );
