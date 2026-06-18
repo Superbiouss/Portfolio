@@ -24,31 +24,47 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
   return (
     <>
       {/* HERO */}
-      <section ref={heroRef} className="relative overflow-hidden py-20 md:py-32">
-        <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-[95vw] mx-auto">
+      <section ref={heroRef} className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center py-20 md:py-32">
+        {/* Subtle Ambient Background Gradients */}
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-accent/10 rounded-full blur-[100px] -z-10 pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[40rem] h-[40rem] bg-indigo-500/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
+
+        <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-[95vw] mx-auto w-full relative z-10">
           <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" as const }}
-            className="text-[clamp(3rem,12vw,14rem)] font-bold uppercase leading-[0.85] tracking-tighter"
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[clamp(3rem,10vw,11rem)] font-extrabold uppercase leading-[0.85] tracking-tight"
           >
-            CRAFTING<br /><span className="text-accent">DIGITAL</span><br />EXPERIENCES
+            <span className="block text-foreground/90 hover:text-foreground transition-colors duration-500">CRAFTING</span>
+            <span className="block text-accent relative inline-block group">
+              <span className="absolute -inset-4 bg-accent/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full pointer-events-none"></span>
+              DIGITAL
+            </span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-foreground/80 to-foreground/30">EXPERIENCES</span>
           </motion.h1>
+          
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" as const }}
-            className="mt-8 md:mt-12 max-w-2xl"
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 md:mt-16 max-w-3xl"
           >
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-tight">
+            <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-light">
               {bio || "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures."}
             </p>
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Button variant="primary" size="lg" asChild>
-                <Link href="/projects">VIEW PROJECTS <ArrowRight className="ml-3 w-5 h-5" /></Link>
+            <div className="flex flex-wrap gap-6 mt-10">
+              <Button variant="primary" size="lg" className="h-14 px-8 text-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(223,225,4,0.15)] hover:shadow-[0_0_30px_rgba(223,225,4,0.3)] border border-accent/20" asChild>
+                <Link href="/projects" className="group flex items-center">
+                  VIEW PROJECTS 
+                  <ArrowRight className="ml-3 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/resume"><Download className="mr-3 w-5 h-5" /> RESUME</Link>
+              <Button variant="outline" size="lg" className="h-14 px-8 text-lg hover:bg-muted/30 backdrop-blur-sm transition-all duration-300 border-border/50 hover:border-border" asChild>
+                <Link href="/resume" className="group flex items-center">
+                  <Download className="mr-3 w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" /> 
+                  RESUME
+                </Link>
               </Button>
             </div>
           </motion.div>
