@@ -129,3 +129,16 @@ export async function deleteProject(id: string) {
   revalidatePath("/projects");
   revalidatePath("/");
 }
+
+export async function updateProjectOrder(ids: string[]) {
+  const supabase = await createClient();
+  await verifyAuth(supabase);
+
+  for (let i = 0; i < ids.length; i++) {
+    await supabase.from("projects").update({ sort_order: i }).eq("id", ids[i]);
+  }
+
+  revalidatePath("/admin/projects");
+  revalidatePath("/projects");
+  revalidatePath("/");
+}

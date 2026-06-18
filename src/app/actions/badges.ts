@@ -69,3 +69,15 @@ export async function deleteBadge(id: string) {
   revalidatePath("/admin/badges");
   revalidatePath("/certificates");
 }
+
+export async function updateBadgeOrder(ids: string[]) {
+  const supabase = await createClient();
+  await verifyAuth(supabase);
+
+  for (let i = 0; i < ids.length; i++) {
+    await supabase.from("badges").update({ sort_order: i }).eq("id", ids[i]);
+  }
+
+  revalidatePath("/admin/badges");
+  revalidatePath("/certificates");
+}

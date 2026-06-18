@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteProject } from "@/app/actions/projects";
 import { ViewToggle } from "@/components/admin/view-toggle";
+import { SortableProjects } from "@/components/admin/sortable-projects";
 
 const FALLBACK_PROJECTS = [
   { id: "1", title: "LawLens AI", slug: "lawlens-ai", featured: true, status: "published" },
@@ -48,26 +49,7 @@ export default async function AdminProjectsPage(props: { searchParams: Promise<{
           </Button>
         </div>
       ) : (
-        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
-          {projects.map((p) => (
-            <div key={p.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
-              <div>
-                <h3 className="text-lg font-bold uppercase tracking-tighter">{p.title}</h3>
-                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{p.slug}</span>
-              </div>
-              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
-                {p.status === "draft" && <Badge variant="outline" className="border-muted-foreground text-muted-foreground">DRAFT</Badge>}
-                {p.featured && <Badge variant="accent">FEATURED</Badge>}
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href={`/admin/projects/${p.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
-                </Button>
-                <form action={async () => { "use server"; await deleteProject(p.id); }}>
-                  <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
-                </form>
-              </div>
-            </div>
-          ))}
-        </div>
+        <SortableProjects initialProjects={projects} isGrid={isGrid} />
       )}
     </div>
   );

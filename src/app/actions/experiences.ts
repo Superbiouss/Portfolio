@@ -72,3 +72,16 @@ export async function deleteExperience(id: string) {
   revalidatePath("/resume");
   revalidatePath("/about");
 }
+
+export async function updateExperienceOrder(ids: string[]) {
+  const supabase = await createClient();
+  await verifyAuth(supabase);
+
+  for (let i = 0; i < ids.length; i++) {
+    await supabase.from("experiences").update({ sort_order: i }).eq("id", ids[i]);
+  }
+
+  revalidatePath("/admin/experiences");
+  revalidatePath("/resume");
+  revalidatePath("/about");
+}

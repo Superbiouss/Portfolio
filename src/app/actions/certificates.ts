@@ -78,3 +78,16 @@ export async function deleteCertificate(id: string) {
   revalidatePath("/certificates");
   revalidatePath("/");
 }
+
+export async function updateCertificateOrder(ids: string[]) {
+  const supabase = await createClient();
+  await verifyAuth(supabase);
+
+  for (let i = 0; i < ids.length; i++) {
+    await supabase.from("certificates").update({ sort_order: i }).eq("id", ids[i]);
+  }
+
+  revalidatePath("/admin/certificates");
+  revalidatePath("/certificates");
+  revalidatePath("/");
+}

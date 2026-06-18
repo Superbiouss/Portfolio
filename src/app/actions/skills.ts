@@ -64,3 +64,16 @@ export async function deleteSkill(id: string) {
   revalidatePath("/skills");
   revalidatePath("/");
 }
+
+export async function updateSkillOrder(ids: string[]) {
+  const supabase = await createClient();
+  await verifyAuth(supabase);
+
+  for (let i = 0; i < ids.length; i++) {
+    await supabase.from("skills").update({ sort_order: i }).eq("id", ids[i]);
+  }
+
+  revalidatePath("/admin/skills");
+  revalidatePath("/skills");
+  revalidatePath("/");
+}

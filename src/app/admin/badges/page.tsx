@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteBadge } from "@/app/actions/badges";
 import { ViewToggle } from "@/components/admin/view-toggle";
+import { SortableBadges } from "@/components/admin/sortable-badges";
+
 const FALLBACK_BADGES = [
   { id: "1", title: "Academician", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/academician.png" },
   { id: "2", title: "Humanoid", issuer: "Hack The Box Academy", image_url: "https://academy.hackthebox.com/storage/badges/a6fe6c6e23b919c7a41fa3ec144d3a82/logo.png" },
@@ -40,32 +42,7 @@ export default async function AdminBadgesPage(props: { searchParams: Promise<{ v
           <Button variant="primary" asChild><Link href="/admin/badges/new">ADD YOUR FIRST BADGE</Link></Button>
         </div>
       ) : (
-        <div className={isGrid ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-0"}>
-          {badges.map((b) => (
-            <div key={b.id} className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"}`}>
-              <div className={`flex gap-4 ${isGrid ? "flex-col items-start" : "items-center"}`}>
-                {b.image_url && (
-                  <div className="w-12 h-12 border-2 border-border overflow-hidden flex-shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={b.image_url} alt={b.title} className="w-full h-full object-contain" />
-                  </div>
-                )}
-                <div>
-                  <h3 className="text-lg font-bold uppercase tracking-tighter">{b.title}</h3>
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{b.issuer}</span>
-                </div>
-              </div>
-              <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href={`/admin/badges/${b.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>
-                </Button>
-                <form action={async () => { "use server"; await deleteBadge(b.id); }}>
-                  <Button variant="ghost" size="icon" type="submit"><Trash2 className="w-4 h-4 text-muted-foreground hover:text-accent" /></Button>
-                </form>
-              </div>
-            </div>
-          ))}
-        </div>
+        <SortableBadges initialBadges={badges} isGrid={isGrid} />
       )}
     </div>
   );
