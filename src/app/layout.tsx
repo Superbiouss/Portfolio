@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Navbar } from "@/components/layout/navbar";
+import { TopBar } from "@/components/layout/top-bar";
+import { BottomNav } from "@/components/layout/bottom-nav";
 import { Footer } from "@/components/layout/footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 import { CommandMenu } from "@/components/ui/command-menu";
@@ -48,9 +49,11 @@ export default function RootLayout({
     <html lang="en" className={cn(spaceGrotesk.variable, "h-full")}>
       <body className="antialiased min-h-full flex flex-col font-sans bg-background text-foreground">
         <NoiseTexture />
-        <Navbar />
-        <main className="flex-1">{children}</main>
+        <TopBar />
+        {/* pt-10 = TopBar (h-10), pb-16 = BottomNav (h-16) */}
+        <main className="flex-1 pt-10 pb-16">{children}</main>
         <Footer />
+        <BottomNav />
         <CommandMenu />
       </body>
     </html>
