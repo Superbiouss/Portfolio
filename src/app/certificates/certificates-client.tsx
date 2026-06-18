@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -55,16 +56,15 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
                   className="group block bg-background border-2 border-border p-4 md:p-6 text-center hover:bg-accent hover:border-accent transition-colors duration-300 h-full"
                 >
                   {/* Badge Image */}
-                  <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 flex items-center justify-center">
+                  <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 flex items-center justify-center">
                     {badge.imageUrl ? (
-                      <>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                      <Image
                         src={badge.imageUrl}
                         alt={badge.title}
-                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(223,225,4,0.3)] group-hover:drop-shadow-none transition-all duration-300"
+                        fill
+                        className="object-contain drop-shadow-[0_0_8px_rgba(223,225,4,0.3)] group-hover:drop-shadow-none transition-all duration-300"
+                        sizes="(max-width: 768px) 80px, 96px"
                       />
-                      </>
                     ) : (
                       <div className="w-full h-full border-2 border-border group-hover:border-accent-foreground flex items-center justify-center transition-colors duration-300">
                         <span className="text-2xl font-bold text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300">🏅</span>

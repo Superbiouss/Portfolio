@@ -3,11 +3,17 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
+async function verifyAuth(supabase: any) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized access");
+  return user;
+}
+
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  const user = await verifyAuth(supabase);
 
+  // Profile data is typically trusted from the admin panel, but we enforce auth strictly now.
   await supabase.from("profiles").upsert({
     id: user.id,
     full_name: formData.get("full_name") as string,
