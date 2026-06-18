@@ -1,7 +1,6 @@
 import { getSiteSettings, updateSiteSettings } from "@/app/actions/settings";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Input, Textarea } from "@/components/ui/input";
 
 export default async function AdminSeoPage() {
   const settings = await getSiteSettings();
