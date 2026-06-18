@@ -46,6 +46,11 @@ export default async function AdminProfilePage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">LINKEDIN URL</label>
             <Input name="linkedin_url" defaultValue={profile?.linkedin_url || ""} placeholder="HTTPS://LINKEDIN.COM/IN/..." className="text-lg" />
           </div>
+          <div>
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">RESUME URL</label>
+            <Input name="resume_url" defaultValue={profile?.resume_url || ""} placeholder="HTTPS://... OR /RESUME.PDF" className="text-lg" />
+            <p className="text-xs text-muted-foreground mt-2 uppercase tracking-widest font-bold">Link to your Google Drive PDF or place a &quot;resume.pdf&quot; in your public folder and enter &quot;/resume.pdf&quot;.</p>
+          </div>
           <SubmitButton variant="primary" size="lg">SAVE PROFILE</SubmitButton>
         </form>
       </div>

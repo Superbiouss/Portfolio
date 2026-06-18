@@ -23,6 +23,7 @@ export async function updateProfile(formData: FormData) {
     email: formData.get("email") as string,
     github_url: formData.get("github_url") as string,
     linkedin_url: formData.get("linkedin_url") as string,
+    resume_url: formData.get("resume_url") as string,
   });
 
   revalidatePath("/admin/profile");
