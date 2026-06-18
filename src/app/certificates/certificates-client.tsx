@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
@@ -40,51 +40,53 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
             <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground">{badges.length} EARNED</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {badges.map((badge, i) => (
               <motion.div
                 key={badge.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.3, ease: "easeOut" as const }}
+                transition={{ delay: i * 0.1, duration: 0.4, ease: "easeOut" as const }}
+                className="group"
               >
-                <a
-                  href={badge.badgeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block bg-background border-2 border-border p-4 md:p-6 text-center hover:bg-accent hover:border-accent transition-colors duration-300 h-full"
-                >
-                  {/* Badge Image */}
-                  <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 flex items-center justify-center">
-                    {badge.imageUrl ? (
-                      <Image
-                        src={badge.imageUrl}
-                        alt={badge.title}
-                        fill
-                        className="object-contain transition-all duration-300"
-                        sizes="(max-width: 768px) 80px, 96px"
-                      />
-                    ) : (
-                      <div className="w-full h-full border-2 border-border group-hover:border-accent-foreground flex items-center justify-center transition-colors duration-300">
-                        <span className="text-2xl font-bold text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300">🏅</span>
+                <Card className="h-full flex flex-col relative bg-background border-2 border-border rounded-none hover:border-accent transition-colors duration-300">
+                  <span className="absolute top-4 right-4 text-[6rem] md:text-[8rem] font-bold leading-none text-muted/20 select-none group-hover:text-accent-foreground/5 transition-colors duration-300" aria-hidden="true">{(i + 1).toString().padStart(2, "0")}</span>
+                  
+                  <CardContent className="flex-1 relative z-10 pt-6">
+                    <div className="relative w-16 h-16 mb-6">
+                      {badge.imageUrl ? (
+                        <Image
+                          src={badge.imageUrl}
+                          alt={badge.title}
+                          fill
+                          className="object-contain transition-all duration-300"
+                          sizes="64px"
+                        />
+                      ) : (
+                        <div className="w-full h-full border-2 border-border flex items-center justify-center">
+                          <span className="text-xl font-bold text-muted-foreground">🏅</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <Badge variant="outline" className="mb-4 border-border/50 text-muted-foreground">{badge.issuer}</Badge>
+                    <CardTitle className="mb-3">{badge.title}</CardTitle>
+                    <CardDescription className="mb-6">{badge.description}</CardDescription>
+                    
+                    {badge.date && (
+                      <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                        EARNED: {badge.date}
                       </div>
                     )}
-                  </div>
-
-                  {/* Badge Info */}
-                  <h3 className="text-sm md:text-base font-bold uppercase tracking-tighter text-foreground group-hover:text-accent-foreground transition-colors duration-300 mb-1">
-                    {badge.title}
-                  </h3>
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground/60 transition-colors duration-300">
-                    {badge.issuer}
-                  </p>
-                  {badge.date && (
-                    <p className="text-xs text-muted-foreground group-hover:text-accent-foreground/40 mt-1 transition-colors duration-300">
-                      {badge.date}
-                    </p>
-                  )}
-                </a>
+                  </CardContent>
+                  
+                  <CardFooter className="relative z-10 mt-auto">
+                    <a href={badge.badgeUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">
+                      VIEW CREDENTIAL <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </CardFooter>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -99,7 +101,7 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
         </div>
 
         {certs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {certs.map((cert, i) => (
               <motion.div key={cert.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }}>
                 <Card className="relative min-h-[200px]">

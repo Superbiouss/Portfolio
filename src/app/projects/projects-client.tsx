@@ -54,7 +54,7 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
               transition: { staggerChildren: 0.1 },
             },
           }}
-          className="bg-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {filtered.map((project) => (
             <motion.div
@@ -65,7 +65,7 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
               }}
               className="group"
             >
-              <Card className="h-full flex flex-col relative">
+              <Card className="h-full flex flex-col relative border-2 border-border bg-background transition-all duration-500 hover:border-accent cursor-pointer">
                 <span className="absolute top-4 right-4 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
                 <CardContent className="flex-1 relative z-10">
                   <Badge variant="outline" className="mb-4 border-border/50 text-muted-foreground">{project.category}</Badge>

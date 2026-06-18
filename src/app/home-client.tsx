@@ -99,10 +99,10 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
           </div>
 
           {featuredProjects.length > 0 ? (
-            <div className="bg-border grid grid-cols-1 md:grid-cols-3 gap-px">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {featuredProjects.map((project, i) => (
                 <motion.div key={project.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.4, ease: "easeOut" as const }}>
-                  <Card className="h-full flex flex-col relative">
+                  <Card className="h-full flex flex-col relative hover:border-accent transition-colors duration-300">
                     <span className="absolute top-4 right-4 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
                     <CardContent className="flex-1 relative z-10">
                       <CardTitle className="mb-3">{project.title}</CardTitle>
