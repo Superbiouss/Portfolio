@@ -71,8 +71,10 @@ export default function RootLayout({
           toastOptions={{
             className: "bg-background border-2 border-border text-foreground font-bold uppercase tracking-tighter shadow-none rounded-none",
             descriptionClassName: "text-muted-foreground font-medium normal-case tracking-normal text-xs",
-            actionButtonClassName: "bg-accent text-background font-bold uppercase border-none rounded-none hover:bg-accent/90",
-            cancelButtonClassName: "bg-muted text-muted-foreground font-bold uppercase border-none rounded-none hover:bg-muted/80",
+            classNames: {
+              actionButton: "bg-accent text-background font-bold uppercase border-none rounded-none hover:bg-accent/90",
+              cancelButton: "bg-muted text-muted-foreground font-bold uppercase border-none rounded-none hover:bg-muted/80",
+            }
           }}
         />
       </body>
