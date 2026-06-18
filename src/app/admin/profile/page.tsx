@@ -47,9 +47,18 @@ export default async function AdminProfilePage() {
             <Input name="linkedin_url" defaultValue={profile?.linkedin_url || ""} placeholder="HTTPS://LINKEDIN.COM/IN/..." className="text-lg" />
           </div>
           <div>
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">RESUME URL</label>
-            <Input name="resume_url" defaultValue={profile?.resume_url || ""} placeholder="HTTPS://... OR /RESUME.PDF" className="text-lg" />
-            <p className="text-xs text-muted-foreground mt-2 uppercase tracking-widest font-bold">Link to your Google Drive PDF or place a &quot;resume.pdf&quot; in your public folder and enter &quot;/resume.pdf&quot;.</p>
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">RESUME</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs text-muted-foreground block mb-2">UPLOAD PDF</label>
+                <Input type="file" name="resume_file" accept=".pdf" className="text-sm cursor-pointer file:mr-4 file:py-1 file:px-4 file:border-0 file:bg-accent file:text-accent-foreground file:font-bold file:uppercase file:cursor-pointer" />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground block mb-2">OR ENTER URL</label>
+                <Input name="resume_url" defaultValue={profile?.resume_url || ""} placeholder="HTTPS://... OR /RESUME.PDF" className="text-lg" />
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-4 uppercase tracking-widest font-bold">Uploading a new PDF will automatically update the URL.</p>
           </div>
           <SubmitButton variant="primary" size="lg">SAVE PROFILE</SubmitButton>
         </form>
