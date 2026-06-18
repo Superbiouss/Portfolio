@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import {
   DndContext,
@@ -70,9 +71,8 @@ function SortableBadgeItem({ badge, isGrid, onDelete }: SortableBadgeItemProps) 
           <GripVertical className="w-5 h-5" />
         </button>
         {badge.image_url && (
-          <div className="w-12 h-12 border-2 border-border overflow-hidden flex-shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={badge.image_url} alt={badge.title} className="w-full h-full object-contain" />
+          <div className="w-16 h-16 relative bg-muted/20 border-2 border-border p-1 shrink-0 flex items-center justify-center">
+            <Image src={badge.image_url} alt={badge.title} fill className="object-contain p-1" unoptimized />
           </div>
         )}
         <div>

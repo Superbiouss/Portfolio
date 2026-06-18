@@ -1,5 +1,7 @@
 "use client";
 
+import { DeleteDialog } from "@/components/ui/delete-dialog";
+import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash2, Copy, Check, FileIcon } from "lucide-react";
@@ -28,13 +30,11 @@ export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {
   };
 
   const handleDelete = async (name: string) => {
-    if (confirm("Are you sure you want to delete this file? This will break any links using it!")) {
-      const result = await deleteMedia(`uploads/${name}`);
-      if (result.error) {
-        toast.error("Failed to delete file", { description: result.error });
-      } else {
-        toast.success("File deleted successfully");
-      }
+    const result = await deleteMedia(`uploads/${name}`);
+    if (result.error) {
+      toast.error("Failed to delete file", { description: result.error });
+    } else {
+      toast.success("File deleted successfully");
     }
   };
 
@@ -55,8 +55,7 @@ export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {
           <div key={file.name} className="border-2 border-border flex flex-col hover:border-accent transition-colors group bg-background">
             <div className="aspect-square relative border-b-2 border-border overflow-hidden bg-muted/20 p-4 flex items-center justify-center">
               {isImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={file.url} alt={file.name} className="max-w-full max-h-full object-contain" />
+                <Image src={file.url} alt={file.name} fill className="object-contain p-4" unoptimized />
               ) : (
                 <FileIcon className="w-16 h-16 text-muted-foreground" />
               )}
@@ -65,9 +64,16 @@ export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {
                 <Button variant="outline" size="icon" onClick={() => copyToClipboard(file.url)} title="Copy URL">
                   {copiedUrl === file.url ? <Check className="w-4 h-4 text-accent" /> : <Copy className="w-4 h-4" />}
                 </Button>
-                <Button variant="outline" size="icon" onClick={() => handleDelete(file.name)} title="Delete">
-                  <Trash2 className="w-4 h-4 text-red-500 hover:text-red-600" />
-                </Button>
+                <DeleteDialog 
+                  onConfirm={() => handleDelete(file.name)} 
+                  title="DELETE MEDIA FILE"
+                  description="This will permanently delete this file from Supabase Storage. Any live links using this URL will break!"
+                  trigger={
+                    <Button variant="outline" size="icon" title="Delete">
+                      <Trash2 className="w-4 h-4 text-red-500 hover:text-red-600" />
+                    </Button>
+                  }
+                />
               </div>
             </div>
             <div className="p-3">
