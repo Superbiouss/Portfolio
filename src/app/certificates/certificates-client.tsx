@@ -62,7 +62,7 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
                         src={badge.imageUrl}
                         alt={badge.title}
                         fill
-                        className="object-contain drop-shadow-[0_0_8px_rgba(223,225,4,0.3)] group-hover:drop-shadow-none transition-all duration-300"
+                        className="object-contain transition-all duration-300"
                         sizes="(max-width: 768px) 80px, 96px"
                       />
                     ) : (

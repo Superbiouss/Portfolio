@@ -64,10 +64,10 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
     <div className="min-h-screen">
       {/* Immersive Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden border-b border-border/30 bg-muted/10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
+
         
         <div className="max-w-[95vw] mx-auto relative z-10">
-          <Button variant="ghost" size="sm" asChild className="mb-12 hover:bg-background/50 backdrop-blur-sm rounded-full">
+          <Button variant="ghost" size="sm" asChild className="mb-12">
             <Link href="/projects"><ArrowLeft className="mr-2 w-4 h-4" /> BACK TO PROJECTS</Link>
           </Button>
 
@@ -83,7 +83,7 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
 
           <div className="flex flex-wrap gap-3 mb-16">
             {project.tech_stack?.map((t: string) => (
-              <Badge key={t} variant="outline" className="bg-background/50 backdrop-blur-md border-border/50 text-sm px-4 py-1.5 rounded-full text-foreground/80">{t}</Badge>
+              <Badge key={t} variant="outline" className="bg-background border-2 border-border text-sm px-4 py-1.5 text-foreground/80">{t}</Badge>
             ))}
           </div>
         </div>
@@ -94,7 +94,7 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
         
         {/* Left Side: Sticky Metadata */}
         <aside className="lg:col-span-4 space-y-8">
-          <div className="sticky top-32 p-8 rounded-2xl bg-muted/20 border border-border/50 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+          <div className="sticky top-32 p-8 bg-background border-2 border-border">
             <div className="space-y-8">
               {[
                 { label: "STATUS", value: project.status?.toUpperCase() || "COMPLETED" },
@@ -111,7 +111,7 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-4">PROJECT LINKS</span>
                 <div className="flex flex-col gap-3">
                   {project.github_url ? (
-                    <Button variant="outline" className="w-full justify-start rounded-xl group border-border/50 hover:border-accent/50 hover:bg-accent/10" asChild>
+                    <Button variant="outline" className="w-full justify-start group border-2 border-border hover:border-accent hover:bg-accent/10" asChild>
                       <a href={project.github_url} target="_blank" rel="noopener noreferrer">
                         <Code2 className="mr-3 w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" /> 
                         VIEW REPOSITORY
@@ -119,7 +119,7 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
                     </Button>
                   ) : null}
                   {project.live_url ? (
-                    <Button variant="primary" className="w-full justify-start rounded-xl group shadow-[0_0_15px_rgba(223,225,4,0.1)] hover:shadow-[0_0_20px_rgba(223,225,4,0.2)]" asChild>
+                    <Button variant="primary" className="w-full justify-start group" asChild>
                       <a href={project.live_url} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-3 w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" /> 
                         LIVE PREVIEW

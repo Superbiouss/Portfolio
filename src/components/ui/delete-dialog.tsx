@@ -41,8 +41,8 @@ export function DeleteDialog({
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-background border-2 border-border p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95">
+          <div className="w-full max-w-md bg-background border-2 border-border p-6">
             <div className="flex gap-4 items-start mb-6">
               <AlertCircle className="w-6 h-6 text-red-500 shrink-0 mt-1" />
               <div>

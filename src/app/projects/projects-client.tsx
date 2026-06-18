@@ -65,7 +65,7 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
               }}
               className="group"
             >
-              <Card className="h-full flex flex-col relative min-h-[300px] border-none bg-background transition-all duration-500 hover:z-10 hover:shadow-[0_0_40px_rgba(223,225,4,0.1)] hover:scale-[1.02] cursor-pointer">
+              <Card className="h-full flex flex-col relative min-h-[300px] border-none bg-background transition-all duration-500 hover:z-10 cursor-pointer">
                 <span className="absolute top-4 right-4 text-[8rem] font-bold leading-none text-muted/20 select-none transition-all duration-500 group-hover:text-accent/10 group-hover:-translate-y-4 group-hover:scale-110" aria-hidden="true">{project.num}</span>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 <CardContent className="flex-1 relative z-10 pt-8 px-8">
@@ -73,7 +73,7 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
                   <CardTitle className="mb-4 text-2xl group-hover:text-accent transition-colors">{project.title}</CardTitle>
                   <CardDescription className="text-base leading-relaxed group-hover:text-foreground/80 transition-colors">{project.description}</CardDescription>
                   <div className="flex flex-wrap gap-2 mt-6">
-                    {project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background/50 backdrop-blur-sm group-hover:border-accent/30">{t}</Badge>))}
+                    {project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background group-hover:border-accent/30">{t}</Badge>))}
                   </div>
                 </CardContent>
                 <CardFooter className="relative z-10 pb-8 px-8 mt-auto">

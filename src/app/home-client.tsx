@@ -26,8 +26,7 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
       {/* HERO */}
       <section ref={heroRef} className="relative overflow-hidden min-h-[calc(90vh-104px)] flex flex-col justify-center pt-16 pb-24 md:pt-24 md:pb-32">
         {/* Subtle Ambient Background Gradients */}
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-accent/10 rounded-full blur-[100px] -z-10 pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[40rem] h-[40rem] bg-indigo-500/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
+
 
         <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-[95vw] mx-auto w-full relative z-10">
           <motion.h1
@@ -38,7 +37,7 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
           >
             <span className="block text-foreground/90 hover:text-foreground transition-colors duration-500">CRAFTING</span>
             <span className="block text-accent relative inline-block group">
-              <span className="absolute -inset-4 bg-accent/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full pointer-events-none"></span>
+
               DIGITAL
             </span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-foreground/80 to-foreground/30">EXPERIENCES</span>

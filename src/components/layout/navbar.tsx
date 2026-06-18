@@ -17,7 +17,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/50 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+    <header className="sticky top-0 z-50 bg-background border-b-2 border-border">
       <nav className="max-w-[95vw] mx-auto flex items-center justify-between h-16">
         {/* Wordmark */}
         <Link
@@ -34,7 +34,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium uppercase tracking-tight text-muted-foreground px-4 py-2 hover:text-foreground hover:bg-muted/30 rounded-full transition-all"
+              className="text-sm font-medium uppercase tracking-tight text-muted-foreground px-4 py-2 hover:text-foreground hover:bg-muted/30 transition-all"
             >
               {link.label}
             </Link>
@@ -52,12 +52,12 @@ export function Navbar() {
               });
               document.dispatchEvent(event);
             }}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground bg-muted/30 hover:bg-muted/50 hover:text-foreground rounded-full border border-border/50 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground bg-muted/30 hover:bg-muted/50 hover:text-foreground border-2 border-border transition-colors"
           >
             <Search className="w-4 h-4" />
             <span className="font-mono text-xs">⌘K</span>
           </button>
-          <Button variant="primary" size="sm" className="rounded-full px-6 hover:scale-105 transition-transform shadow-[0_0_10px_rgba(223,225,4,0.1)] hover:shadow-[0_0_15px_rgba(223,225,4,0.3)]" asChild>
+          <Button variant="primary" size="sm" className="px-6 transition-transform" asChild>
             <Link href="/contact">HIRE ME</Link>
           </Button>
         </div>

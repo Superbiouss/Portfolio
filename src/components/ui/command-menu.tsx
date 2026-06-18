@@ -35,14 +35,14 @@ export function CommandMenu() {
           open={open}
           onOpenChange={setOpen}
           label="Global Command Menu"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/95"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="w-full max-w-2xl bg-muted/50 backdrop-blur-xl border border-border/50 rounded-xl shadow-2xl overflow-hidden"
+            className="w-full max-w-2xl bg-background border-2 border-border overflow-hidden"
           >
             <div className="flex items-center border-b border-border/50 px-4">
               <Search className="w-5 h-5 text-muted-foreground mr-2" />
@@ -60,42 +60,42 @@ export function CommandMenu() {
               <Command.Group heading="Navigation" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/70 mb-2 px-2 py-2">
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Home className="w-5 h-5" />
                   <span className="font-medium">Home</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/projects"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Briefcase className="w-5 h-5" />
                   <span className="font-medium">Projects</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/skills"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Code className="w-5 h-5" />
                   <span className="font-medium">Skills</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/certificates"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Award className="w-5 h-5" />
                   <span className="font-medium">Certificates</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/resume"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <FileText className="w-5 h-5" />
                   <span className="font-medium">Resume</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push("/contact"))}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
+                  className="flex items-center gap-3 px-3 py-3 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
                   <span className="font-medium">Contact</span>

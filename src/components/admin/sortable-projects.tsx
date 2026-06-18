@@ -60,7 +60,7 @@ function SortableProjectItem({ project, isGrid, onDelete }: SortableProjectItemP
     <div
       ref={setNodeRef}
       style={style}
-      className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 bg-background ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"} ${isDragging ? "border-accent shadow-2xl scale-105" : ""}`}
+      className={`border-2 border-border p-4 md:p-6 flex hover:border-accent transition-colors duration-300 bg-background ${isGrid ? "flex-col justify-between h-full gap-6" : "items-center justify-between border-t-0 first:border-t-2"} ${isDragging ? "border-accent bg-accent/10" : ""}`}
     >
       <div className={`flex items-center gap-4 ${isGrid ? "flex-col items-start" : ""}`}>
         <button
