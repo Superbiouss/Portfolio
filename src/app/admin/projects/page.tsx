@@ -7,12 +7,12 @@ import { deleteProject } from "@/app/actions/projects";
 import { ViewToggle } from "@/components/admin/view-toggle";
 
 const FALLBACK_PROJECTS = [
-  { id: "1", title: "LawLens AI", slug: "lawlens-ai", featured: true },
-  { id: "2", title: "ArcStone Studios", slug: "arcstone-studios", featured: true },
-  { id: "3", title: "Oxford School Portal", slug: "oxford-school-portal", featured: true },
-  { id: "4", title: "TaskFlow", slug: "taskflow", featured: false },
-  { id: "5", title: "DevLog", slug: "devlog", featured: false },
-  { id: "6", title: "FitTrack Mobile", slug: "fittrack-mobile", featured: false },
+  { id: "1", title: "LawLens AI", slug: "lawlens-ai", featured: true, status: "published" },
+  { id: "2", title: "ArcStone Studios", slug: "arcstone-studios", featured: true, status: "published" },
+  { id: "3", title: "Oxford School Portal", slug: "oxford-school-portal", featured: true, status: "published" },
+  { id: "4", title: "TaskFlow", slug: "taskflow", featured: false, status: "draft" },
+  { id: "5", title: "DevLog", slug: "devlog", featured: false, status: "published" },
+  { id: "6", title: "FitTrack Mobile", slug: "fittrack-mobile", featured: false, status: "published" },
 ];
 
 export default async function AdminProjectsPage(props: { searchParams: Promise<{ view?: string }> }) {
@@ -56,6 +56,7 @@ export default async function AdminProjectsPage(props: { searchParams: Promise<{
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{p.slug}</span>
               </div>
               <div className={`flex items-center gap-3 ${isGrid ? "justify-end w-full" : ""}`}>
+                {p.status === "draft" && <Badge variant="outline" className="border-muted-foreground text-muted-foreground">DRAFT</Badge>}
                 {p.featured && <Badge variant="accent">FEATURED</Badge>}
                 <Button variant="ghost" size="icon" asChild>
                   <Link href={`/admin/projects/${p.id}/edit`}><Pencil className="w-4 h-4 text-muted-foreground hover:text-accent" /></Link>

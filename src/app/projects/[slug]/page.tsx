@@ -49,7 +49,7 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
 
   try {
     const supabase = await createClient();
-    const { data } = await supabase.from("projects").select("*").eq("slug", slug).single();
+    const { data } = await supabase.from("projects").select("*").eq("slug", slug).eq("status", "published").single();
     if (data) project = data;
   } catch {
     // Supabase not configured — use fallback

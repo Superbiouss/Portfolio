@@ -35,9 +35,18 @@ export default async function NewProjectPage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">DESCRIPTION</label>
             <Input name="description" placeholder="BRIEF DESCRIPTION" className="text-lg" />
           </div>
-          <div>
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK / TAGS</label>
-            <TagsSelector availableSkills={availableSkills} initialSelected={[]} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">STATUS</label>
+              <select name="status" defaultValue="published" className="flex h-14 w-full border-b-2 border-border bg-transparent px-3 py-2 text-lg focus-visible:outline-none focus-visible:border-accent font-bold uppercase tracking-widest text-foreground transition-colors disabled:cursor-not-allowed disabled:opacity-50">
+                <option value="published" className="bg-background text-foreground">PUBLISHED</option>
+                <option value="draft" className="bg-background text-foreground">DRAFT</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">TECH STACK / TAGS</label>
+              <TagsSelector availableSkills={availableSkills} initialSelected={[]} />
+            </div>
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">THUMBNAIL</label>

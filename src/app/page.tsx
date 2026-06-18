@@ -26,6 +26,7 @@ export default async function HomePage() {
     const { data: projects } = await supabase
       .from("projects")
       .select("*")
+      .eq("status", "published")
       .eq("featured", true)
       .order("sort_order")
       .limit(3);
@@ -40,7 +41,7 @@ export default async function HomePage() {
       }));
     }
 
-    const { data: allProjects } = await supabase.from("projects").select("id");
+    const { data: allProjects } = await supabase.from("projects").select("id").eq("status", "published");
     const { data: allSkills } = await supabase.from("skills").select("id");
     const { data: allCerts } = await supabase.from("certificates").select("id");
     const { data: profile } = await supabase.from("profiles").select("*").limit(1).single();

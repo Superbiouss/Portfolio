@@ -25,7 +25,7 @@ export default async function ProjectsPage() {
 
   try {
     const supabase = await createClient();
-    const { data: projects } = await supabase.from("projects").select("*").order("sort_order");
+    const { data: projects } = await supabase.from("projects").select("*").eq("status", "published").order("sort_order");
 
     if (projects && projects.length > 0) {
       formatted = projects.map((p, i) => ({

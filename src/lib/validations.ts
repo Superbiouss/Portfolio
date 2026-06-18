@@ -6,7 +6,7 @@ export const projectSchema = z.object({
   description: z.string().min(5, "Description must be at least 5 characters"),
   content: z.string().optional(),
   tech_stack: z.string().optional(),
-  status: z.string().default("completed"),
+  status: z.enum(["draft", "published"]).default("published"),
   github_url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   live_url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   role: z.string().optional(),

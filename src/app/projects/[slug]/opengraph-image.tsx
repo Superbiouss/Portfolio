@@ -20,7 +20,7 @@ export default async function Image(props: { params: Promise<{ slug: string }> }
 
   try {
     const supabase = await createClient();
-    const { data } = await supabase.from("projects").select("*").eq("slug", slug).single();
+    const { data } = await supabase.from("projects").select("*").eq("slug", slug).eq("status", "published").single();
     if (data) project = data;
   } catch {
     // ignore
