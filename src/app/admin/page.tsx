@@ -65,14 +65,31 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <div className="border-2 border-border p-6 md:p-8">
-        <h2 className="text-xl font-bold uppercase tracking-tighter mb-4">QUICK ACTIONS</h2>
-        <div className="flex flex-wrap gap-3">
-          <Button variant="outline" asChild><Link href="/admin/projects/new">ADD PROJECT</Link></Button>
-          <Button variant="outline" asChild><Link href="/admin/skills/new">ADD SKILL</Link></Button>
-          <Button variant="outline" asChild><Link href="/admin/certificates/new">ADD CERTIFICATE</Link></Button>
-          <Button variant="outline" asChild><Link href="/admin/badges/new">ADD BADGE</Link></Button>
-          <Button variant="outline" asChild><Link href="/admin/profile">EDIT PROFILE</Link></Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="border-2 border-border p-6 md:p-8">
+          <h2 className="text-xl font-bold uppercase tracking-tighter mb-4">QUICK ACTIONS</h2>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="outline" asChild><Link href="/admin/projects/new">ADD PROJECT</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/skills/new">ADD SKILL</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/certificates/new">ADD CERTIFICATE</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/badges/new">ADD BADGE</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/seo">SEO SETTINGS</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/profile">EDIT PROFILE</Link></Button>
+          </div>
+        </div>
+
+        <div className="border-2 border-border p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-bold uppercase tracking-tighter mb-2">ANALYTICS & TRAFFIC</h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              View live traffic, geographic data, and performance insights directly from Vercel Web Analytics.
+            </p>
+          </div>
+          <Button variant="primary" asChild className="w-full">
+            <Link href="https://vercel.com/dashboard" target="_blank" rel="noopener noreferrer">
+              VIEW VERCEL ANALYTICS
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
