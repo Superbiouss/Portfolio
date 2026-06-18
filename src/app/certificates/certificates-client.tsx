@@ -51,7 +51,7 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
                 className="group"
               >
                 <Card className="h-full flex flex-col relative bg-background border-2 border-border rounded-none hover:border-accent transition-colors duration-300">
-                  <span className="absolute top-4 right-4 text-[6rem] md:text-[8rem] font-bold leading-none text-muted/20 select-none group-hover:text-accent-foreground/5 transition-colors duration-300" aria-hidden="true">{(i + 1).toString().padStart(2, "0")}</span>
+                  <span className="absolute top-4 right-4 text-[6rem] md:text-[8rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{(i + 1).toString().padStart(2, "0")}</span>
                   
                   <CardContent className="flex-1 relative z-10 pt-6">
                     <div className="relative w-16 h-16 mb-6">
@@ -103,23 +103,23 @@ export default function CertificatesClient({ certs, badges }: { certs: Cert[]; b
         {certs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {certs.map((cert, i) => (
-              <motion.div key={cert.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }}>
-                <Card className="relative min-h-[200px]">
-                  <span className="absolute top-4 right-4 text-[6rem] md:text-[8rem] font-bold leading-none text-muted/30 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{cert.num}</span>
-                  <div className="relative z-10">
+              <motion.div key={cert.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }} className="group">
+                <Card className="h-full flex flex-col relative border-2 border-border bg-background transition-all duration-300 hover:border-accent cursor-pointer min-h-[200px]">
+                  <span className="absolute top-4 right-4 text-[6rem] md:text-[8rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{cert.num}</span>
+                  <CardContent className="flex-1 relative z-10 pt-6">
                     <div className="flex items-center justify-between mb-4">
-                      <Badge variant="accent">{cert.category}</Badge>
+                      <Badge variant="outline" className="border-border/50 text-muted-foreground">{cert.category}</Badge>
                       <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground/60 transition-colors duration-300">{cert.date}</span>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tighter text-foreground group-hover:text-accent-foreground mb-2 transition-colors duration-300">{cert.title}</h3>
-                    <p className="text-muted-foreground group-hover:text-accent-foreground/60 mb-4 transition-colors duration-300">Issued by {cert.issuer}</p>
-                    <div className="flex items-center justify-between">
-                      {cert.credentialId && <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground/40 transition-colors duration-300">ID: {cert.credentialId}</span>}
-                      <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" className="text-accent group-hover:text-accent-foreground text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-colors duration-300">
-                        VERIFY <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </div>
-                  </div>
+                    <CardTitle className="mb-2">{cert.title}</CardTitle>
+                    <p className="text-muted-foreground mb-4">Issued by {cert.issuer}</p>
+                  </CardContent>
+                  <CardFooter className="relative z-10 mt-auto flex items-center justify-between">
+                    {cert.credentialId && <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground/40 transition-colors duration-300">ID: {cert.credentialId}</span>}
+                    <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">
+                      VERIFY <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </CardFooter>
                 </Card>
               </motion.div>
             ))}
