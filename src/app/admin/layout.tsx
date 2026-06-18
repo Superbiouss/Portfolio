@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield } from "lucide-react";
+import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield, Image } from "lucide-react";
 
 const sidebarLinks = [
   { href: "/admin", label: "DASHBOARD", icon: LayoutDashboard },
@@ -10,6 +10,7 @@ const sidebarLinks = [
   { href: "/admin/badges", label: "BADGES", icon: Shield },
   { href: "/admin/experiences", label: "EXPERIENCES", icon: Clock },
   { href: "/admin/messages", label: "MESSAGES", icon: MessageSquare },
+  { href: "/admin/media", label: "MEDIA", icon: Image },
   { href: "/admin/profile", label: "PROFILE", icon: User },
 ];
 
