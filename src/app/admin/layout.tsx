@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield, Image, Search } from "lucide-react";
+import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield, Image, Search, ExternalLink } from "lucide-react";
 
 const sidebarLinks = [
   { href: "/admin", label: "DASHBOARD", icon: LayoutDashboard },
@@ -38,8 +38,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
 
         <div className="p-3 border-t-2 border-border">
+          <Button variant="ghost" asChild className="w-full justify-start gap-3 text-muted-foreground hover:text-accent mb-2">
+            <Link href="/" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="w-4 h-4" /> VIEW SITE
+            </Link>
+          </Button>
           <form action={async () => { "use server"; const { logout } = await import("@/app/actions/auth"); await logout(); }}>
-            <Button variant="ghost" type="submit" className="w-full justify-start gap-3 text-muted-foreground hover:text-accent">
+            <Button variant="ghost" type="submit" className="w-full justify-start gap-3 text-muted-foreground hover:text-red-500">
               <LogOut className="w-4 h-4" /> LOGOUT
             </Button>
           </form>

@@ -5,7 +5,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TopBar } from "@/components/layout/top-bar";
 import { BottomNav } from "@/components/layout/bottom-nav";
-import { Footer } from "@/components/layout/footer";
+import { ConditionalFooter } from "@/components/layout/conditional-footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
 import { CommandMenu } from "@/components/ui/command-menu";
 import { Analytics } from "@vercel/analytics/react";
@@ -61,7 +61,7 @@ export default function RootLayout({
         <TopBar />
         {/* pt-10 = TopBar (h-10), pb-16 = BottomNav (h-16) */}
         <main className="flex-1 pt-10 pb-16">{children}</main>
-        <Footer />
+        <ConditionalFooter />
         <BottomNav />
         <CommandMenu />
         <Analytics />
