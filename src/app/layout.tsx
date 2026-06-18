@@ -10,6 +10,7 @@ import { NoiseTexture } from "@/components/ui/noise-texture";
 import { CommandMenu } from "@/components/ui/command-menu";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "sonner";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -66,6 +67,14 @@ export default function RootLayout({
         <CommandMenu />
         <Analytics />
         <SpeedInsights />
+        <Toaster 
+          toastOptions={{
+            className: "bg-background border-2 border-border text-foreground font-bold uppercase tracking-tighter shadow-none rounded-none",
+            descriptionClassName: "text-muted-foreground font-medium normal-case tracking-normal text-xs",
+            actionButtonClassName: "bg-accent text-background font-bold uppercase border-none rounded-none hover:bg-accent/90",
+            cancelButtonClassName: "bg-muted text-muted-foreground font-bold uppercase border-none rounded-none hover:bg-muted/80",
+          }}
+        />
       </body>
     </html>
   );

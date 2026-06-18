@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash2, Copy, Check, FileIcon } from "lucide-react";
 import { deleteMedia } from "@/app/actions/media";
+import { toast } from "sonner";
 
 interface MediaFile {
   name: string;
@@ -16,16 +17,23 @@ export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
   const copyToClipboard = async (url: string) => {
-    await navigator.clipboard.writeText(url);
-    setCopiedUrl(url);
-    setTimeout(() => setCopiedUrl(null), 2000);
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedUrl(url);
+      toast.success("URL copied to clipboard");
+      setTimeout(() => setCopiedUrl(null), 2000);
+    } catch {
+      toast.error("Failed to copy URL");
+    }
   };
 
   const handleDelete = async (name: string) => {
     if (confirm("Are you sure you want to delete this file? This will break any links using it!")) {
       const result = await deleteMedia(`uploads/${name}`);
       if (result.error) {
-        alert("Failed to delete: " + result.error);
+        toast.error("Failed to delete file", { description: result.error });
+      } else {
+        toast.success("File deleted successfully");
       }
     }
   };

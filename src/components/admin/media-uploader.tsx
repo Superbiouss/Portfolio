@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { uploadMedia } from "@/app/actions/media";
 import { UploadCloud, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 export function MediaUploader() {
   const [isDragging, setIsDragging] = useState(false);
@@ -41,7 +42,9 @@ export function MediaUploader() {
     
     const result = await uploadMedia(formData);
     if (result.error) {
-      alert("Upload failed: " + result.error);
+      toast.error("Upload failed", { description: result.error });
+    } else {
+      toast.success("File uploaded successfully");
     }
     
     setIsUploading(false);

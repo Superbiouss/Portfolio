@@ -1,5 +1,5 @@
 import { getSiteSettings, updateSiteSettings } from "@/app/actions/settings";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { Input, Textarea } from "@/components/ui/input";
 
 export default async function AdminSeoPage() {
@@ -52,9 +52,9 @@ export default async function AdminSeoPage() {
           <p className="text-xs text-muted-foreground mt-1">Paste a URL from your Media Library. This image shows when your site is shared on social media.</p>
         </div>
 
-        <Button type="submit" variant="primary" className="w-full">
+        <SubmitButton variant="primary" className="w-full">
           SAVE SEO SETTINGS
-        </Button>
+        </SubmitButton>
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { Input, Textarea } from "@/components/ui/input";
 import { updateProject } from "@/app/actions/projects";
 import { notFound } from "next/navigation";
@@ -89,7 +90,7 @@ export default async function EditProjectPage(props: { params: Promise<{ id: str
             <input type="checkbox" name="featured" id="featured" defaultChecked={project.featured} className="w-5 h-5 accent-[#DFE104]" />
             <label htmlFor="featured" className="text-sm font-bold uppercase tracking-widest text-muted-foreground">FEATURED PROJECT</label>
           </div>
-          <Button variant="primary" type="submit" size="lg">SAVE CHANGES</Button>
+          <SubmitButton variant="primary" size="lg">SAVE CHANGES</SubmitButton>
         </form>
       </div>
     </div>

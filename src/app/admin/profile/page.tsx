@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { Input, Textarea } from "@/components/ui/input";
 import { updateProfile } from "@/app/actions/profile";
 
@@ -45,7 +46,7 @@ export default async function AdminProfilePage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">LINKEDIN URL</label>
             <Input name="linkedin_url" defaultValue={profile?.linkedin_url || ""} placeholder="HTTPS://LINKEDIN.COM/IN/..." className="text-lg" />
           </div>
-          <Button variant="primary" type="submit" size="lg">SAVE PROFILE</Button>
+          <SubmitButton variant="primary" size="lg">SAVE PROFILE</SubmitButton>
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { Input, Textarea } from "@/components/ui/input";
 import { createProject } from "@/app/actions/projects";
 import Link from "next/link";
@@ -60,7 +61,7 @@ export default async function NewProjectPage() {
             <input type="checkbox" name="featured" id="featured" className="w-5 h-5 accent-[#DFE104]" />
             <label htmlFor="featured" className="text-sm font-bold uppercase tracking-widest text-muted-foreground">FEATURED PROJECT</label>
           </div>
-          <Button variant="primary" type="submit" size="lg">CREATE PROJECT</Button>
+          <SubmitButton variant="primary" size="lg">CREATE PROJECT</SubmitButton>
         </form>
       </div>
     </div>
