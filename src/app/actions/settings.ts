@@ -48,5 +48,4 @@ export async function updateSiteSettings(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/seo");
-  return { success: true };
 }
