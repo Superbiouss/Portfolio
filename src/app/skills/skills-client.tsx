@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -24,15 +24,17 @@ export default function SkillsClient({ skillGroups }: { skillGroups: SkillGroup[
       </div>
 
       {skillGroups.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {skillGroups.map((group, i) => (
-            <motion.div key={group.category} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }}>
-              <Card className="relative overflow-hidden min-h-[250px]">
-                <span className="absolute -top-4 -right-2 text-[8rem] font-bold leading-none text-muted/30 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{group.num}</span>
-                <div className="relative z-10">
-                  <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tighter text-foreground group-hover:text-accent-foreground mb-6 transition-colors duration-300">{group.category}</h3>
-                  <div className="flex flex-wrap gap-2">{group.skills.map((skill) => (<Badge key={skill}>{skill}</Badge>))}</div>
-                </div>
+            <motion.div key={group.category} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" as const }} className="group">
+              <Card className="h-full flex flex-col relative border-2 border-border bg-background transition-colors duration-300 hover:border-accent min-h-[250px]">
+                <span className="absolute -top-4 -right-2 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/20 select-none group-hover:text-accent-foreground/5 transition-colors duration-300" aria-hidden="true">{group.num}</span>
+                <CardContent className="flex-1 relative z-10 pt-6">
+                  <CardTitle className="mb-6">{group.category}</CardTitle>
+                  <div className="flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (<Badge key={skill} variant="outline" className="border-border/50 bg-background text-muted-foreground">{skill}</Badge>))}
+                  </div>
+                </CardContent>
               </Card>
             </motion.div>
           ))}
