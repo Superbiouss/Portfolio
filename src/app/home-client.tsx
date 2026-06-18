@@ -24,7 +24,7 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
   return (
     <>
       {/* HERO */}
-      <section ref={heroRef} className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center py-20 md:py-32">
+      <section ref={heroRef} className="relative overflow-hidden min-h-[calc(90vh-104px)] flex flex-col justify-center pt-16 pb-24 md:pt-24 md:pb-32">
         {/* Subtle Ambient Background Gradients */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-accent/10 rounded-full blur-[100px] -z-10 pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[40rem] h-[40rem] bg-indigo-500/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
@@ -53,16 +53,16 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
             <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-light">
               {bio || "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures."}
             </p>
-            <div className="flex flex-wrap gap-6 mt-10">
-              <Button variant="primary" size="lg" className="h-14 px-8 text-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(223,225,4,0.15)] hover:shadow-[0_0_30px_rgba(223,225,4,0.3)] border border-accent/20" asChild>
+            <div className="flex flex-wrap gap-4 mt-10">
+              <Button variant="primary" size="lg" asChild>
                 <Link href="/projects" className="group flex items-center">
-                  VIEW PROJECTS 
+                  VIEW PROJECTS
                   <ArrowRight className="ml-3 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="h-14 px-8 text-lg hover:bg-muted/30 backdrop-blur-sm transition-all duration-300 border-border/50 hover:border-border" asChild>
+              <Button variant="outline" size="lg" asChild>
                 <Link href="/resume" className="group flex items-center">
-                  <Download className="mr-3 w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" /> 
+                  <Download className="mr-3 w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" />
                   RESUME
                 </Link>
               </Button>
