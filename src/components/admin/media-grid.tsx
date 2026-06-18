@@ -54,10 +54,10 @@ export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {
               )}
               
               <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                <Button variant="secondary" size="icon" onClick={() => copyToClipboard(file.url)} title="Copy URL">
+                <Button variant="outline" size="icon" onClick={() => copyToClipboard(file.url)} title="Copy URL">
                   {copiedUrl === file.url ? <Check className="w-4 h-4 text-accent" /> : <Copy className="w-4 h-4" />}
                 </Button>
-                <Button variant="secondary" size="icon" onClick={() => handleDelete(file.name)} title="Delete">
+                <Button variant="outline" size="icon" onClick={() => handleDelete(file.name)} title="Delete">
                   <Trash2 className="w-4 h-4 text-red-500 hover:text-red-600" />
                 </Button>
               </div>
