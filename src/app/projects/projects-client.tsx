@@ -44,26 +44,47 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
       )}
 
       {filtered.length > 0 ? (
-        <div className="bg-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px">
-          {filtered.map((project, i) => (
-            <motion.div key={project.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.3, ease: "easeOut" as const }}>
-              <Card className="h-full flex flex-col relative min-h-[280px]">
-                <span className="absolute top-4 right-4 text-[8rem] font-bold leading-none text-muted/30 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
-                <CardContent className="flex-1 relative z-10">
-                  <Badge className="mb-4">{project.category}</Badge>
-                  <CardTitle className="mb-3">{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
-                  <div className="flex flex-wrap gap-2 mt-4">{project.tech.map((t) => (<Badge key={t} variant="muted">{t}</Badge>))}</div>
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 },
+            },
+          }}
+          className="bg-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+        >
+          {filtered.map((project) => (
+            <motion.div
+              key={project.id}
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(5px)" },
+                show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: "easeOut" } },
+              }}
+              className="group"
+            >
+              <Card className="h-full flex flex-col relative min-h-[300px] border-none bg-background transition-all duration-500 hover:z-10 hover:shadow-[0_0_40px_rgba(223,225,4,0.1)] hover:scale-[1.02] cursor-pointer">
+                <span className="absolute top-4 right-4 text-[8rem] font-bold leading-none text-muted/20 select-none transition-all duration-500 group-hover:text-accent/10 group-hover:-translate-y-4 group-hover:scale-110" aria-hidden="true">{project.num}</span>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <CardContent className="flex-1 relative z-10 pt-8 px-8">
+                  <Badge className="mb-6 bg-muted text-muted-foreground group-hover:bg-accent/20 group-hover:text-accent transition-colors">{project.category}</Badge>
+                  <CardTitle className="mb-4 text-2xl group-hover:text-accent transition-colors">{project.title}</CardTitle>
+                  <CardDescription className="text-base leading-relaxed group-hover:text-foreground/80 transition-colors">{project.description}</CardDescription>
+                  <div className="flex flex-wrap gap-2 mt-6">
+                    {project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background/50 backdrop-blur-sm group-hover:border-accent/30">{t}</Badge>))}
+                  </div>
                 </CardContent>
-                <CardFooter className="relative z-10">
-                  <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">
-                    CASE STUDY <ExternalLink className="w-3.5 h-3.5" />
+                <CardFooter className="relative z-10 pb-8 px-8 mt-auto">
+                  <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent flex items-center gap-2 transition-colors duration-300">
+                    CASE STUDY <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
                   </Link>
                 </CardFooter>
               </Card>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       ) : (
         <div className="border-2 border-border p-12 text-center">
           <p className="text-lg text-muted-foreground">No projects found. Add some from the admin panel.</p>

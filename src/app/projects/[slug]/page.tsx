@@ -61,67 +61,91 @@ export default async function ProjectCaseStudy(props: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="max-w-[95vw] mx-auto py-16 md:py-32">
-      <Button variant="ghost" size="sm" asChild className="mb-12">
-        <Link href="/projects"><ArrowLeft className="mr-2 w-4 h-4" /> ALL PROJECTS</Link>
-      </Button>
+    <div className="min-h-screen">
+      {/* Immersive Hero Section */}
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden border-b border-border/30 bg-muted/10">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
+        
+        <div className="max-w-[95vw] mx-auto relative z-10">
+          <Button variant="ghost" size="sm" asChild className="mb-12 hover:bg-background/50 backdrop-blur-sm rounded-full">
+            <Link href="/projects"><ArrowLeft className="mr-2 w-4 h-4" /> BACK TO PROJECTS</Link>
+          </Button>
 
-      {/* Hero */}
-      <div className="mb-16 md:mb-24">
-        <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-muted-foreground block mb-2">CASE STUDY</span>
-        <h1 className="text-[clamp(2rem,8vw,8rem)] font-bold uppercase tracking-tighter leading-[0.85] mb-6">
-          {project.title}
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">{project.description}</p>
+          <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-accent block mb-4 flex items-center gap-2">
+            <span className="w-8 h-px bg-accent"></span> CASE STUDY
+          </span>
+          <h1 className="text-[clamp(3rem,8vw,8rem)] font-extrabold uppercase tracking-tight leading-[0.9] mb-8 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/50">
+            {project.title}
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl font-light leading-relaxed">
+            {project.description}
+          </p>
 
-        {project.tech_stack && project.tech_stack.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.tech_stack.map((t: string) => (<Badge key={t} variant="accent">{t}</Badge>))}
+          <div className="flex flex-wrap gap-3 mb-16">
+            {project.tech_stack?.map((t: string) => (
+              <Badge key={t} variant="outline" className="bg-background/50 backdrop-blur-md border-border/50 text-sm px-4 py-1.5 rounded-full text-foreground/80">{t}</Badge>
+            ))}
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Metadata strip */}
-        <div className="border-2 border-border grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
-          {[
-            { label: "STATUS", value: project.status?.toUpperCase() || "COMPLETED" },
-            { label: "ROLE", value: project.role?.toUpperCase() || "DEVELOPER" },
-            { label: "TIMELINE", value: project.timeline || "—" },
-            { label: "LINKS", value: null },
-          ].map((item) => (
-            <div key={item.label} className="bg-background p-4 md:p-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-1">{item.label}</span>
-              {item.value ? (
-                <span className="text-sm md:text-base font-bold uppercase tracking-tight text-foreground">{item.value}</span>
-              ) : (
-                <div className="flex items-center gap-4">
-                  {project.github_url && (
-                    <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-foreground text-sm font-bold uppercase tracking-widest flex items-center gap-1">
-                      <Code2 className="w-3.5 h-3.5" /> CODE
-                    </a>
-                  )}
-                  {project.live_url && (
-                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-foreground text-sm font-bold uppercase tracking-widest flex items-center gap-1">
-                      <ExternalLink className="w-3.5 h-3.5" /> LIVE
-                    </a>
-                  )}
+      {/* Main Content & Metadata Grid */}
+      <section className="max-w-[95vw] mx-auto py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        {/* Left Side: Sticky Metadata */}
+        <aside className="lg:col-span-4 space-y-8">
+          <div className="sticky top-32 p-8 rounded-2xl bg-muted/20 border border-border/50 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+            <div className="space-y-8">
+              {[
+                { label: "STATUS", value: project.status?.toUpperCase() || "COMPLETED" },
+                { label: "ROLE", value: project.role?.toUpperCase() || "DEVELOPER" },
+                { label: "TIMELINE", value: project.timeline || "—" },
+              ].map((item) => (
+                <div key={item.label}>
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-2">{item.label}</span>
+                  <span className="text-base font-semibold uppercase tracking-tight text-foreground">{item.value}</span>
+                </div>
+              ))}
+              
+              <div className="pt-8 border-t border-border/50">
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-4">PROJECT LINKS</span>
+                <div className="flex flex-col gap-3">
+                  {project.github_url ? (
+                    <Button variant="outline" className="w-full justify-start rounded-xl group border-border/50 hover:border-accent/50 hover:bg-accent/10" asChild>
+                      <a href={project.github_url} target="_blank" rel="noopener noreferrer">
+                        <Code2 className="mr-3 w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" /> 
+                        VIEW REPOSITORY
+                      </a>
+                    </Button>
+                  ) : null}
+                  {project.live_url ? (
+                    <Button variant="primary" className="w-full justify-start rounded-xl group shadow-[0_0_15px_rgba(223,225,4,0.1)] hover:shadow-[0_0_20px_rgba(223,225,4,0.2)]" asChild>
+                      <a href={project.live_url} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-3 w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" /> 
+                        LIVE PREVIEW
+                      </a>
+                    </Button>
+                  ) : null}
                   {!project.github_url && !project.live_url && (
-                    <span className="text-sm text-muted-foreground">—</span>
+                    <span className="text-sm text-muted-foreground italic">No public links available</span>
                   )}
                 </div>
-              )}
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Content */}
-      {project.content && (
-        <div className="max-w-3xl">
-          <div className="prose-kinetic">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.content}</ReactMarkdown>
           </div>
-        </div>
-      )}
+        </aside>
+
+        {/* Right Side: Markdown Content */}
+        <article className="lg:col-span-8">
+          {project.content ? (
+            <div className="prose-kinetic prose-lg md:prose-xl max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.content}</ReactMarkdown>
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-lg">No detailed case study content available for this project.</p>
+          )}
+        </article>
+      </section>
     </div>
   );
 }
