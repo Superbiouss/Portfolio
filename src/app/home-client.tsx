@@ -105,9 +105,9 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
                   <Card className="h-full flex flex-col relative">
                     <span className="absolute top-4 right-4 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
                     <CardContent className="flex-1 relative z-10">
-                      <div className="flex flex-wrap gap-2 mb-4">{project.tech.map((t) => (<Badge key={t}>{t}</Badge>))}</div>
                       <CardTitle className="mb-3">{project.title}</CardTitle>
-                      <CardDescription>{project.description}</CardDescription>
+                      <CardDescription className="mb-6">{project.description}</CardDescription>
+                      <div className="flex flex-wrap gap-2">{project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background text-muted-foreground">{t}</Badge>))}</div>
                     </CardContent>
                     <CardFooter className="relative z-10">
                       <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">

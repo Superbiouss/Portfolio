@@ -65,20 +65,19 @@ export default function ProjectsClient({ projects, categories }: { projects: Pro
               }}
               className="group"
             >
-              <Card className="h-full flex flex-col relative min-h-[300px] border-none bg-background transition-all duration-500 hover:z-10 cursor-pointer">
-                <span className="absolute top-4 right-4 text-[8rem] font-bold leading-none text-muted/20 select-none transition-all duration-500 group-hover:text-accent/10 group-hover:-translate-y-4 group-hover:scale-110" aria-hidden="true">{project.num}</span>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                <CardContent className="flex-1 relative z-10 pt-8 px-8">
-                  <Badge className="mb-6 bg-muted text-muted-foreground group-hover:bg-accent/20 group-hover:text-accent transition-colors">{project.category}</Badge>
-                  <CardTitle className="mb-4 text-2xl group-hover:text-accent transition-colors">{project.title}</CardTitle>
-                  <CardDescription className="text-base leading-relaxed group-hover:text-foreground/80 transition-colors">{project.description}</CardDescription>
-                  <div className="flex flex-wrap gap-2 mt-6">
-                    {project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background group-hover:border-accent/30">{t}</Badge>))}
+              <Card className="h-full flex flex-col relative">
+                <span className="absolute top-4 right-4 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
+                <CardContent className="flex-1 relative z-10">
+                  <Badge variant="outline" className="mb-4 border-border/50 text-muted-foreground">{project.category}</Badge>
+                  <CardTitle className="mb-3">{project.title}</CardTitle>
+                  <CardDescription className="mb-6">{project.description}</CardDescription>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border/50 bg-background text-muted-foreground">{t}</Badge>))}
                   </div>
                 </CardContent>
-                <CardFooter className="relative z-10 pb-8 px-8 mt-auto">
-                  <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent flex items-center gap-2 transition-colors duration-300">
-                    CASE STUDY <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                <CardFooter className="relative z-10">
+                  <Link href={`/projects/${project.slug}`} className="text-sm font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent-foreground flex items-center gap-2 transition-colors duration-300">
+                    CASE STUDY <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </CardFooter>
               </Card>
