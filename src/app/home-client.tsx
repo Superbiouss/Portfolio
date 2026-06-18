@@ -28,7 +28,7 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
         {/* Subtle Ambient Background Gradients */}
 
 
-        <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-[95vw] mx-auto w-full relative z-10">
+        <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-[95vw] mx-auto w-full relative z-10 text-center flex flex-col items-center">
           <motion.h1
             initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -47,12 +47,12 @@ export default function HomeClient({ stats, featuredProjects, bio }: HomeClientP
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 md:mt-16 max-w-3xl"
+            className="mt-10 md:mt-16 max-w-3xl mx-auto flex flex-col items-center"
           >
             <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-light">
               {bio || "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures."}
             </p>
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="flex flex-wrap justify-center gap-4 mt-10">
               <Button variant="primary" size="lg" asChild>
                 <Link href="/projects" className="group flex items-center">
                   VIEW PROJECTS
