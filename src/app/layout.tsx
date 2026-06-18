@@ -7,6 +7,7 @@ import { TopBar } from "@/components/layout/top-bar";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { ConditionalFooter } from "@/components/layout/conditional-footer";
 import { NoiseTexture } from "@/components/ui/noise-texture";
+import { DottedGrid } from "@/components/ui/dotted-grid";
 import { CommandMenu } from "@/components/ui/command-menu";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -57,11 +58,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(spaceGrotesk.variable, "h-full")}>
-      <body className="antialiased min-h-full flex flex-col font-sans bg-background text-foreground">
+      <body className="antialiased min-h-full flex flex-col font-sans bg-background text-foreground relative">
+        <DottedGrid />
         <NoiseTexture />
         <TopBar />
         {/* pt-10 = TopBar (h-10), pb-16 = BottomNav (h-16) */}
-        <main className="flex-1 pt-10 pb-16">{children}</main>
+        <main className="flex-1 pt-10 pb-16 relative z-10">{children}</main>
         <ConditionalFooter />
         <BottomNav />
         <CommandMenu />
