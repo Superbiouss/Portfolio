@@ -35,7 +35,7 @@ export function BottomNav() {
       </div>
 
       {/* CENTER: Nav Links */}
-      <nav className="flex-1 flex items-stretch overflow-x-auto scrollbar-none">
+      <nav className="flex-1 flex items-stretch justify-center overflow-x-auto scrollbar-none">
         {navLinks.map((link) => {
           const isActive =
             link.href === "/"
