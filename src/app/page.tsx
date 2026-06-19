@@ -19,6 +19,9 @@ export default async function HomePage() {
   let featuredProjects = FALLBACK_PROJECTS;
   let stats = FALLBACK_STATS;
   let bio = "";
+  let skillsList: any[] = [];
+  let experiencesList: any[] = [];
+  let certificatesList: any[] = [];
 
   try {
     const supabase = await createClient();
@@ -42,8 +45,9 @@ export default async function HomePage() {
     }
 
     const { data: allProjects } = await supabase.from("projects").select("id").eq("status", "published");
-    const { data: allSkills } = await supabase.from("skills").select("id");
-    const { data: allCerts } = await supabase.from("certificates").select("id");
+    const { data: allSkills } = await supabase.from("skills").select("*").order("sort_order");
+    const { data: allCerts } = await supabase.from("certificates").select("*").order("sort_order");
+    const { data: experiences } = await supabase.from("experiences").select("*").order("sort_order").limit(4);
     const { data: profile } = await supabase.from("profiles").select("*").limit(1).single();
 
     if (allProjects && allProjects.length > 0) {
@@ -55,6 +59,10 @@ export default async function HomePage() {
       ];
     }
 
+    if (allSkills) skillsList = allSkills;
+    if (experiences) experiencesList = experiences;
+    if (allCerts) certificatesList = allCerts.slice(0, 3); // top 3 certs
+
     bio = profile?.bio || "";
   } catch {
     // Supabase not configured — use fallbacks
@@ -65,6 +73,9 @@ export default async function HomePage() {
       stats={stats}
       featuredProjects={featuredProjects}
       bio={bio}
+      skills={skillsList}
+      experiences={experiencesList}
+      certificates={certificatesList}
     />
   );
 }
