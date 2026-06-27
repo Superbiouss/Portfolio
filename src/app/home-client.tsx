@@ -24,8 +24,15 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // Generate random data for the mock github contribution graph
-  const githubSquares = Array.from({ length: 119 }, () => (Math.random() > 0.65 ? Math.floor(Math.random() * 4) + 1 : 0));
+  // Static mock contribution history to prevent hydration mismatches
+  const githubSquares = [
+    3, 0, 1, 0, 2, 4, 0, 1, 2, 0, 0, 3, 0, 1, 0, 2, 0, 0, 1, 4,
+    0, 3, 0, 0, 2, 1, 0, 0, 3, 0, 1, 0, 0, 2, 4, 0, 1, 3, 0, 0,
+    2, 0, 0, 1, 3, 0, 0, 2, 4, 1, 0, 0, 0, 3, 2, 0, 1, 0, 0, 4,
+    0, 1, 2, 0, 0, 3, 0, 1, 0, 2, 0, 0, 1, 4, 0, 3, 0, 0, 2, 1,
+    0, 0, 3, 0, 1, 0, 0, 2, 4, 0, 1, 3, 0, 0, 2, 0, 0, 1, 3, 0,
+    0, 2, 4, 1, 0, 0, 0, 3, 2, 0, 1, 0, 0, 4, 0, 1, 2, 0, 0
+  ];
 
   return (
     <>
