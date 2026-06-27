@@ -10,8 +10,6 @@ async function verifyAuth(supabase: any) {
 }
 
 export async function submitContactMessage(formData: FormData) {
-  const supabase = await createClient();
-  
   const rawData = {
     name: formData.get("name") as string,
     email: formData.get("email") as string,
@@ -19,6 +17,7 @@ export async function submitContactMessage(formData: FormData) {
   };
   
   try {
+    const supabase = await createClient();
     const parsed = contactSchema.parse(rawData);
     const { error } = await supabase.from("contact_messages").insert({
       name: parsed.name,
