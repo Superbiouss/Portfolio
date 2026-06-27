@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Download, ExternalLink, Code2, Database, LayoutTemplate, Code, Award, Clock } from "lucide-react";
+import { ArrowRight, Download, ExternalLink, Code2, Database, LayoutTemplate, Code, Award, Clock, Layers, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,16 +11,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { CLITerminal } from "@/components/ui/cli-terminal";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const iconMap: Record<string, any> = {
+  LayoutTemplate,
+  Database,
+  Code2,
+  Layers,
+  Cpu,
+  Globe,
+};
+
+const FALLBACK_SERVICES = [
+  { icon_name: "LayoutTemplate", title: "FRONTEND ENGINEERING", description: "Building highly interactive, accessible, and performant user interfaces using modern frameworks like React and Next.js." },
+  { icon_name: "Database", title: "BACKEND ARCHITECTURE", description: "Designing robust APIs, scalable database schemas, and secure server-side logic using Node.js, Python, and SQL." },
+  { icon_name: "Code2", title: "UI/UX DESIGN", description: "Crafting premium brutalist designs with a focus on micro-interactions, responsive layouts, and kinetic typography." }
+];
+
 interface HomeClientProps {
   stats: { value: string; label: string }[];
   featuredProjects: { title: string; description: string; tech: string[]; slug: string; num: string }[];
   bio: string;
+  heroTagline?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   skills: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   experiences: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   certificates: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  services?: any[];
 }
 
-export default function HomeClient({ stats, featuredProjects, bio, skills, experiences, certificates }: HomeClientProps) {
+export default function HomeClient({ stats, featuredProjects, bio, heroTagline, skills, experiences, certificates, services }: HomeClientProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
@@ -67,11 +89,26 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-[clamp(3rem,10vw,11rem)] font-extrabold uppercase leading-[0.85] tracking-tight"
           >
-            <span className="block text-foreground/90 hover:text-foreground transition-colors duration-500">CRAFTING</span>
-            <span className="block text-accent relative inline-block group">
-              DIGITAL
-            </span>
-            <span className="block text-foreground">EXPERIENCES</span>
+            {heroTagline && heroTagline.trim().split(/\s+/).length >= 3 ? (
+              (() => {
+                const words = heroTagline.trim().split(/\s+/);
+                return (
+                  <>
+                    <span className="block text-foreground/90 hover:text-foreground transition-colors duration-500">{words[0]}</span>
+                    <span className="block text-accent relative inline-block group">{words[1]}</span>
+                    <span className="block text-foreground">{words.slice(2).join(" ")}</span>
+                  </>
+                );
+              })()
+            ) : (
+              <>
+                <span className="block text-foreground/90 hover:text-foreground transition-colors duration-500">CRAFTING</span>
+                <span className="block text-accent relative inline-block group">
+                  DIGITAL
+                </span>
+                <span className="block text-foreground">EXPERIENCES</span>
+              </>
+            )}
           </motion.h1>
           
           <motion.div
@@ -131,7 +168,7 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
                 THE<br /><span className="text-accent">DEVELOPER</span>
               </h2>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
-                I am passionate about building products that are robust under the hood and beautiful on the surface. My approach bridges the gap between complex engineering problems and seamless user experiences.
+                {bio || "I am passionate about building products that are robust under the hood and beautiful on the surface. My approach bridges the gap between complex engineering problems and seamless user experiences."}
               </p>
               <Button variant="outline" asChild><Link href="/about">READ FULL BIO <ArrowRight className="ml-3 w-4 h-4" /></Link></Button>
           </motion.div>
@@ -160,21 +197,20 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
             CORE<br /><span className="text-accent">COMPETENCIES</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { icon: LayoutTemplate, title: "FRONTEND ENGINEERING", desc: "Building highly interactive, accessible, and performant user interfaces using modern frameworks like React and Next.js." },
-              { icon: Database, title: "BACKEND ARCHITECTURE", desc: "Designing robust APIs, scalable database schemas, and secure server-side logic using Node.js, Python, and SQL." },
-              { icon: Code2, title: "UI/UX DESIGN", desc: "Crafting premium brutalist designs with a focus on micro-interactions, responsive layouts, and kinetic typography." }
-            ].map((service, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                <Card className="h-full bg-background transition-colors border-2 border-border rounded-none hover:border-accent group">
-                  <CardContent className="p-8">
-                    <service.icon className="w-12 h-12 text-accent mb-6 transition-transform duration-300" />
-                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-4">{service.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{service.desc}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            {(services && services.length > 0 ? services : FALLBACK_SERVICES).map((service, i) => {
+              const ServiceIcon = iconMap[service.icon_name] || Code2;
+              return (
+                <motion.div key={service.id || i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
+                  <Card className="h-full bg-background transition-colors border-2 border-border rounded-none hover:border-accent group">
+                    <CardContent className="p-8">
+                      <ServiceIcon className="w-12 h-12 text-accent mb-6 transition-transform duration-300 animate-none" />
+                      <h3 className="text-2xl font-bold uppercase tracking-tight mb-4">{service.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{service.description || service.desc}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* CLI Terminal Widget */}

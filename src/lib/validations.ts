@@ -51,3 +51,9 @@ export const contactSchema = z.object({
   email: z.string().email("Invalid email address"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
+
+export const serviceSchema = z.object({
+  title: z.string().min(2, "Title is required"),
+  description: z.string().min(5, "Description is required"),
+  icon_name: z.string().min(2, "Icon name is required"),
+});

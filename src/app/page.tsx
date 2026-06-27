@@ -19,9 +19,15 @@ export default async function HomePage() {
   let featuredProjects = FALLBACK_PROJECTS;
   let stats = FALLBACK_STATS;
   let bio = "";
+  let heroTagline = "";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let skillsList: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let experiencesList: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let certificatesList: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let servicesList: any[] = [];
 
   try {
     const supabase = await createClient();
@@ -49,6 +55,7 @@ export default async function HomePage() {
     const { data: allCerts } = await supabase.from("certificates").select("*").order("sort_order");
     const { data: experiences } = await supabase.from("experiences").select("*").order("sort_order").limit(4);
     const { data: profile } = await supabase.from("profiles").select("*").limit(1).single();
+    const { data: services } = await supabase.from("services").select("*").order("sort_order");
 
     if (allProjects && allProjects.length > 0) {
       stats = [
@@ -62,8 +69,10 @@ export default async function HomePage() {
     if (allSkills) skillsList = allSkills;
     if (experiences) experiencesList = experiences;
     if (allCerts) certificatesList = allCerts.slice(0, 3); // top 3 certs
+    if (services) servicesList = services;
 
     bio = profile?.bio || "";
+    heroTagline = profile?.hero_tagline || "";
   } catch {
     // Supabase not configured — use fallbacks
   }
@@ -73,9 +82,11 @@ export default async function HomePage() {
       stats={stats}
       featuredProjects={featuredProjects}
       bio={bio}
+      heroTagline={heroTagline}
       skills={skillsList}
       experiences={experiencesList}
       certificates={certificatesList}
+      services={servicesList}
     />
   );
 }

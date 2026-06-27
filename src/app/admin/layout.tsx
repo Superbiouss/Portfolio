@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield, Image, Search, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Briefcase, Code2, Award, User, LogOut, Clock, MessageSquare, Shield, Image, Search, ExternalLink, LayoutTemplate } from "lucide-react";
 
 const sidebarLinks = [
   { href: "/admin", label: "DASHBOARD", icon: LayoutDashboard },
+  { href: "/admin/services", label: "SERVICES", icon: LayoutTemplate },
   { href: "/admin/projects", label: "PROJECTS", icon: Briefcase },
   { href: "/admin/skills", label: "SKILLS", icon: Code2 },
   { href: "/admin/certificates", label: "CERTIFICATES", icon: Award },

@@ -1,18 +1,27 @@
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { Input, Textarea } from "@/components/ui/input";
 import { updateProfile } from "@/app/actions/profile";
 
 export default async function AdminProfilePage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user?.id).single();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let profile: any = null;
+
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data } = await supabase.from("profiles").select("*").eq("id", user.id).single();
+      profile = data;
+    }
+  } catch {
+    // Supabase not configured — render empty form
+  }
 
   return (
     <div>
       <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-12">PROFILE</h1>
-      <div className="border-2 border-border p-6 md:p-8 max-w-2xl">
+      <div className="border-2 border-border p-6 md:p-8 max-w-2xl bg-background">
         <form action={updateProfile} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
@@ -26,7 +35,8 @@ export default async function AdminProfilePage() {
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">HERO TAGLINE</label>
-            <Input name="hero_tagline" defaultValue={profile?.hero_tagline || ""} placeholder="CRAFTING DIGITAL EXPERIENCES..." className="text-lg" />
+            <Input name="hero_tagline" defaultValue={profile?.hero_tagline || ""} placeholder="CRAFTING DIGITAL EXPERIENCES" className="text-lg" />
+            <p className="text-[10px] text-muted-foreground mt-2 font-mono">Use 3 words (e.g., CRAFTING DIGITAL EXPERIENCES). The middle word will be highlighted in accent color.</p>
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">BIO</label>
@@ -35,7 +45,7 @@ export default async function AdminProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">EMAIL</label>
-              <Input name="email" defaultValue={profile?.email || ""} placeholder="HELLO@AAKASHYADAV.COM" className="text-lg" />
+              <Input name="email" defaultValue={profile?.email || ""} placeholder="HELLO@YOURSITE.COM" className="text-lg" />
             </div>
             <div>
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground block mb-3">GITHUB URL</label>

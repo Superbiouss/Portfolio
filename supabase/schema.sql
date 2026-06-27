@@ -586,3 +586,30 @@ INSERT INTO public.badges (title, issuer, description, image_url, badge_url, ear
   '2025-08-12',
   4
 );
+
+-- ============================================================
+-- Seed: Services (3 core competencies)
+-- ============================================================
+
+CREATE TABLE public.services (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  icon_name TEXT NOT NULL DEFAULT 'Code2',
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.services ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read access on services" ON public.services
+  FOR SELECT USING (true);
+
+CREATE POLICY "Allow authenticated changes on services" ON public.services
+  FOR ALL TO authenticated USING (true);
+
+INSERT INTO public.services (title, description, icon_name, sort_order) VALUES
+  ('FRONTEND ENGINEERING', 'Building highly interactive, accessible, and performant user interfaces using modern frameworks like React and Next.js.', 'LayoutTemplate', 1),
+  ('BACKEND ARCHITECTURE', 'Designing robust APIs, scalable database schemas, and secure server-side logic using Node.js, Python, and SQL.', 'Database', 2),
+  ('UI/UX DESIGN', 'Crafting premium brutalist designs with a focus on micro-interactions, responsive layouts, and kinetic typography.', 'Code2', 3);
