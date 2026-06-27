@@ -16,6 +16,26 @@ const FALLBACK_CERTS = [
   { id: "2", title: "META FRONTEND DEVELOPER", issuer: "META (COURSERA)", date: "2023", category: "FRONTEND", credentialId: "META-FE-2023-XXXXX", verifyUrl: "#", num: "02" },
   { id: "3", title: "GOOGLE IT AUTOMATION", issuer: "GOOGLE (COURSERA)", date: "2023", category: "AUTOMATION", credentialId: "GOOG-ITA-2023-XXXXX", verifyUrl: "#", num: "03" },
   { id: "4", title: "IBM DATA SCIENCE", issuer: "IBM (COURSERA)", date: "2023", category: "AI", credentialId: "IBM-DS-2023-XXXXX", verifyUrl: "#", num: "04" },
+  {
+    id: "anthropic-1",
+    title: "CLAUDE 101",
+    issuer: "ANTHROPIC ACADEMY",
+    date: "2026",
+    category: "AI",
+    credentialId: "md4cckq889rk",
+    verifyUrl: "https://verify.skilljar.com/c/md4cckq889rk",
+    num: "05",
+  },
+  {
+    id: "anthropic-2",
+    title: "CLAUDE CODE 101",
+    issuer: "ANTHROPIC ACADEMY",
+    date: "2026",
+    category: "AI",
+    credentialId: "edavbusddpaf",
+    verifyUrl: "https://verify.skilljar.com/c/edavbusddpaf",
+    num: "06",
+  },
 ];
 
 const FALLBACK_BADGES = [
