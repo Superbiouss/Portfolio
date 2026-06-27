@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(spaceGrotesk.variable, "h-full")}>
+    <html lang="en" className={cn(spaceGrotesk.variable, "h-full")} suppressHydrationWarning>
       <head>
         {/* Prevent theme flashing on page load */}
         <script
