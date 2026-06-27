@@ -9,10 +9,20 @@ async function verifyAuth(supabase: any) {
 }
 
 export async function getSiteSettings() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.from("site_settings").select("*").limit(1).single();
-  
-  if (error || !data) {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("site_settings").select("*").limit(1).single();
+    
+    if (error || !data) {
+      return {
+        site_title: "Aakash Yadav - Full-Stack Developer",
+        site_description: "Portfolio of Aakash Yadav, a Full-Stack Developer specializing in React, Next.js, and Node.js.",
+        seo_keywords: "Full-Stack Developer, React, Next.js, Node.js",
+        default_og_image: "",
+      };
+    }
+    return data;
+  } catch {
     return {
       site_title: "Aakash Yadav - Full-Stack Developer",
       site_description: "Portfolio of Aakash Yadav, a Full-Stack Developer specializing in React, Next.js, and Node.js.",
@@ -20,7 +30,6 @@ export async function getSiteSettings() {
       default_og_image: "",
     };
   }
-  return data;
 }
 
 export async function updateSiteSettings(formData: FormData) {
