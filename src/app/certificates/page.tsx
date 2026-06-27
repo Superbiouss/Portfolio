@@ -16,6 +16,9 @@ const FALLBACK_CERTS = [
   { id: "2", title: "META FRONTEND DEVELOPER", issuer: "META (COURSERA)", date: "2023", category: "FRONTEND", credentialId: "META-FE-2023-XXXXX", verifyUrl: "#", num: "02" },
   { id: "3", title: "GOOGLE IT AUTOMATION", issuer: "GOOGLE (COURSERA)", date: "2023", category: "AUTOMATION", credentialId: "GOOG-ITA-2023-XXXXX", verifyUrl: "#", num: "03" },
   { id: "4", title: "IBM DATA SCIENCE", issuer: "IBM (COURSERA)", date: "2023", category: "AI", credentialId: "IBM-DS-2023-XXXXX", verifyUrl: "#", num: "04" },
+  { id: "5", title: "N8N CERTIFIED ASSOCIATE", issuer: "N8N", date: "2025", category: "AUTOMATION", credentialId: "N8N-ASSOC-2025-XXXXX", verifyUrl: "#", num: "05" },
+  { id: "6", title: "CLAUDE PROMPT ENGINEERING", issuer: "ANTHROPIC", date: "2025", category: "AI", credentialId: "ANTH-PE-2025-XXXXX", verifyUrl: "#", num: "06" },
+  { id: "7", title: "THE COMPLETE WEB DEVELOPER", issuer: "UDEMY", date: "2024", category: "WEB DEVELOPMENT", credentialId: "UDEMY-CWD-XXXXX", verifyUrl: "#", num: "07" },
 ];
 
 const FALLBACK_BADGES = [
