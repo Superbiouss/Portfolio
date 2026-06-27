@@ -2,12 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-
-async function verifyAuth(supabase: any) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized access");
-  return user;
-}
+import { verifyAuth } from "@/lib/auth";
 
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient();
@@ -40,6 +35,7 @@ export async function updateProfile(formData: FormData) {
     github_url: formData.get("github_url") as string,
     linkedin_url: formData.get("linkedin_url") as string,
     resume_url: finalResumeUrl,
+    is_available: formData.get("is_available") === "on",
   });
 
   revalidatePath("/admin/profile");

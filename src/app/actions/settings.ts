@@ -2,11 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-
-async function verifyAuth(supabase: any) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized access");
-}
+import { verifyAuth } from "@/lib/auth";
 
 export async function getSiteSettings() {
   try {

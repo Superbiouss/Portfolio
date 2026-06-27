@@ -12,7 +12,7 @@ interface MediaFile {
   name: string;
   url: string;
   created_at: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export function MediaGrid({ initialFiles }: { initialFiles: MediaFile[] }) {

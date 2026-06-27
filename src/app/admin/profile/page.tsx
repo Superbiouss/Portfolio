@@ -70,6 +70,21 @@ export default async function AdminProfilePage() {
             </div>
             <p className="text-xs text-muted-foreground mt-4 uppercase tracking-widest font-bold">Uploading a new PDF will automatically update the URL.</p>
           </div>
+          <div className="border-2 border-border p-4 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-widest">AVAILABLE FOR WORK</p>
+              <p className="text-xs text-muted-foreground mt-1">Controls the availability badge shown in the hero section of your portfolio.</p>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                name="is_available"
+                defaultChecked={profile?.is_available !== false}
+                className="sr-only peer"
+              />
+              <div className="w-12 h-6 bg-muted border-2 border-border peer-checked:bg-accent peer-checked:border-accent transition-colors duration-200 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-background after:border after:border-border after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-6" />
+            </label>
+          </div>
           <SubmitButton variant="primary" size="lg">SAVE PROFILE</SubmitButton>
         </form>
       </div>

@@ -16,6 +16,7 @@ CREATE TABLE public.profiles (
   linkedin_url TEXT,
   twitter_url TEXT,
   website_url TEXT,
+  is_available BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Plus, Trash2, Pencil } from "lucide-react";
-import { deleteBadge } from "@/app/actions/badges";
+import { Plus } from "lucide-react";
+
 import { ViewToggle } from "@/components/admin/view-toggle";
 import { SortableBadges } from "@/components/admin/sortable-badges";
 

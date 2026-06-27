@@ -21,6 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aakashyadav.com";
 
   const ogImages = settings.default_og_image
     ? [{ url: settings.default_og_image, width: 1200, height: 630, alt: settings.site_title }]
@@ -33,12 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: settings.site_description,
     keywords: settings.seo_keywords,
-    metadataBase: new URL("https://aakashyadav.com"),
+    metadataBase: new URL(baseUrl),
     openGraph: {
       title: settings.site_title,
       description: settings.site_description,
       type: "website",
-      url: "https://aakashyadav.com",
+      url: baseUrl,
       siteName: settings.site_title.split("—")[0].trim(),
       images: ogImages,
     },
@@ -71,7 +72,7 @@ export default function RootLayout({
             `
           }}
         />
-        {/* Structured SEO Schema Markup */}
+        {/* Structured SEO Schema Markup — values sourced from admin profile */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -79,7 +80,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Aakash Yadav",
-              "url": "https://aakashyadav.com",
+              "url": process.env.NEXT_PUBLIC_SITE_URL ?? "https://aakashyadav.com",
               "jobTitle": "Full-Stack Software Engineer",
               "knowsAbout": [
                 "React", "Next.js", "TypeScript", "Node.js", "Supabase", "PostgreSQL", 

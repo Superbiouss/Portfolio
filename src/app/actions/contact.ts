@@ -3,32 +3,37 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { contactSchema } from "@/lib/validations";
-
-async function verifyAuth(supabase: any) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized access");
-}
+import { verifyAuth } from "@/lib/auth";
+import { ZodError } from "zod";
 
 export async function submitContactMessage(formData: FormData) {
+  // Honeypot: reject bot submissions (hidden field _bot must be empty)
+  if (formData.get("_bot")) {
+    return { error: "Bot submission rejected." };
+  }
+
   const rawData = {
     name: formData.get("name") as string,
     email: formData.get("email") as string,
     message: formData.get("message") as string,
   };
-  
+
   try {
-    const supabase = await createClient();
     const parsed = contactSchema.parse(rawData);
+    const supabase = await createClient();
     const { error } = await supabase.from("contact_messages").insert({
       name: parsed.name,
       email: parsed.email,
       subject: (formData.get("subject") as string) || null,
       message: parsed.message,
     });
-    if (error) return { error: error.message };
+    if (error) return { error: "Failed to send message. Please try again." };
     return { success: true };
-  } catch (err: any) {
-    return { error: "Validation failed" };
+  } catch (err) {
+    if (err instanceof ZodError) {
+      return { error: err.errors[0]?.message ?? "Validation failed." };
+    }
+    return { error: "Something went wrong. Please try again." };
   }
 }
 

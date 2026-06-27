@@ -9,21 +9,31 @@ interface LogEntry {
 
 export function CLITerminal() {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<LogEntry[]>([
-    {
-      output: "WELCOME TO AAKASH'S INTERACTIVE SHELL (v1.0.0)\nTYPE 'help' FOR A LIST OF AVAILABLE COMMANDS.",
-    },
-  ]);
-  
+  const [history, setHistory] = useState<LogEntry[]>(() => {
+    // Lazy initializer: runs only on client mount — safe for sessionStorage access
+    if (typeof window !== "undefined") {
+      try {
+        const saved = sessionStorage.getItem("cli_history");
+        if (saved) return JSON.parse(saved) as LogEntry[];
+      } catch { /* ignore */ }
+    }
+    return [{ output: "WELCOME TO AAKASH'S INTERACTIVE SHELL (v1.0.0)\nTYPE 'help' FOR A LIST OF AVAILABLE COMMANDS." }];
+  });
+
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-scroll to bottom of terminal when history updates
+  // Persist history to sessionStorage and auto-scroll whenever it changes
   useEffect(() => {
+    if (history.length === 0) return;
+    try {
+      sessionStorage.setItem("cli_history", JSON.stringify(history));
+    } catch { /* quota exceeded or private browsing — ignore */ }
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   }, [history]);
+
 
   const handleTerminalClick = () => {
     if (inputRef.current) {
@@ -76,6 +86,7 @@ export function CLITerminal() {
         break;
       case "clear":
         setHistory([]);
+        sessionStorage.removeItem("cli_history");
         setInput("");
         return;
       default:

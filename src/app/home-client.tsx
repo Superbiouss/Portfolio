@@ -29,7 +29,7 @@ const FALLBACK_SERVICES = [
 
 interface HomeClientProps {
   stats: { value: string; label: string }[];
-  featuredProjects: { title: string; description: string; tech: string[]; slug: string; num: string }[];
+  featuredProjects: { title: string; description: string; tech: string[]; slug: string; num: string; thumbnail_url: string }[];
   bio: string;
   heroTagline?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,9 +40,10 @@ interface HomeClientProps {
   certificates: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services?: any[];
+  isAvailable?: boolean;
 }
 
-export default function HomeClient({ stats, featuredProjects, bio, heroTagline, skills, experiences, certificates, services }: HomeClientProps) {
+export default function HomeClient({ stats, featuredProjects, bio, heroTagline, skills, experiences, certificates, services, isAvailable = true }: HomeClientProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
@@ -122,11 +123,15 @@ export default function HomeClient({ stats, featuredProjects, bio, heroTagline, 
             </p>
             {/* Live timezone clock and availability */}
             {time && (
-              <div className="mt-6 flex items-center justify-center gap-3 text-xs font-mono uppercase tracking-widest text-accent border border-accent/20 bg-accent/5 px-4 py-2 hover:bg-accent/10 transition-colors">
-                <Clock className="w-3.5 h-3.5 animate-pulse" />
+              <div className={`mt-6 flex items-center justify-center gap-3 text-xs font-mono uppercase tracking-widest border px-4 py-2 transition-colors ${
+                isAvailable
+                  ? 'text-accent border-accent/20 bg-accent/5 hover:bg-accent/10'
+                  : 'text-muted-foreground border-border/40 bg-muted/20'
+              }`}>
+                <Clock className={`w-3.5 h-3.5 ${isAvailable ? 'animate-pulse' : ''}`} />
                 <span>{time} (IST)</span>
-                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-ping" />
-                <span className="opacity-80">ACTIVE & AVAILABLE FOR WORK</span>
+                {isAvailable && <span className="w-1.5 h-1.5 bg-accent rounded-full animate-ping" />}
+                <span className="opacity-80">{isAvailable ? 'ACTIVE & AVAILABLE FOR WORK' : 'NOT CURRENTLY AVAILABLE'}</span>
               </div>
             )}
             <div className="flex flex-wrap justify-center gap-4 mt-10">
@@ -243,9 +248,17 @@ export default function HomeClient({ stats, featuredProjects, bio, heroTagline, 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {featuredProjects.map((project, i) => (
                 <motion.div key={project.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.4, ease: "easeOut" as const }}>
-                  <Card className="h-full flex flex-col relative border-2 border-border rounded-none hover:border-accent transition-colors duration-300">
-                    <span className="absolute top-4 right-4 text-[8rem] md:text-[10rem] font-bold leading-none text-muted/50 select-none group-hover:text-accent-foreground/10 transition-colors duration-300" aria-hidden="true">{project.num}</span>
-                    <CardContent className="flex-1 relative z-10">
+                  <Card className="h-full flex flex-col relative border-2 border-border rounded-none hover:border-accent transition-colors duration-300 overflow-hidden">
+                    {project.thumbnail_url ? (
+                      <div className="relative w-full h-40 border-b-2 border-border shrink-0">
+                        <Image src={project.thumbnail_url} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                      </div>
+                    ) : (
+                      <div className="relative w-full h-40 border-b-2 border-border bg-muted/30 flex items-center justify-center shrink-0">
+                        <span className="text-[5rem] font-bold leading-none text-muted/40 select-none" aria-hidden="true">{project.num}</span>
+                      </div>
+                    )}
+                    <CardContent className="flex-1 relative z-10 pt-6">
                       <CardTitle className="mb-3">{project.title}</CardTitle>
                       <CardDescription className="mb-6">{project.description}</CardDescription>
                       <div className="flex flex-wrap gap-2">{project.tech.map((t) => (<Badge key={t} variant="outline" className="border-border bg-background text-muted-foreground rounded-none">{t}</Badge>))}</div>

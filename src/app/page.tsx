@@ -3,9 +3,9 @@ import HomeClient from "./home-client";
 
 /* ── Fallback data shown when Supabase is empty or unavailable ── */
 const FALLBACK_PROJECTS = [
-  { title: "LAWLENS AI", description: "AI-powered legal document analysis platform with RAG-based chat and clause comparison.", tech: ["Next.js", "Supabase", "OpenAI", "PostgreSQL"], slug: "lawlens-ai", num: "01" },
-  { title: "ARCSTONE STUDIOS", description: "Premium creative agency website with kinetic typography and parallax effects.", tech: ["Next.js", "Framer Motion", "Tailwind CSS"], slug: "arcstone-studios", num: "02" },
-  { title: "OXFORD SCHOOL PORTAL", description: "Full-stack school management platform with admin dashboard and document management.", tech: ["Next.js", "Supabase", "PostgreSQL"], slug: "oxford-school-portal", num: "03" },
+  { title: "LAWLENS AI", description: "AI-powered legal document analysis platform with RAG-based chat and clause comparison.", tech: ["Next.js", "Supabase", "OpenAI", "PostgreSQL"], slug: "lawlens-ai", num: "01", thumbnail_url: "" },
+  { title: "ARCSTONE STUDIOS", description: "Premium creative agency website with kinetic typography and parallax effects.", tech: ["Next.js", "Framer Motion", "Tailwind CSS"], slug: "arcstone-studios", num: "02", thumbnail_url: "" },
+  { title: "OXFORD SCHOOL PORTAL", description: "Full-stack school management platform with admin dashboard and document management.", tech: ["Next.js", "Supabase", "PostgreSQL"], slug: "oxford-school-portal", num: "03", thumbnail_url: "" },
 ];
 
 const FALLBACK_STATS = [
@@ -20,6 +20,7 @@ export default async function HomePage() {
   let stats = FALLBACK_STATS;
   let bio = "";
   let heroTagline = "";
+  let isAvailable = true;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let skillsList: any[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,13 +33,24 @@ export default async function HomePage() {
   try {
     const supabase = await createClient();
 
-    const { data: projects } = await supabase
-      .from("projects")
-      .select("*")
-      .eq("status", "published")
-      .eq("featured", true)
-      .order("sort_order")
-      .limit(3);
+    // Parallelize all DB queries to cut TTFB significantly
+    const [
+      { data: projects },
+      { data: allProjects },
+      { data: allSkills },
+      { data: allCerts },
+      { data: experiences },
+      { data: profile },
+      { data: services },
+    ] = await Promise.all([
+      supabase.from("projects").select("*").eq("status", "published").eq("featured", true).order("sort_order").limit(3),
+      supabase.from("projects").select("id").eq("status", "published"),
+      supabase.from("skills").select("*").order("sort_order"),
+      supabase.from("certificates").select("*").order("sort_order"),
+      supabase.from("experiences").select("*").order("sort_order").limit(4),
+      supabase.from("profiles").select("*").limit(1).single(),
+      supabase.from("services").select("*").order("sort_order"),
+    ]);
 
     if (projects && projects.length > 0) {
       featuredProjects = projects.map((p, i) => ({
@@ -47,15 +59,9 @@ export default async function HomePage() {
         tech: p.tech_stack || [],
         slug: p.slug,
         num: String(i + 1).padStart(2, "0"),
+        thumbnail_url: p.thumbnail_url || "",
       }));
     }
-
-    const { data: allProjects } = await supabase.from("projects").select("id").eq("status", "published");
-    const { data: allSkills } = await supabase.from("skills").select("*").order("sort_order");
-    const { data: allCerts } = await supabase.from("certificates").select("*").order("sort_order");
-    const { data: experiences } = await supabase.from("experiences").select("*").order("sort_order").limit(4);
-    const { data: profile } = await supabase.from("profiles").select("*").limit(1).single();
-    const { data: services } = await supabase.from("services").select("*").order("sort_order");
 
     if (allProjects && allProjects.length > 0) {
       stats = [
@@ -68,11 +74,12 @@ export default async function HomePage() {
 
     if (allSkills) skillsList = allSkills;
     if (experiences) experiencesList = experiences;
-    if (allCerts) certificatesList = allCerts.slice(0, 3); // top 3 certs
+    if (allCerts) certificatesList = allCerts.slice(0, 3);
     if (services) servicesList = services;
 
     bio = profile?.bio || "";
     heroTagline = profile?.hero_tagline || "";
+    isAvailable = profile?.is_available ?? true;
   } catch {
     // Supabase not configured — use fallbacks
   }
@@ -87,6 +94,7 @@ export default async function HomePage() {
       experiences={experiencesList}
       certificates={certificatesList}
       services={servicesList}
+      isAvailable={isAvailable}
     />
   );
 }
