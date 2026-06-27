@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { href: "/", label: "HOME" },
@@ -17,6 +18,28 @@ const navLinks = [
 export function BottomNav() {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  // Load theme preference on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme("light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("theme-light");
+      localStorage.setItem("theme", "light");
+      setTheme("light");
+    } else {
+      document.documentElement.classList.remove("theme-light");
+      localStorage.setItem("theme", "dark");
+      setTheme("dark");
+    }
+  };
 
   // Don't render bottom nav on admin pages
   if (isAdminRoute) return null;
@@ -61,6 +84,15 @@ export function BottomNav() {
 
       {/* RIGHT: Actions */}
       <div className="flex items-stretch shrink-0 border-l-2 border-border">
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="flex items-center justify-center px-4 border-r border-border/50 text-muted-foreground hover:text-accent hover:bg-muted/30 transition-colors duration-200 cursor-pointer"
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+        </button>
+
         {/* Cmd+K */}
         <button
           onClick={() => {

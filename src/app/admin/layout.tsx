@@ -16,12 +16,24 @@ const sidebarLinks = [
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const isSupabaseConfigured = !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL && 
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside className="w-60 bg-background border-r-2 border-border flex flex-col">
-        <div className="p-4 border-b-2 border-border">
+        <div className="p-4 border-b-2 border-border flex items-center justify-between">
           <Link href="/admin" className="text-base font-bold uppercase tracking-tighter text-foreground">ADMIN</Link>
+          <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 border ${
+            isSupabaseConfigured 
+              ? "border-emerald-500 bg-emerald-500/10 text-emerald-500" 
+              : "border-red-500 bg-red-500/10 text-red-500"
+          }`}>
+            {isSupabaseConfigured ? "ONLINE" : "OFFLINE"}
+          </span>
         </div>
 
         <nav className="flex-1 p-3 space-y-1">

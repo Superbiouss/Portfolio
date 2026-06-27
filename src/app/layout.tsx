@@ -58,6 +58,40 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(spaceGrotesk.variable, "h-full")}>
+      <head>
+        {/* Prevent theme flashing on page load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('theme') === 'light') {
+                  document.documentElement.classList.add('theme-light');
+                }
+              } catch (_) {}
+            `
+          }}
+        />
+        {/* Structured SEO Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Aakash Yadav",
+              "url": "https://aakashyadav.com",
+              "jobTitle": "Full-Stack Software Engineer",
+              "knowsAbout": [
+                "React", "Next.js", "TypeScript", "Node.js", "Supabase", "PostgreSQL", 
+                "Tailwind CSS", "Framer Motion", "OpenAI API", "Docker", "Vercel", "AI RAG Pipelines"
+              ],
+              "sameAs": [
+                "https://github.com/Superbiouss"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className="antialiased min-h-full flex flex-col font-sans bg-background text-foreground relative">
         <DottedGrid />
         <NoiseTexture />
