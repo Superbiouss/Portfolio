@@ -53,9 +53,6 @@ export function BottomNav() {
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
               )}
             >
-              {isActive && (
-                <span className="w-1.5 h-1.5 bg-accent-foreground mr-2 shrink-0" aria-hidden="true" />
-              )}
               {link.label}
             </Link>
           );
