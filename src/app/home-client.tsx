@@ -1,13 +1,15 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Download, ExternalLink, Code2, Database, LayoutTemplate, Code, Award } from "lucide-react";
+import { ArrowRight, Download, ExternalLink, Code2, Database, LayoutTemplate, Code, Award, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import Image from "next/image";
+import { CLITerminal } from "@/components/ui/cli-terminal";
 
 interface HomeClientProps {
   stats: { value: string; label: string }[];
@@ -23,6 +25,26 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const updateClock = () => {
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      const formatter = new Intl.DateTimeFormat([], options);
+      setTime(formatter.format(new Date()));
+    };
+
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Static mock contribution history to prevent hydration mismatches
   const githubSquares = [
@@ -61,6 +83,15 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
             <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-light">
               {bio || "Full-stack developer specializing in modern web applications, AI-powered solutions, and scalable architectures."}
             </p>
+            {/* Live timezone clock and availability */}
+            {time && (
+              <div className="mt-6 flex items-center justify-center gap-3 text-xs font-mono uppercase tracking-widest text-accent border border-accent/20 bg-accent/5 px-4 py-2 hover:bg-accent/10 transition-colors">
+                <Clock className="w-3.5 h-3.5 animate-pulse" />
+                <span>{time} (IST)</span>
+                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-ping" />
+                <span className="opacity-80">ACTIVE & AVAILABLE FOR WORK</span>
+              </div>
+            )}
             <div className="flex flex-wrap justify-center gap-4 mt-10">
               <Button variant="primary" size="lg" asChild>
                 <Link href="/projects" className="group flex items-center">
@@ -104,11 +135,19 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
               </p>
               <Button variant="outline" asChild><Link href="/about">READ FULL BIO <ArrowRight className="ml-3 w-4 h-4" /></Link></Button>
           </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative aspect-square md:aspect-auto md:h-[600px] border-2 border-border bg-muted overflow-hidden flex items-center justify-center group">
-             {/* Placeholder for an actual avatar/image */}
-             <div className="absolute inset-0 bg-accent/10 group-hover:bg-accent/0 transition-colors duration-500 z-10" />
-             <div className="w-[80%] h-[80%] border-2 border-foreground/10 absolute rotate-3 group-hover:rotate-0 transition-transform duration-500" />
-             <span className="text-muted-foreground/30 font-bold text-4xl uppercase tracking-widest">AVATAR.JPG</span>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative aspect-square md:aspect-auto md:h-[600px] border-2 border-border bg-background overflow-hidden flex items-center justify-center group">
+             {/* Styled container for the custom avatar */}
+             <div className="absolute inset-0 bg-accent/5 group-hover:bg-accent/0 transition-colors duration-500 z-10" />
+             <div className="w-[80%] h-[80%] border-2 border-accent absolute rotate-3 group-hover:rotate-0 transition-transform duration-500" />
+             <div className="relative w-[75%] h-[75%] z-20 overflow-hidden border-2 border-border bg-black">
+               <Image
+                 src="/brutalist_avatar.png"
+                 alt="Aakash Yadav - Avatar"
+                 fill
+                 sizes="(max-w-md) 100vw, 50vw"
+                 className="object-cover group-hover:scale-105 transition-transform duration-500 filter contrast-125 brightness-95"
+               />
+             </div>
           </motion.div>
         </div>
       </section>
@@ -136,6 +175,15 @@ export default function HomeClient({ stats, featuredProjects, bio, skills, exper
                 </Card>
               </motion.div>
             ))}
+          </div>
+
+          {/* CLI Terminal Widget */}
+          <div className="mt-16 max-w-3xl mx-auto">
+            <div className="mb-4 text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full animate-ping" />
+              <span>Interactive Developer Console</span>
+            </div>
+            <CLITerminal />
           </div>
         </div>
       </section>
